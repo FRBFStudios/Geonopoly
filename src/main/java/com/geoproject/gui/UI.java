@@ -38,7 +38,7 @@ public class UI extends JFrame implements ActionListener {
         frame = new JFrame("Button Example");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(null); // Absolute Positionierung
-        frame.setSize(800, 800);
+        frame.setSize(1400, 800);
         
         pTurnField = new JTextField("Spieler -'s Zug");
         pTurnField.setBounds(5, 10, 120, 30);
