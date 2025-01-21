@@ -5,12 +5,22 @@ package com.geoproject;
 //Version: 21/1/2025
 
 public class GameHandler {
+    int currentPlayer = 1;
 
-    public Player player1 = new Player();
-    public Player player2 = new Player();
+    public Spieler spieler1 = new Spieler();
+    public Spieler spieler2 = new Spieler();
+    public Spieler currentSpieler;
+    public Spieler otherSpieler;
 
-
-    public GameHandler() {
+    public GameHandler(){
+        currentSpieler = spieler1;
+        otherSpieler = spieler2;
+    }
+    
+    public void switchSpieler(){
+        currentPlayer = (currentPlayer == 1) ? 2 : 1;
+        currentSpieler = (currentPlayer == 1) ? spieler1 : spieler2;
+        otherSpieler = (currentPlayer == 1) ? spieler2 : spieler1;
     }
 }
 
