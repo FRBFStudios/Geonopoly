@@ -7,7 +7,7 @@ package com.geoproject.libraries;
 public class CountryBorderLibrary
 {
     @SuppressWarnings("unused")
-    static int[][] borders = new int[][] {
+    public static int[][] borders = new int[][] {
         {2, 3, 4, 5, 6, 7},//DE
         {1, 3, 5, 8, 0, 0},//BENELUX
         {1, 2, 4, 9, 10, 0},//DEN
