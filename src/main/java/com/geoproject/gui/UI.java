@@ -13,6 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+Game game;
 
 import com.geoproject.GameHandler;
 
@@ -38,6 +39,7 @@ public class UI extends JFrame implements ActionListener {
 
     private void createNewGUI() {
         //Optimieren und kommentieren!!!!!!!!
+        game = new Game();
         frame = new JFrame("Button Example");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(null); // Absolute Positionierung
