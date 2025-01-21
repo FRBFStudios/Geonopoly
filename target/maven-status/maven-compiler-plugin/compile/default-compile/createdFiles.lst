@@ -1,5 +1,5 @@
 com\geoproject\Player.class
-com\geoproject\GameHandler.class
+com\geoproject\Game.class
 com\geoproject\gui\UI.class
 com\geoproject\Geonopoly.class
 com\geoproject\libraries\CountryBorderLibrary.class

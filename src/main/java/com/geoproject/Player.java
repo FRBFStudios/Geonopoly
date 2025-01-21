@@ -1,4 +1,6 @@
-gerpublic class Player
+package com.geoproject;
+
+public class Player
 {
     public int playerMoney;
     
