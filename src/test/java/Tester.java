@@ -4,14 +4,12 @@ import com.geoproject.gui.*;
 import com.geoproject.libraries.*;
 
 public class Tester {
-    CountryBorderLibrary cbl = new CountryBorderLibrary();
     Game game = new Game();
     Player player = new Player();
     UI ui = new UI();
 
     @Test 
     void test () {
-        assertEquals(1, game.currentPlayerValue);
-        assertEquals(1000, player.playerMoney);
+        assertEquals(2, CountryBorderLibrary.borders[0][0]);
     }
 }
