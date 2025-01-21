@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import com.geoproject.GameHandler;
+import com.geoproject.Game;
 
 public class UI extends JFrame implements ActionListener {
     JFrame frame;
@@ -26,7 +26,7 @@ public class UI extends JFrame implements ActionListener {
     JButton backButton;
     JButton finishTurnButton;
     JPanel subPanel2;
-    GameHandler game = new GameHandler();
+    Game game = new Game();
     
 
     public UI() {

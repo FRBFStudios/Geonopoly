@@ -4,17 +4,17 @@ package com.geoproject;
 //Authors: Theodor, Timo
 //Version: 21/1/2025
 
-public class GameHandler {
-    int currentPlayer = 1;
+public class Game {
+    int currentPlayerValue = 1;
 
     public Spieler spieler1 = new Spieler();
     public Spieler spieler2 = new Spieler();
     public Spieler currentSpieler;
     public Spieler otherSpieler;
 
-    public GameHandler(){
-        currentSpieler = spieler1;
-        otherSpieler = spieler2;
+    public Game(){
+        currentPayer = p1;
+        otherPlayer = p2;
     }
     
     public void switchSpieler(){
