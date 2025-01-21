@@ -1,0 +1,22 @@
+1 = Deutschland
+2 = BeNeLux
+3 = Dänemark
+4 = Polen
+5 = Frankreich
+6 = Tschechien
+7 = SWI/AU
+8 = UK
+9 = Skandinavien (NOR/SVE)
+10 = Baltikum
+11 = Finnland
+12 = Slowakei
+13 = Ukraine
+14 = Spanien
+15 = Italien
+
+1. Bergbau
+2. Landwirtschaft
+3. Warenproduktion
+4. Maschinenbau
+5. Tourismus
+6. Energie
