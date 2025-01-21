@@ -1,26 +1,105 @@
-package com.geoproject;
+gerpublic class Player
+{
+    public int playerMoney;
+    
+    int[][] werte = new int[33][6];
+    /*
+    
+    // IDs der Länder
+    const int DE = 0;
+    const int CHINA = 1;
+    const int CHILE = 2;
+    const int USA = 3;
 
-//Speichert den Status aller Länder im Verhältnis zum Spieler.
-//Author: Timo
-//Version: 21/1/2025
+    // Nummern der gefragten Werte
+    const int BESITZT = 0;
+    const int EDELSTEIN_LEVEL = 1;
+    const int WALD_LEVEL = 2;
+    const int INDUSTRIE_LEVEL = 3;
+    const int LANDWIRTSCHAFT_LEVEL = 4;
 
-public class Player {
-    //2D array to store country information
-    public int[][] countryStatus;
+    // Beispiel für das Setzen von Werten
+    werte[DE][BESITZT] = 0;
+    werte[DE][EDELSTEIN_LEVEL] = 0;
+    */
+    
+    public Player(){
+        playerMoney = 1000;
+    }
+    
+    String getBesitz() {
+        StringBuilder result = new StringBuilder();
 
-    //Reihenfolge: ID des Lands, gekauft von diesem Spieler?, Level Bergbau, Level LW, Level Prod., Level Maschinenbau, Level Tourismus, Level Energie
-    //Für Eintrag 2 gilt: 0 = nicht gekauft, 1 = gekauft
-    //Industrien starten auf Level 1, um Länder von Anfang an etwas profitabel zu machen und um evtl. Teilen durch 0 zu vermeiden (Eventkarten)
-    public Player() {
-        countryStatus = new int[][] {
-            {1, 0, 1, 1, 1, 1, 1, 1},
-            {2, 0, 1, 1, 1, 1, 1, 1},
-            {3, 0, 1, 1, 1, 1, 1, 1},
-            {4, 0, 1, 1, 1, 1, 1, 1},
-            {5, 0, 1, 1, 1, 1, 1, 1}
-        };
+        result.append("Länder in Besitz:        ");
+
+        for (int i = 0; i < werte.length; i++) {
+            if (werte[i][0] == 1) {
+                //hier gehört eigentlich ein zugriff auf eine library hin, um die namen abzugreifen
+                switch (i) {
+                    case 0: result.append("Deutschland"); break;
+                    case 1: result.append("China"); break;
+                    case 2: result.append("Chile"); break;
+                    case 3: result.append("USA"); break;
+                }
+                result.append(", ");
+            }
+        }
+        return result.toString().trim();
     }
 
-    public static void main(String[] args) {
+    String getLevels() {
+        StringBuilder result = new StringBuilder();
+
+        result.append("Country Levels:\n");
+
+        for (int i = 0; i < werte.length; i++) {
+            if (werte[i][0] == 1) {
+                //hier gehört eigentlich ein zugriff auf eine library hin, um die namen abzugreifen, unten sind nur beispiele
+                switch (i) {
+                    case 0: result.append("Deutschland: "); break;
+                    case 1: result.append("China: "); break;
+                    case 2: result.append("Chile: "); break;
+                    case 3: result.append("USA: "); break;
+                }
+                for (int j = 1; j < werte[i].length; j++) {
+                    switch (j) {
+                        //hier gehört eigentlich ein zugriff auf eine library hin, um die statsnamen abzugreifen, unten sind nur beispiele
+                        case 1: result.append(" Edelstein: ").append(werte[i][j]); break;
+                        case 2: result.append(" Wald: ").append(werte[i][j]); break;
+                        case 3: result.append(" Industrie: ").append(werte[i][j]); break;
+                        case 4: result.append(" Landwirtschaft: ").append(werte[i][j]); break;
+                    }
+                    result.append(", ");
+                }
+                result.append("\n"); // Ensure new line is added after each country
+            }
+        }
+        return result.toString().trim();
     }
+    
+
+
+
+    /*public String getBesitz() {
+     * 
+
+        StringBuilder result = new StringBuilder();
+
+        result.append("Länder in Besitz:        ");
+
+        result.append(besitzt_de == 1 ? "Deutschland     "   : "");
+        result.append(besitzt_china == 1 ? "China     "   : "");
+        result.append(besitzt_chile == 1 ? "Chile     "   : "");
+        result.append(besitzt_usa == 1 ? "USA     "   : "");
+
+        result.append("\nDeutschland:   ");
+
+        if (deEdelsteinLevel != 0) result.append("Edelsteinlevel: ").append(deEdelsteinLevel).append("        ");
+        if (deWaldLevel != 0) result.append("Waldlevel: ").append(deWaldLevel).append("        ");
+        if (deIndustrieLevel != 0) result.append("Industrielevel: ").append(deIndustrieLevel).append("        ");
+        if (deLandwirtschaftLevel != 0) result.append("Landwirtschaftslevel: ").append(deLandwirtschaftLevel);
+
+        
+        return result.toString().trim();
+    }*/
 }

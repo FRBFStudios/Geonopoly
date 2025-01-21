@@ -5,6 +5,6 @@ public class Geonopoly
 {
     public static void main(String[] args)
     {
-        //Startup code goes here
+        UI ui = new UI();
     }
 }

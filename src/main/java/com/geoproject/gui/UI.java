@@ -28,9 +28,6 @@ public class UI extends JFrame implements ActionListener {
     JPanel subPanel2;
     GameHandler game = new GameHandler();
     
-    
-    public static void main(String[] args) {
-    }
 
     public UI() {
         createNewGUI();
