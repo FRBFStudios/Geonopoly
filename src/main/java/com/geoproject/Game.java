@@ -5,7 +5,7 @@ package com.geoproject;
 //Version: 21/1/2025
 
 public class Game {
-    int currentPlayerValue = 1;
+    public int currentPlayerValue = 1;
 
     public Player p1 = new Player();
     public Player p2 = new Player();

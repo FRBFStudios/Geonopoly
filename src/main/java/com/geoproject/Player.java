@@ -34,11 +34,11 @@ public class Player
     public String getBesitz() {
         StringBuilder result = new StringBuilder();
 
-        result.append("Länder in Besitz:        ");
+        result.append("Länder in Besitz:  ");
         for (int i = 0; i < werte.length; i++) {
             if (werte[i][0] == 1) {
-                if (i <= CountryLibrary.Names.length) {
-                    result.append(CountryLibrary.Names[i]);
+                if (i <= CountryLibrary.countryNames.length) {
+                    result.append(CountryLibrary.countryNames[i]);
                 }
                 else {
                     result.append("Landname nicht hinterlegt: ").append(i);
@@ -56,24 +56,24 @@ public class Player
         result.append("Country Levels:\n");
         for (int i = 0; i < werte.length; i++) {
             if (werte[i][0] == 1) {
-                //hier gehört eigentlich ein zugriff auf eine library hin, um die namen abzugreifen, unten sind nur beispiele
-                switch (i) {
-                    case 0: result.append("Deutschland: "); break;
-                    case 1: result.append("China: "); break;
-                    case 2: result.append("Chile: "); break;
-                    case 3: result.append("USA: "); break;
+                if (i <= CountryLibrary.countryNames.length) {
+                    result.append(CountryLibrary.countryNames[i]).append(": ");
+                }
+                else {
+                    result.append("Landname nicht hinterlegt: ").append(i);
                 }
                 for (int j = 1; j < werte[i].length; j++) {
-                    switch (j) {
-                        //hier gehört eigentlich ein zugriff auf eine library hin, um die statsnamen abzugreifen, unten sind nur beispiele
-                        case 1: result.append(" Edelstein: ").append(werte[i][j]); break;
-                        case 2: result.append(" Wald: ").append(werte[i][j]); break;
-                        case 3: result.append(" Industrie: ").append(werte[i][j]); break;
-                        case 4: result.append(" Landwirtschaft: ").append(werte[i][j]); break;
-                    }
+                    
+                        if (j <= CountryLibrary.StatNames.length) {
+                            result.append(CountryLibrary.StatNames[j][1]).append(": ").append(werte[i][j]);
+                        }
+                        else {
+                            result.append("Statname nicht hinterlegt: ").append(j).append(": ").append(werte[i][j]);
+                        }
+                    
                     result.append(", ");
                 }
-                result.append("\n"); // Ensure new line is added after each country
+                result.append("\n");
             }
         }
         return result.toString().trim();

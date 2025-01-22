@@ -14,9 +14,11 @@
 14 = Spanien
 15 = Italien
 
-1. Bergbau
-2. Landwirtschaft
-3. Warenproduktion
-4. Maschinenbau
-5. Tourismus
-6. Energie
+0. Bergbau
+1. Landwirtschaft
+2. Warenproduktion
+3. Maschinenbau
+4. Tourismus
+5. Energie
+
+6. Wissenschaft

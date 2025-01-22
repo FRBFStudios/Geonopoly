@@ -17,5 +17,16 @@ public class CountryLibrary
     };
 
     @SuppressWarnings("unused")
-    public static String[] Names = new String[] {"DE", "BENELUX", "DEN", "POL", "FRA", "CZE"};
+    public static String[] countryNames = new String[] {"DE", "BENELUX", "DEN", "POL", "FRA", "CZE"};
+
+    @SuppressWarnings("unused")
+    public static String[][] StatNames = new String[][] {
+        {"Bergbau", "Bb"},
+        {"Landwirtschaft", "Lw"},
+        {"Warenproduktion", "Wp"},
+        {"Maschinenbau", "Mb"},
+        {"Tourismus", "T"},
+        {"Energie", "E"},
+        {"Wissenschaft", "W"}
+    };
 }
