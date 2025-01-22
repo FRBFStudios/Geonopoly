@@ -1,10 +1,12 @@
 package com.geoproject;
 
+import com.geoproject.libraries.CountryLibrary;
+
 public class Player
 {
     public int playerMoney;
     
-    int[][] werte = new int[33][6];
+    public int[][] werte = new int[33][6];
     /*
     
     // IDs der Länder
@@ -29,19 +31,17 @@ public class Player
         playerMoney = 1000;
     }
     
-    String getBesitz() {
+    public String getBesitz() {
         StringBuilder result = new StringBuilder();
 
         result.append("Länder in Besitz:        ");
-
         for (int i = 0; i < werte.length; i++) {
             if (werte[i][0] == 1) {
-                //hier gehört eigentlich ein zugriff auf eine library hin, um die namen abzugreifen
-                switch (i) {
-                    case 0: result.append("Deutschland"); break;
-                    case 1: result.append("China"); break;
-                    case 2: result.append("Chile"); break;
-                    case 3: result.append("USA"); break;
+                if (i <= CountryLibrary.Names.length) {
+                    result.append(CountryLibrary.Names[i]);
+                }
+                else {
+                    result.append("Landname nicht hinterlegt: ").append(i);
                 }
                 result.append(", ");
             }
@@ -49,11 +49,11 @@ public class Player
         return result.toString().trim();
     }
 
-    String getLevels() {
+
+    public String getLevels() {
         StringBuilder result = new StringBuilder();
 
         result.append("Country Levels:\n");
-
         for (int i = 0; i < werte.length; i++) {
             if (werte[i][0] == 1) {
                 //hier gehört eigentlich ein zugriff auf eine library hin, um die namen abzugreifen, unten sind nur beispiele

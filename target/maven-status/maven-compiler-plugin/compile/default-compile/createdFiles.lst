@@ -2,4 +2,4 @@ com\geoproject\Player.class
 com\geoproject\Game.class
 com\geoproject\gui\UI.class
 com\geoproject\Geonopoly.class
-com\geoproject\libraries\CountryBorderLibrary.class
+com\geoproject\libraries\CountryLibrary.class
