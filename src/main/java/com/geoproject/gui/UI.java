@@ -98,7 +98,7 @@ public class UI extends JFrame implements ActionListener {
         eventManagerButton.setBounds(900, 350, 180, 50);
         
         subPanel = new JPanel(new FlowLayout()); //hier gab es scrall layout, vielleicht auch für property nutzen!
-        subPanel.setBounds(20, 270, 760, 120);
+        subPanel.setBounds(120, 350, 1330, 120);
         
         finishTurnButton = new JButton("Zug_fertig");
         backButton = new JButton("Back");
@@ -109,8 +109,10 @@ public class UI extends JFrame implements ActionListener {
             button.addActionListener(this);
         }
 
-        updateSubButtons();
+        
         updateCountryDropdowns();
+        activateAllButtons();
+        updateSubButtons();
 
         frame.getContentPane().removeAll();
         subPanel.removeAll();
@@ -141,6 +143,7 @@ public class UI extends JFrame implements ActionListener {
         } else if (e.getSource() == backButton) {
         } 
     }
+
     
     public void activateAllButtons () {
         for (JButton button : buttons) {
@@ -148,22 +151,24 @@ public class UI extends JFrame implements ActionListener {
         }
     }
 
+
     public void updateCountryDropdowns() {
-        /*game.currentPlayer.werte[1][0] = 1;
+        game.currentPlayer.werte[1][0] = 1;
         game.currentPlayer.werte[2][0] = 1;
         game.currentPlayer.werte[3][0] = 1;
         game.currentPlayer.werte[1][2] = 4;
-        game.currentPlayer.werte[8][0] = 1;*/
+        // Remove or comment out the line causing the issue
+        // game.currentPlayer.werte[8][0] = 1;
+
         p1CountryDropdown.removeAllItems();
         p2CountryDropdown.removeAllItems();
 
         for (int i = 0; i < game.p1.werte.length; i++) {
             if (game.p1.werte[i][0] == 1) {
-                if (i <= CountryLibrary.countryNames.length) {
+                if (i < CountryLibrary.countryNames.length) {
                     p1CountryDropdown.addItem(CountryLibrary.countryNames[i]);
-                }
-                else {
-                    p1CountryDropdown.addItem("Landname nicht hinterlegt: " + i);  
+                } else {
+                    p1CountryDropdown.addItem("Landname nicht hinterlegt: " + i);
                 }
             }
         }
@@ -175,6 +180,7 @@ public class UI extends JFrame implements ActionListener {
         }
     }
 
+
     private void updateSubButtons() {
         int ownedCountriesCount = 0;
         for (int i = 0; i < game.currentPlayer.werte.length; i++) {
@@ -184,14 +190,17 @@ public class UI extends JFrame implements ActionListener {
         }
 
         subButtons = new JButton[ownedCountriesCount];
+        int buttonIndex = 0;
         for (int i = 0; i < game.currentPlayer.werte.length; i++) {
             if (game.currentPlayer.werte[i][0] == 1) {
                 String countryName = (i < CountryLibrary.countryNames.length) ? CountryLibrary.countryNames[i] : "Landname nicht hinterlegt: " + i;
-                subButtons[i] = new JButton(countryName);
-                subButtons[i].setBounds(20 + (i * 160), 600, 150, 30); // Adjust the position and size as needed
-                subPanel.add(subButtons[i]);
+                subButtons[buttonIndex] = new JButton(countryName);
+                subButtons[buttonIndex].setBounds(20 + (buttonIndex * 160), 600, 150, 30); // Adjust the position and size as needed
+                subPanel.add(subButtons[buttonIndex]);
+                buttonIndex++;
             }
         }
+        frame.add(subPanel);
     }
 }
 
