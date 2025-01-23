@@ -26,7 +26,7 @@ public class Tester {
 
         //System.out.println(game.currentPlayer.getBesitz());
         //System.out.println(game.currentPlayer.getLevels());
-        }
+    }
     
 
     
