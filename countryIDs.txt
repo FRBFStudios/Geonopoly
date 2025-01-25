@@ -13,6 +13,16 @@
 13 = Ukraine
 14 = Spanien
 15 = Italien
+16 = Slowenien
+17 = Ungarn
+18 = Irland
+19 = Island
+20 = USA
+21 = Russland
+22 = Belarus
+23 = Kanada
+24 = Romänien
+
 
 0. Bergbau
 1. Landwirtschaft
