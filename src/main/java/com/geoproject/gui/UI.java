@@ -7,6 +7,7 @@ package com.geoproject.gui;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.Font;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -47,6 +48,7 @@ public class UI extends JFrame implements ActionListener {
         //evtl. für jeden spieler eine karte mit den besitzten ländern farblich markiert und wenn draufdrücken, dann die wwerte dieses eines landes vom spieler anzeigen
         //oder abhängig vom gedrüchten hauptbutton ein droppdown menü anzeigen, wo man eben das anzuzeigende land/eveltklasse/... auswählen kann
         //oder zeile 99 scroll leayout nutzen
+        //benennung der buttons klären(allgemeines konzept)
         frame = new JFrame("Geonopoly");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(null);
@@ -88,20 +90,25 @@ public class UI extends JFrame implements ActionListener {
         p2MapArea = new JLabel("Hier Platz für Karte der besitzten länder(P2)");
         p2MapArea.setBounds(1050, 70, 660, 30);
 
-        buyCountriesButton = new JButton("Land Kaufen");
+        Font buttonFont = new Font("Arial", Font.CENTER_BASELINE, 14);//increase size after deciding about he questions about naming
+
+        buyCountriesButton = new JButton("buy (-conuntries?)");
         buyCountriesButton.setBounds(500, 350, 180, 50);
+        buyCountriesButton.setFont(buttonFont);
         
-        upgradeButton = new JButton("Wirtschaft Upgraden");
+        upgradeButton = new JButton("upgrade(econ.&events?)");
         upgradeButton.setBounds(700, 350, 180, 50);
+        upgradeButton.setFont(buttonFont);
         
-        eventManagerButton = new JButton("Events_Verwalten");
+        eventManagerButton = new JButton("manage (-events?)");
         eventManagerButton.setBounds(900, 350, 180, 50);
+        eventManagerButton.setFont(buttonFont);
         
-        subPanel = new JPanel(new FlowLayout()); //hier gab es scrall layout, vielleicht auch für property nutzen!
-        subPanel.setBounds(120, 350, 1330, 120);
+        subPanel = new JPanel(new FlowLayout()); //hier gab es scroll layout, vielleicht auch für property nutzen!
+        subPanel.setBounds(120, 450, 1330, 120);
         
-        finishTurnButton = new JButton("Zug_fertig");
-        backButton = new JButton("Back");
+        finishTurnButton = new JButton("end turn");
+        backButton = new JButton("back");
     
         buttons = new JButton[] {buyCountriesButton, upgradeButton, eventManagerButton, backButton, finishTurnButton};
         
@@ -109,10 +116,11 @@ public class UI extends JFrame implements ActionListener {
             button.addActionListener(this);
         }
 
-        
-        updateCountryDropdowns();
+        Testwerte();
         activateAllButtons();
         updateSubButtons();
+        updateCountryDropdowns();
+        updatePStatsArea();
 
         frame.getContentPane().removeAll();
         subPanel.removeAll();
@@ -153,13 +161,6 @@ public class UI extends JFrame implements ActionListener {
 
 
     public void updateCountryDropdowns() {
-        game.currentPlayer.werte[1][0] = 1;
-        game.currentPlayer.werte[2][0] = 1;
-        game.currentPlayer.werte[3][0] = 1;
-        game.currentPlayer.werte[1][2] = 4;
-        // Remove or comment out the line causing the issue
-        // game.currentPlayer.werte[8][0] = 1;
-
         p1CountryDropdown.removeAllItems();
         p2CountryDropdown.removeAllItems();
 
@@ -180,6 +181,55 @@ public class UI extends JFrame implements ActionListener {
         }
     }
 
+    private void Testwerte() {
+        game.currentPlayer.werte[1][0] = 1;
+        game.currentPlayer.werte[2][0] = 1;
+        game.currentPlayer.werte[3][0] = 1;
+        game.currentPlayer.werte[1][2] = 4;
+        game.currentPlayer.werte[8][0] = 1;
+        game.currentPlayer.werte[4][0] = 1;
+        game.currentPlayer.werte[5][0] = 1;
+        game.currentPlayer.werte[6][0] = 1;
+        game.currentPlayer.werte[7][0] = 1;
+        game.currentPlayer.werte[9][0] = 1;
+        game.currentPlayer.werte[10][0] = 1;
+        game.currentPlayer.werte[1][1] = 2;
+        game.currentPlayer.werte[2][1] = 3;
+        game.currentPlayer.werte[3][1] = 4;
+        game.currentPlayer.werte[4][2] = 5;
+        game.currentPlayer.werte[5][2] = 6;
+        game.currentPlayer.werte[6][3] = 7;
+        game.currentPlayer.werte[7][3] = 8;
+        game.currentPlayer.werte[8][4] = 9;
+        game.currentPlayer.werte[9][4] = 10;
+        game.currentPlayer.werte[10][5] = 11;
+        game.currentPlayer.werte[11][0] = 1;
+        game.currentPlayer.werte[12][0] = 1;
+        game.currentPlayer.werte[13][0] = 1;
+        game.currentPlayer.werte[14][0] = 1;
+        game.currentPlayer.werte[15][0] = 1;
+        game.currentPlayer.werte[11][1] = 12;
+        game.currentPlayer.werte[12][1] = 13;
+        game.currentPlayer.werte[13][1] = 14;
+        game.currentPlayer.werte[14][2] = 15;
+        game.currentPlayer.werte[15][2] = 16;
+        game.currentPlayer.werte[11][3] = 17;
+        game.currentPlayer.werte[12][3] = 18;
+        game.currentPlayer.werte[13][4] = 19;
+        game.currentPlayer.werte[14][4] = 20;
+        game.currentPlayer.werte[15][5] = 21;
+        game.currentPlayer.werte[1][1] = 12;
+        game.currentPlayer.werte[2][2] = 13;
+        game.currentPlayer.werte[3][3] = 14;
+        game.currentPlayer.werte[4][4] = 15;
+        game.currentPlayer.werte[5][5] = 16;
+        game.currentPlayer.werte[6][1] = 17;
+        game.currentPlayer.werte[7][2] = 18;
+        game.currentPlayer.werte[8][3] = 19;
+        game.currentPlayer.werte[9][4] = 20;
+        game.currentPlayer.werte[10][5] = 21;
+    }
+
 
     private void updateSubButtons() {
         int ownedCountriesCount = 0;
@@ -193,6 +243,7 @@ public class UI extends JFrame implements ActionListener {
         int buttonIndex = 0;
         for (int i = 0; i < game.currentPlayer.werte.length; i++) {
             if (game.currentPlayer.werte[i][0] == 1) {
+
                 String countryName = (i < CountryLibrary.countryNames.length) ? CountryLibrary.countryNames[i] : "Landname nicht hinterlegt: " + i;
                 subButtons[buttonIndex] = new JButton(countryName);
                 subButtons[buttonIndex].setBounds(20 + (buttonIndex * 160), 600, 150, 30); // Adjust the position and size as needed
@@ -201,6 +252,11 @@ public class UI extends JFrame implements ActionListener {
             }
         }
         frame.add(subPanel);
+    }
+
+    private void updatePStatsArea() {
+        p1StatsArea.setText(game.p1.getBesitz());
+        p2StatsArea.setText(game.p2.getBesitz());
     }
 }
 
