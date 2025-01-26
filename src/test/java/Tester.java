@@ -8,37 +8,28 @@ import com.geoproject.libraries.*;
 
 public class Tester {
     static Game game = new Game();
-    static Player player = new Player();
+    static Player player = game.currentPlayer;
     static UI ui = new UI();
 
     @Test
     public void test() {
-        player.werte[1][0] = 1;
-        player.werte[2][0] = 1;
-        player.werte[3][0] = 1;
-        player.werte[1][2] = 4;
-        player.werte[8][0] = 1;
+        player.values[1][0] = 1;
+        player.values[2][0] = 1;
+        player.values[3][0] = 1;
+        player.values[1][2] = 4;
+        player.values[8][0] = 1;
         assertEquals(2, CountryLibrary.borders[0][0]);
         assertEquals(1000, game.currentPlayer.playerMoney);
 
-        //String besitz = player.getBesitz();
-        //System.out.println(besitz);
+        //String ownership = player.getOwnership();
+        //System.out.println(ownership);
 
-        //System.out.println(game.currentPlayer.getBesitz());
+        //System.out.println(game.currentPlayer.getOwnership());
         //System.out.println(game.currentPlayer.getLevels());
     }
     
-
-    
-    public static void main(String[] args){
-        game.currentPlayer.werte[1][0] = 1;
-        game.currentPlayer.werte[2][0] = 1;
-        game.currentPlayer.werte[3][0] = 1;
-        game.currentPlayer.werte[1][2] = 4;
-        game.currentPlayer.werte[8][0] = 1;
-        System.out.println(game.currentPlayer.getBesitz());
-        System.out.println("");
-        System.out.println(game.currentPlayer.getLevels());
+    public static void main(String[] args) {
+        new UI();
     }
 }
 

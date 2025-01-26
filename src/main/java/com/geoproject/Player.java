@@ -2,11 +2,10 @@ package com.geoproject;
 
 import com.geoproject.libraries.CountryLibrary;
 
-public class Player
-{
+public class Player {
     public int playerMoney;
     
-    public int[][] werte = new int[33][6];
+    public int[][] values = new int[33][8];
     /*
     
     // IDs der Länder
@@ -23,25 +22,24 @@ public class Player
     const int LANDWIRTSCHAFT_LEVEL = 4;
 
     // Beispiel für das Setzen von Werten
-    werte[DE][BESITZT] = 0;
-    werte[DE][EDELSTEIN_LEVEL] = 0;
+    values[DE][BESITZT] = 0;
+    values[DE][EDELSTEIN_LEVEL] = 0;
     */
     
-    public Player(){
+    public Player() {
         playerMoney = 1000;
     }
     
-    public String getBesitz() {
+    public String getOwnership() {
         StringBuilder result = new StringBuilder();
 
-        result.append("Länder in Besitz:  ");
-        for (int i = 0; i < werte.length; i++) {
-            if (werte[i][0] == 1) {
-                if (i <= CountryLibrary.countryNames.length) {
+        result.append("owned countries:  ");
+        for (int i = 0; i < values.length; i++) {
+            if (values[i][0] == 1) {
+                if (i < CountryLibrary.countryNames.length) {
                     result.append(CountryLibrary.countryNames[i]);
-                }
-                else {
-                    result.append("Landname nicht hinterlegt: ").append(i);
+                } else {
+                    result.append("no countryname: ").append(i);
                 }
                 result.append(", ");
             }
@@ -49,28 +47,23 @@ public class Player
         return result.toString().trim();
     }
 
-
     public String getLevels() {
         StringBuilder result = new StringBuilder();
 
         result.append("Country Levels:\n");
-        for (int i = 0; i < werte.length; i++) {
-            if (werte[i][0] == 1) {
-                if (i <= CountryLibrary.countryNames.length) {
+        for (int i = 0; i < values.length; i++) {
+            if (values[i][0] == 1) {
+                if (i < CountryLibrary.countryNames.length) {
                     result.append(CountryLibrary.countryNames[i]).append(": ");
+                } else {
+                    result.append("no countryname: ").append(i);
                 }
-                else {
-                    result.append("Landname nicht hinterlegt: ").append(i);
-                }
-                for (int j = 1; j < werte[i].length; j++) {
-                    
-                        if (j <= CountryLibrary.StatNames.length) {
-                            result.append(CountryLibrary.StatNames[j][1]).append(": ").append(werte[i][j]);
-                        }
-                        else {
-                            result.append("Statname nicht hinterlegt: ").append(j).append(": ").append(werte[i][j]);
-                        }
-                    
+                for (int j = 1; j < values[i].length; j++) {
+                    if (j < CountryLibrary.StatNames.length) {
+                        result.append(CountryLibrary.StatNames[j][1]).append(": ").append(values[i][j]);
+                    } else {
+                        result.append("no Statname: ").append(j).append(": ").append(values[i][j]);
+                    }
                     result.append(", ");
                 }
                 result.append("\n");

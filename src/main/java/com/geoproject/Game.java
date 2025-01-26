@@ -17,7 +17,7 @@ public class Game {
         otherPlayer = p2;
     }
     
-    public void switchPlayer(){
+    public void switchPlayer() {
         currentPlayerValue = (currentPlayerValue == 1) ? 2 : 1;
         currentPlayer = (currentPlayerValue == 1) ? p1 : p2;
         otherPlayer = (currentPlayerValue == 1) ? p2 : p1;

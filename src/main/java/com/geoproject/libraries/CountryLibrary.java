@@ -4,8 +4,12 @@ package com.geoproject.libraries;
 //Author: Theodor
 //Version: 21/1/2025
 
-public class CountryLibrary
-{
+public class CountryLibrary {
+
+    
+    //bitte noch preis hinzufügen
+
+
     @SuppressWarnings("unused")
     public static int[][] borders = new int[][] {
         {2, 3, 4, 5, 6, 7},//DE
