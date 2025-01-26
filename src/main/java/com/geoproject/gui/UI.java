@@ -1,5 +1,7 @@
 package com.geoproject.gui;
 
+import java.awt.Event;
+
 //GUI-Klasse.
 //Authors: Theodor, Timo
 //Version: 21/1/2025
@@ -19,6 +21,7 @@ import javax.swing.JLabel;
 
 import com.geoproject.Game;
 import com.geoproject.libraries.CountryLibrary;
+import com.geoproject.libraries.EventLibrary;
 
 public class UI extends JFrame implements ActionListener {
     JFrame frame;
@@ -220,8 +223,8 @@ public class UI extends JFrame implements ActionListener {
         p1CountryDropdown.removeAllItems();
         p2CountryDropdown.removeAllItems();
 
-        for (int i = 0; i < game.p1.values.length; i++) {
-            if (game.p1.values[i][0] == 1) {
+        for (int i = 0; i < game.p1.countryValues.length; i++) {
+            if (game.p1.countryValues[i][0] == 1) {
                 if (i < CountryLibrary.countryNames.length) {
                     p1CountryDropdown.addItem(CountryLibrary.countryNames[i]);
                 } else {
@@ -230,8 +233,8 @@ public class UI extends JFrame implements ActionListener {
             }
         }
 
-        for (int i = 0; i < game.p2.values.length; i++) {
-            if (game.p2.values[i][0] == 1) {
+        for (int i = 0; i < game.p2.countryValues.length; i++) {
+            if (game.p2.countryValues[i][0] == 1) {
                 p2CountryDropdown.addItem(CountryLibrary.countryNames[i]);
             }
         }
@@ -246,7 +249,7 @@ public class UI extends JFrame implements ActionListener {
                 subButtons1[i] = new JButton(countryName);
                 subButtons1[i].addActionListener(this);
                 subPanel.add(subButtons1[i]);
-                if (game.currentPlayer.values[i][0] == 1) {
+                if (game.currentPlayer.countryValues[i][0] == 1) {
                     subButtons1[i].setEnabled(false);
                 }
                 else {
@@ -260,22 +263,29 @@ public class UI extends JFrame implements ActionListener {
                 subButtons2[i] = new JButton(countryName);
                 subButtons2[i].addActionListener(this);
                 subPanel.add(subButtons2[i]);
-                if (game.currentPlayer.values[i][0] == 1) {
+                if (game.currentPlayer.countryValues[i][0] == 1) {
                     subButtons2[i].setEnabled(true);
                 } else {
                     subButtons2[i].setEnabled(false);
                 }
             }
         } else if (buttonPressed == 3) {
-
+            subButtons3 = new JButton[EventLibrary.eventNames.length];
+            for (int i = 0; i < EventLibrary.eventNames.length; i++) {
+                String eventName = (i < EventLibrary.eventNames.length) ? EventLibrary.eventNames[i] + ": " + game.currentPlayer.eventValues[i][0] : "no eventname: " + i;
+                subButtons3[i] = new JButton(eventName);
+                subButtons3[i].addActionListener(this);
+                subPanel.add(subButtons3[i]);
+                subButtons3[i].setEnabled(true);
+            }
         }
 
         subPanel.revalidate();
         subPanel.repaint();
         // else if (buttonPressed == 2) {
         //     int ownedCountriesCount = 0;
-        //     for (int i = 0; i < game.currentPlayer.values.length; i++) {
-        //         if (game.currentPlayer.values[i][0] == 1) {
+        //     for (int i = 0; i < game.currentPlayer.countryValues.length; i++) {
+        //         if (game.currentPlayer.countryValues[i][0] == 1) {
         //             ownedCountriesCount++;
         //         }
         //     }
@@ -292,7 +302,7 @@ public class UI extends JFrame implements ActionListener {
         subSubPanel.removeAll();
         subSubButtons2[buttonPressed] = new JButton[CountryLibrary.StatNames.length];
         for (int i = 0; i < CountryLibrary.StatNames.length; i++) {
-            subSubButtons2[buttonPressed][i] = new JButton(CountryLibrary.StatNames[i][0] + ": " + game.currentPlayer.values[buttonPressed][i + 1]);
+            subSubButtons2[buttonPressed][i] = new JButton(CountryLibrary.StatNames[i][0] + " = " + game.currentPlayer.countryValues[buttonPressed][i + 1]);
             subSubButtons2[buttonPressed][i].addActionListener(this);
             subSubPanel.add(subSubButtons2[buttonPressed][i]);
         }
@@ -302,30 +312,55 @@ public class UI extends JFrame implements ActionListener {
 
 
     public void testValues() {
-        game.currentPlayer.values[0][0] = 1;
-        game.currentPlayer.values[1][0] = 1;
-        //game.currentPlayer.values[2][0] = 1;
-        game.currentPlayer.values[3][0] = 1;
-        game.currentPlayer.values[1][2] = 4;
-        game.currentPlayer.values[8][0] = 1;
-        //game.currentPlayer.values[4][0] = 1;
-        game.currentPlayer.values[5][0] = 1;
-        game.currentPlayer.values[6][0] = 1;
-        game.currentPlayer.values[7][0] = 1;
-        game.currentPlayer.values[1][1] = 2;
-        game.currentPlayer.values[2][1] = 3;
-        game.currentPlayer.values[3][1] = 4;
-        game.currentPlayer.values[4][2] = 5;
-        game.currentPlayer.values[5][2] = 6;
-        game.currentPlayer.values[6][3] = 7;
-        game.currentPlayer.values[7][3] = 8;
-        game.currentPlayer.values[1][1] = 12;
-        game.currentPlayer.values[2][2] = 13;
-        game.currentPlayer.values[3][3] = 14;
-        game.currentPlayer.values[4][4] = 15;
-        game.currentPlayer.values[5][5] = 16;
-        game.currentPlayer.values[6][1] = 17;
-        game.currentPlayer.values[7][2] = 18;
+        game.currentPlayer.countryValues[0][0] = 1;
+        game.currentPlayer.countryValues[1][0] = 1;
+        //game.currentPlayer.countryValues[2][0] = 1;
+        game.currentPlayer.countryValues[3][0] = 1;
+        game.currentPlayer.countryValues[1][2] = 4;
+        game.currentPlayer.countryValues[8][0] = 1;
+        //game.currentPlayer.countryValues[4][0] = 1;
+        game.currentPlayer.countryValues[5][0] = 1;
+        game.currentPlayer.countryValues[6][0] = 1;
+        game.currentPlayer.countryValues[7][0] = 1;
+        game.currentPlayer.countryValues[1][1] = 2;
+        game.currentPlayer.countryValues[2][1] = 3;
+        game.currentPlayer.countryValues[3][1] = 4;
+        game.currentPlayer.countryValues[4][2] = 5;
+        game.currentPlayer.countryValues[5][2] = 6;
+        game.currentPlayer.countryValues[6][3] = 7;
+        game.currentPlayer.countryValues[7][3] = 8;
+        game.currentPlayer.countryValues[1][1] = 12;
+        game.currentPlayer.countryValues[2][2] = 13;
+        game.currentPlayer.countryValues[3][3] = 14;
+        game.currentPlayer.countryValues[4][4] = 15;
+        game.currentPlayer.countryValues[5][5] = 16;
+        game.currentPlayer.countryValues[6][1] = 17;
+        game.currentPlayer.countryValues[7][2] = 18;
+
+        game.currentPlayer.eventValues[0][0] = 5;
+        game.currentPlayer.eventValues[1][0] = 1;
+        //game.currentPlayer.eventValues[2][0] = 1;
+        game.currentPlayer.eventValues[3][0] = 1;
+        game.currentPlayer.eventValues[1][2] = 4;
+        game.currentPlayer.eventValues[8][0] = 1;
+        //game.currentPlayer.eventValues[4][0] = 1;
+        game.currentPlayer.eventValues[5][0] = 1;
+        game.currentPlayer.eventValues[6][0] = 1;
+        game.currentPlayer.eventValues[7][0] = 1;
+        game.currentPlayer.eventValues[1][1] = 2;
+        game.currentPlayer.eventValues[2][1] = 3;
+        game.currentPlayer.eventValues[3][1] = 4;
+        game.currentPlayer.eventValues[4][2] = 5;
+        game.currentPlayer.eventValues[5][2] = 6;
+        game.currentPlayer.eventValues[6][3] = 7;
+        game.currentPlayer.eventValues[7][3] = 8;
+        game.currentPlayer.eventValues[1][1] = 12;
+        game.currentPlayer.eventValues[2][2] = 13;
+        game.currentPlayer.eventValues[3][3] = 14;
+        game.currentPlayer.eventValues[4][4] = 15;
+        game.currentPlayer.eventValues[5][5] = 16;
+        game.currentPlayer.eventValues[6][1] = 17;
+        game.currentPlayer.eventValues[7][2] = 18;
     }
 }
 

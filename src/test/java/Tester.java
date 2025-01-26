@@ -13,11 +13,11 @@ public class Tester {
 
     @Test
     public void test() {
-        player.values[1][0] = 1;
-        player.values[2][0] = 1;
-        player.values[3][0] = 1;
-        player.values[1][2] = 4;
-        player.values[8][0] = 1;
+        player.countryValues[1][0] = 1;
+        player.countryValues[2][0] = 1;
+        player.countryValues[3][0] = 1;
+        player.countryValues[1][2] = 4;
+        player.countryValues[8][0] = 1;
         assertEquals(2, CountryLibrary.borders[0][0]);
         assertEquals(1000, game.currentPlayer.playerMoney);
 
