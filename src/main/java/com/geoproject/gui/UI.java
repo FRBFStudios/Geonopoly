@@ -52,6 +52,8 @@ public class UI extends JFrame implements ActionListener {
         //oder zeile 99 scroll leayout nutzen
         //benennung der buttons klären(allgemeines konzept)
         //überhaupt schlau, die UI so zu machen, und nicht zb droppdown, wo ein land auswählen und dann die werte angezeigt bekommt oder man es kaufen kann
+        //über umsetzung von eventklasse?? (oder wie sonnst die unterschiedlichen actions speichern? oder einfach array dass für jede mgl sache ein obj. hat) sprechen
+        //über kaufbarkeit und anzahl und verkaufbarkeit von events sprechen
         frame = new JFrame("Geonopoly");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(null);
