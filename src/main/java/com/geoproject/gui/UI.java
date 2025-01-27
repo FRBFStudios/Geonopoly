@@ -386,7 +386,7 @@ public class UI extends JFrame implements ActionListener {
         game.currentPlayer.eventValues[1][0] = 1;
         //game.currentPlayer.eventValues[2][0] = 1;
         game.currentPlayer.eventValues[3][0] = 1;
-        game.currentPlayer.eventValues[1][2] = 4;
+        game.currentPlayer.eventValues[1][1] = 4;
         game.currentPlayer.eventValues[8][0] = 1;
         //game.currentPlayer.eventValues[4][0] = 1;
         game.currentPlayer.eventValues[5][0] = 1;
@@ -395,17 +395,17 @@ public class UI extends JFrame implements ActionListener {
         game.currentPlayer.eventValues[1][1] = 2;
         game.currentPlayer.eventValues[2][1] = 3;
         game.currentPlayer.eventValues[3][1] = 4;
-        game.currentPlayer.eventValues[4][2] = 5;
-        game.currentPlayer.eventValues[5][2] = 6;
-        game.currentPlayer.eventValues[6][3] = 7;
-        game.currentPlayer.eventValues[7][3] = 8;
+        game.currentPlayer.eventValues[4][1] = 5;
+        game.currentPlayer.eventValues[5][1] = 6;
+        game.currentPlayer.eventValues[6][1] = 7;
+        game.currentPlayer.eventValues[7][1] = 8;
         game.currentPlayer.eventValues[1][1] = 12;
-        game.currentPlayer.eventValues[2][2] = 13;
-        game.currentPlayer.eventValues[3][3] = 14;
-        game.currentPlayer.eventValues[4][4] = 15;
-        game.currentPlayer.eventValues[5][5] = 16;
+        game.currentPlayer.eventValues[2][1] = 13;
+        game.currentPlayer.eventValues[3][0] = 14;
+        game.currentPlayer.eventValues[4][0] = 15;
+        game.currentPlayer.eventValues[5][0] = 16;
         game.currentPlayer.eventValues[6][1] = 17;
-        game.currentPlayer.eventValues[7][2] = 18;
+        game.currentPlayer.eventValues[7][1] = 18;
     }
 }
 
