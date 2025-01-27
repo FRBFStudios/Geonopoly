@@ -6,9 +6,9 @@ public class Player {
     public int playerMoney;
     
     public int[][] countryValues = new int[33][8];
-    public int[][] eventValues = new int[50][100]; //NUR BEISPIELHAFT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    /*
-    
+    public int[][] eventValues = new int[50][2]; //NUR BEISPIELHAFT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //[{eventname}][{count, level}]
+    /*mvn 
     // IDs der Länder
     const int DE = 0;
     const int CHINA = 1;
