@@ -19,9 +19,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 
-import com.geoproject.Game;
-import com.geoproject.libraries.CountryLibrary;
-import com.geoproject.libraries.EventLibrary;
+import com.geoproject.*;
+import com.geoproject.libraries.*;
 
 public class UI extends JFrame implements ActionListener {
     JFrame frame;
@@ -37,7 +36,7 @@ public class UI extends JFrame implements ActionListener {
     // JButton backButton;
     JButton finishTurnButton;
     
-    JButton[] subButtons1, subButtons2, subSubButtons2[], subButtons3;
+    JButton[] subButtons1, subButtons2, subSubButtons2[], subButtons3, subSubButtons3[];
     JButton[] buttons;
 
     Game game = new Game();
@@ -149,20 +148,25 @@ public class UI extends JFrame implements ActionListener {
         frame.add(finishTurnButton);
         frame.setVisible(true);
         subSubButtons2 = new JButton[CountryLibrary.countryNames.length][];
+        subSubButtons3 = new JButton[EventLibrary.eventNames.length][];
     }
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == buyCountriesButton) {
             showMainMenu();
             updateSubPanel(1);
+            System.out.println("buycountries Button pressed");
         } else if (e.getSource() == upgradeButton) {
             showMainMenu();
             updateSubPanel(2);
+            System.out.println("upgrade Button pressed");
         } else if (e.getSource() == eventManagerButton) {
             showMainMenu();
             updateSubPanel(3);
+            System.out.println("eventManager pressed");
         // } else if (e.getSource() == backButton) {
         } else if (e.getSource() == finishTurnButton) {
+            System.out.println("finish turn pressed");
             game.switchPlayer();
             showMainMenu();
         } else {
@@ -178,7 +182,16 @@ public class UI extends JFrame implements ActionListener {
                 for (int i = 0; i < subButtons2.length; i++) {
                     if (e.getSource() == subButtons2[i]) {
                         System.out.println("subButton2 pressed: " + i);
-                        updateSubSubPanel(i);
+                        updateSubSubPanel(i, 2);
+                        break;
+                    }
+                }
+            }
+            if (subButtons3 != null) {
+                for (int i = 0; i < subButtons3.length; i++) {
+                    if (e.getSource() == subButtons3[i]) {
+                        System.out.println("subButton3 pressed: " + i);
+                        updateSubSubPanel(i, 3);
                         break;
                     }
                 }
@@ -195,6 +208,19 @@ public class UI extends JFrame implements ActionListener {
                     }
                 }
             }
+            if (subSubButtons3 != null) {
+                for (int i = 0; i < subSubButtons3.length; i++) {
+                    if (subSubButtons3[i] != null) {
+                        for (int j = 0; j < subSubButtons3[i].length; j++) {
+                            if (e.getSource() == subSubButtons3[i][j]) {
+                                System.out.println("subSubButton3 pressed: " + i + ", " + j);
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+
         }
         UIupdate();
     }
@@ -298,13 +324,30 @@ public class UI extends JFrame implements ActionListener {
         // }
     }
 
-    void updateSubSubPanel(int buttonPressed) {
+    void updateSubSubPanel(int buttonPressed, int MainButtonNumber) {
         subSubPanel.removeAll();
-        subSubButtons2[buttonPressed] = new JButton[CountryLibrary.StatNames.length];
-        for (int i = 0; i < CountryLibrary.StatNames.length; i++) {
-            subSubButtons2[buttonPressed][i] = new JButton(CountryLibrary.StatNames[i][0] + " = " + game.currentPlayer.countryValues[buttonPressed][i + 1]);
-            subSubButtons2[buttonPressed][i].addActionListener(this);
-            subSubPanel.add(subSubButtons2[buttonPressed][i]);
+        if (MainButtonNumber == 2) {    
+            subSubButtons2[buttonPressed] = new JButton[CountryLibrary.statNames.length];
+            for (int i = 0; i < CountryLibrary.statNames.length; i++) {
+                subSubButtons2[buttonPressed][i] = new JButton(CountryLibrary.statNames[i][0] + " = " + game.currentPlayer.countryValues[buttonPressed][i + 1]);
+                subSubButtons2[buttonPressed][i].addActionListener(this);
+                subSubPanel.add(subSubButtons2[buttonPressed][i]);
+            }
+        } else if (MainButtonNumber == 3) {
+            subSubButtons3[buttonPressed] = new JButton[EventLibrary.statNames.length + 2];
+            int k;
+            for (k = 0; k < EventLibrary.statNames.length; k++) {
+                subSubButtons3[buttonPressed][k] = new JButton(EventLibrary.statNames[k] + " = " + game.currentPlayer.eventValues[buttonPressed][k]);
+                subSubButtons3[buttonPressed][k].addActionListener(this);
+                subSubPanel.add(subSubButtons3[buttonPressed][k]);
+            }
+            subSubButtons3[buttonPressed][k] = new JButton("buy");
+            subSubButtons3[buttonPressed][k].addActionListener(this);
+            subSubPanel.add(subSubButtons3[buttonPressed][k]);
+            k++;
+            subSubButtons3[buttonPressed][k] = new JButton("sell");
+            subSubButtons3[buttonPressed][k].addActionListener(this);
+            subSubPanel.add(subSubButtons3[buttonPressed][k]);
         }
         subSubPanel.revalidate();
         subSubPanel.repaint();

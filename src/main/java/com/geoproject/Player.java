@@ -1,12 +1,12 @@
 package com.geoproject;
 
-import com.geoproject.libraries.CountryLibrary;
+import com.geoproject.libraries.*;
 
 public class Player {
     public int playerMoney;
     
     public int[][] countryValues = new int[33][8];
-    public int[][] eventValues = new int[100][100]; //NUR BEISPIELHAFT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    public int[][] eventValues = new int[50][100]; //NUR BEISPIELHAFT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     /*
     
     // IDs der Länder
@@ -60,8 +60,8 @@ public class Player {
                     result.append("no countryname: ").append(i);
                 }
                 for (int j = 1; j < countryValues[i].length; j++) {
-                    if (j < CountryLibrary.StatNames.length) {
-                        result.append(CountryLibrary.StatNames[j][1]).append(": ").append(countryValues[i][j]);
+                    if (j < CountryLibrary.statNames.length) {
+                        result.append(CountryLibrary.statNames[j][1]).append(": ").append(countryValues[i][j]);
                     } else {
                         result.append("no Statname: ").append(j).append(": ").append(countryValues[i][j]);
                     }

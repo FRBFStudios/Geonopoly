@@ -24,7 +24,7 @@ public class CountryLibrary {
     public static String[] countryNames = new String[] {"DE", "BENELUX", "DEN", "POL", "FRA", "CZE"};
 
     @SuppressWarnings("unused")
-    public static String[][] StatNames = new String[][] {
+    public static String[][] statNames = new String[][] {
         {"Bergbau", "Bb"},
         {"Landwirtschaft", "Lw"},
         {"Warenproduktion", "Wp"},
