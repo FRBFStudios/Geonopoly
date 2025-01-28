@@ -2,13 +2,15 @@ package com.geoproject;
 
 //Verknüpft Daten aus allen Klassen und liefert Updates an die GUI.
 //Authors: Theodor, Timo
-//Version: 21/1/2025
+//Version: 28/1/2025
 
 public class Game {
     public int currentPlayerValue = 1;
 
-    public Player p1 = new Player();
-    public Player p2 = new Player();
+    //P1 kriegt USA
+    public Player p1 = new Player(19);
+    //P2 kriegt Russland
+    public Player p2 = new Player(20);
     public Player currentPlayer;
     public Player otherPlayer;
 
