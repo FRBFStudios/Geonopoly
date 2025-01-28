@@ -21,6 +21,7 @@ public class CountryLibrary
         {9, 10, 21, 0, 0, 0},//FIN
         {4, 6, 7, 13, 17, 0},//SLOVA
         {4, 12, 17, 21, 22, 24},//UKR
+        {},//
     };
 
     @SuppressWarnings("unused")
@@ -29,8 +30,9 @@ public class CountryLibrary
             "Slowakei", "Ukraine", "Spanien", "Italien", "Slowenien", "Ungarn", "Irland", "Island", "Vereinigte Staaten",
             "Russland", "Belarus", "Kanada", "Romänien"};
 
+    //Ich glaube, das kann weg
     @SuppressWarnings("unused")
-    public static String[][] StatNames = new String[][] {
+    public static String[][] statNames = new String[][] {
         {"Bergbau", "Bb"},
         {"Landwirtschaft", "Lw"},
         {"Warenproduktion", "Wp"},

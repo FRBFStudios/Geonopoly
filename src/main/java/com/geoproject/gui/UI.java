@@ -1,27 +1,32 @@
 package com.geoproject.gui;
 
-import java.awt.Event;
-
 //GUI-Klasse.
 //Authors: Theodor, Timo
-//Version: 21/1/2025
+//Version: 28/01/2025
 
+//Imports
+import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.Font;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.JLabel;
 
-import com.geoproject.*;
-import com.geoproject.libraries.*;
+import com.geoproject.Game;
+import com.geoproject.libraries.CountryLibrary;
+//import com.geoproject.libraries.EventLibrary;
 
+//Klasse
 public class UI extends JFrame implements ActionListener {
     JFrame frame;
     
@@ -41,11 +46,13 @@ public class UI extends JFrame implements ActionListener {
 
     Game game = new Game();
     
+    //Konstruktor
     public UI() {
-        createNewGUI();
+        createNewUI();
     }
 
-    private void createNewGUI() {
+    //Erstellt eine neue GUI
+    private void createNewUI() {
         //Optimieren und kommentieren!!!!!!!!
         //evtl. für jeden spieler eine karte mit den besitzten ländern farblich markiert und wenn draufdrücken, dann die wwerte dieses eines landes vom spieler anzeigen
         //oder abhängig vom gedrüchten hauptbutton ein droppdown menü anzeigen, wo man eben das anzuzeigende land/eveltklasse/... auswählen kann
@@ -54,15 +61,35 @@ public class UI extends JFrame implements ActionListener {
         //überhaupt schlau, die UI so zu machen, und nicht zb droppdown, wo ein land auswählen und dann die werte angezeigt bekommt oder man es kaufen kann
         //über umsetzung von eventklasse?? (oder wie sonnst die unterschiedlichen actions speichern? oder einfach array dass für jede mgl sache ein obj. hat) sprechen
         //über kaufbarkeit und anzahl und verkaufbarkeit von events sprechen
+        
+        
+        //Alle Elemente des Fensters werden initialisiert
+        
+        //Fenster wird erstellt
         frame = new JFrame("Geonopoly");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(null);
         frame.setSize(1600, 940);
         
+        //Fenster wird automatisch auf Fullscreen gesetzt, Layout muss noch angepasst werden
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        
+        frame.setSize(screenSize.width, screenSize.height);
+        frame.setLocationRelativeTo(null);
+
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+                frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+            }
+        });
+
+        //Zeigt den Spieler an, der am Zug ist
         pTurnField = new JTextField("Player -'s turn");
         pTurnField.setBounds(10, 10, 100, 30);
         pTurnField.setEditable(false);
 
+        //TextAreas für die Stats beider Spieler
         p1StatsArea = new JTextArea("Property (P1): -");
         p1StatsArea.setBounds(120, 200, 660, 120);
         p1StatsArea.setEditable(false);
@@ -75,6 +102,7 @@ public class UI extends JFrame implements ActionListener {
         p2StatsArea.setLineWrap(true);
         p2StatsArea.setWrapStyleWord(true);
         
+        //TextField für den Kontostand beider Spieler
         p1MoneyField = new JTextField("Money (P1): ----");
         p1MoneyField.setBounds(1460, 10, 115, 30);
         p1MoneyField.setEditable(false);
@@ -83,20 +111,24 @@ public class UI extends JFrame implements ActionListener {
         p2MoneyField.setBounds(1460, 50, 115, 30);
         p2MoneyField.setEditable(false);
 
+        //Bitte erklären, was das alles ist
         p1CountryDropdown = new JComboBox<>();
         p1CountryDropdown.setBounds(120, 170, 660, 30);
         
         p2CountryDropdown = new JComboBox<>();
         p2CountryDropdown.setBounds(790, 170, 660, 30);
 
+        //WTF
         p1MapArea = new JLabel("Hier Platz für Karte der besitzten länder(P1)");
         p1MapArea.setBounds(380, 70, 660, 30);
         
         p2MapArea = new JLabel("Hier Platz für Karte der besitzten länder(P2)");
         p2MapArea.setBounds(1050, 70, 660, 30);
 
+        //WTF
         Font buttonFont = new Font("Arial", Font.CENTER_BASELINE, 14);//increase size after deciding about he questions about naming
 
+        //Du musst mir mal erklären, wie deine Submenüs funktionieren
         buyCountriesButton = new JButton("buy (-countries?)");
         buyCountriesButton.setBounds(500, 350, 180, 50);
         buyCountriesButton.setFont(buttonFont);
@@ -150,9 +182,10 @@ public class UI extends JFrame implements ActionListener {
         frame.add(finishTurnButton);
         frame.setVisible(true);
         subSubButtons2 = new JButton[CountryLibrary.countryNames.length][];
-        subSubButtons3 = new JButton[EventLibrary.eventNames.length][];
+        //subSubButtons3 = new JButton[EventLibrary.eventNames.length][];
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == buyCountriesButton) {
             showMainMenu();
@@ -239,8 +272,10 @@ public class UI extends JFrame implements ActionListener {
 
 
     void UIupdate() {
-        p1StatsArea.setText(game.p1.getOwnership());
-        p2StatsArea.setText(game.p2.getOwnership());
+        /* Kommentiert, da getPossession noch nicht funktional ist
+        p1StatsArea.setText(game.p1.getPossession());
+        p2StatsArea.setText(game.p2.getPossession());
+        */
         p1MoneyField.setText("Money (P1): " + game.p1.playerMoney);
         p2MoneyField.setText("Money (P2): " + game.p2.playerMoney);
         pTurnField.setText("Player " + game.currentPlayerValue + "'s turn");
@@ -270,62 +305,73 @@ public class UI extends JFrame implements ActionListener {
 
     void updateSubPanel(int buttonPressed) {
         subPanel.removeAll();
-        if (buttonPressed == 1) {
-            subButtons1 = new JButton[CountryLibrary.countryNames.length];
-            for (int i = 0; i < CountryLibrary.countryNames.length; i++) {
-                String countryName = (i < CountryLibrary.countryNames.length) ? CountryLibrary.countryNames[i] : "no countryname: " + i;
-                subButtons1[i] = new JButton(countryName);
-                subButtons1[i].addActionListener(this);
-                subPanel.add(subButtons1[i]);
-                if (game.currentPlayer.countryValues[i][0] == 1) {
-                    subButtons1[i].setEnabled(false);
-                }
-                else {
-                    subButtons1[i].setEnabled(true);
-                }
-            }
-        } else if (buttonPressed == 2) {
-            subButtons2 = new JButton[CountryLibrary.countryNames.length];
-            for (int i = 0; i < CountryLibrary.countryNames.length; i++) {
-                String countryName = (i < CountryLibrary.countryNames.length) ? CountryLibrary.countryNames[i] : "no countryname: " + i;
-                subButtons2[i] = new JButton(countryName);
-                subButtons2[i].addActionListener(this);
-                subPanel.add(subButtons2[i]);
-                if (game.currentPlayer.countryValues[i][0] == 1) {
-                    subButtons2[i].setEnabled(true);
-                } else {
-                    subButtons2[i].setEnabled(false);
+        switch (buttonPressed) {
+            case 1 -> {
+                subButtons1 = new JButton[CountryLibrary.countryNames.length];
+                for (int i = 0; i < CountryLibrary.countryNames.length; i++) {
+                    String countryName = (i < CountryLibrary.countryNames.length) ? CountryLibrary.countryNames[i] : "no countryname: " + i;
+                    subButtons1[i] = new JButton(countryName);
+                    subButtons1[i].addActionListener(this);
+                    subPanel.add(subButtons1[i]);
+                    if (game.currentPlayer.countryValues[i][0] == 1) {
+                        subButtons1[i].setEnabled(false);
+                    
+                    } else {
+                        subButtons1[i].setEnabled(true);
+                    }
                 }
             }
-        } else if (buttonPressed == 3) {
-            subButtons3 = new JButton[EventLibrary.eventNames.length];
-            for (int i = 0; i < EventLibrary.eventNames.length; i++) {
-                String eventName = (i < EventLibrary.eventNames.length) ? EventLibrary.eventNames[i] + ": " + game.currentPlayer.eventValues[i][0] : "no eventname: " + i;
-                subButtons3[i] = new JButton(eventName);
-                subButtons3[i].addActionListener(this);
-                subPanel.add(subButtons3[i]);
-                subButtons3[i].setEnabled(true);
+            case 2 -> {
+                subButtons2 = new JButton[CountryLibrary.countryNames.length];
+                for (int i = 0; i < CountryLibrary.countryNames.length; i++) {
+                    String countryName = (i < CountryLibrary.countryNames.length) ? CountryLibrary.countryNames[i] : "no countryname: " + i;
+                    subButtons2[i] = new JButton(countryName);
+                    subButtons2[i].addActionListener(this);
+                    subPanel.add(subButtons2[i]);
+                    if (game.currentPlayer.countryValues[i][0] == 1) {
+                        subButtons2[i].setEnabled(true);
+                    } else {
+                        subButtons2[i].setEnabled(false);
+                    }
+                }
+            }
+            /*case 3 -> {
+                subButtons3 = new JButton[EventLibrary.eventNames.length];
+                for (int i = 0; i < EventLibrary.eventNames.length; i++) {
+                    String eventName = (i < EventLibrary.eventNames.length) ? EventLibrary.eventNames[i] + ": " + game.currentPlayer.eventValues[i][0] : "no eventname: " + i;
+                    subButtons3[i] = new JButton(eventName);
+                    subButtons3[i].addActionListener(this);
+                    subPanel.add(subButtons3[i]);
+                    subButtons3[i].setEnabled(true);
+                }
+            }
+            default -> {
             }
         }
-
+        //Wo gehört das hier hin?
         subPanel.revalidate();
         subPanel.repaint();
-        // else if (buttonPressed == 2) {
-        //     int ownedCountriesCount = 0;
-        //     for (int i = 0; i < game.currentPlayer.countryValues.length; i++) {
-        //         if (game.currentPlayer.countryValues[i][0] == 1) {
-        //             ownedCountriesCount++;
-        //         }
-        //     }
+        
+        //Wofür ist das und warum ist es ein Kommentar?
+            /*
+            case 2 -> {
+                int ownedCountriesCount = 0;
+                for (int i = 0; i < game.currentPlayer.countryValues.length; i++) {
+                    if (game.currentPlayer.countryValues[i][0] == 1) {
+                        ownedCountriesCount++;
+                    }
+                }
 
-        //     subButtons = new JButton[CountryLibrary.StatNames.length];
-        //     for (int i = 0; i < CountryLibrary.StatNames.length; i++) {
-        //         subButtons[i] = new JButton(CountryLibrary.StatNames[i][0]);
-        //         subPanel.add(subButtons[i]);
-        //     }
-        // }
+                subButtons = new JButton[CountryLibrary.StatNames.length];
+                for (int i = 0; i < CountryLibrary.StatNames.length; i++) {
+                    subButtons[i] = new JButton(CountryLibrary.StatNames[i][0]);
+                    subPanel.add(subButtons[i]);
+                }
+            }*/
+        }
     }
 
+    //Was macht das?
     void updateSubSubPanel(int buttonPressed, int MainButtonNumber) {
         subSubPanel.removeAll();
         if (MainButtonNumber == 2) {    
@@ -336,13 +382,13 @@ public class UI extends JFrame implements ActionListener {
                 subSubPanel.add(subSubButtons2[buttonPressed][i]);
             }
         } else if (MainButtonNumber == 3) {
-            subSubButtons3[buttonPressed] = new JButton[EventLibrary.statNames.length + 2];
-            int k;
-            for (k = 0; k < EventLibrary.statNames.length; k++) {
+            //subSubButtons3[buttonPressed] = new JButton[EventLibrary.statNames.length + 2];
+            int k = 0;
+            /*for (k = 0; k < EventLibrary.statNames.length; k++) {
                 subSubButtons3[buttonPressed][k] = new JButton(EventLibrary.statNames[k] + " = " + game.currentPlayer.eventValues[buttonPressed][k]);
                 subSubButtons3[buttonPressed][k].addActionListener(this);
                 subSubPanel.add(subSubButtons3[buttonPressed][k]);
-            }
+            }*/
             subSubButtons3[buttonPressed][k] = new JButton("buy");
             subSubButtons3[buttonPressed][k].addActionListener(this);
             subSubPanel.add(subSubButtons3[buttonPressed][k]);
@@ -355,7 +401,7 @@ public class UI extends JFrame implements ActionListener {
         subSubPanel.repaint();
     }
 
-
+    //Wir müssen das ASAP hier wegkriegen
     public void testValues() {
         game.currentPlayer.countryValues[0][0] = 1;
         game.currentPlayer.countryValues[1][0] = 1;
@@ -408,9 +454,3 @@ public class UI extends JFrame implements ActionListener {
         game.currentPlayer.eventValues[7][1] = 18;
     }
 }
-
-
-
-
-
-

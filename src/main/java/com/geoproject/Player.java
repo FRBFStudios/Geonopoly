@@ -1,37 +1,19 @@
 package com.geoproject;
 
-import com.geoproject.libraries.*;
-
 public class Player {
     public int playerMoney;
     
     public int[][] countryValues = new int[33][8];
     public int[][] eventValues = new int[50][2]; //NUR BEISPIELHAFT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    //[{eventname}][{count, level}]
-    /*mvn 
-    // IDs der Länder
-    const int DE = 0;
-    const int CHINA = 1;
-    const int CHILE = 2;
-    const int USA = 3;
-
-    // Nummern der gefragten Werte
-    const int BESITZT = 0;
-    const int EDELSTEIN_LEVEL = 1;
-    const int WALD_LEVEL = 2;
-    const int INDUSTRIE_LEVEL = 3;
-    const int LANDWIRTSCHAFT_LEVEL = 4;
-
-    // Beispiel für das Setzen von Werten
-    values[DE][BESITZT] = 0;
-    values[DE][EDELSTEIN_LEVEL] = 0;
-    */
     
-    public Player() {
-        playerMoney = 1000;
+    public Player(int defaultCountry) {
+        countryValues[defaultCountry][0] = 1;
     }
     
-    public String getOwnership() {
+    //Das hier muss optimiert und kommentiert werden
+    //Außerdem funktioniert es nicht
+    /*
+    public String getPossession() {
         StringBuilder result = new StringBuilder();
 
         result.append("owned countries:  ");
@@ -76,9 +58,7 @@ public class Player {
 
 
 
-    /*public String getBesitz() {
-     * 
-
+    public String getBesitz() {
         StringBuilder result = new StringBuilder();
 
         result.append("Länder in Besitz:        ");
