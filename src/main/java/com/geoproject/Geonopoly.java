@@ -1,5 +1,5 @@
 package com.geoproject;
-import com.geoproject.gui.UI;
+import com.geoproject.gui.*;
 
 //This class runs everything.
 public class Geonopoly {

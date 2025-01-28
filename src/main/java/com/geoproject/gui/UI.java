@@ -4,25 +4,6 @@ package com.geoproject.gui;
 //Authors: Theodor, Timo
 //Version: 28/01/2025
 
-
-//EVENTS BLEIBEN DRAUßEN
-/*TO DO
- * - Dropdown unten hinzufügen (Detailed Info)
- * - Alles kommentieren und damit strukturieren
- * - Oben mitte reworken
- * - Alles neu zentrieren (weil es jetzt fullscreen ist)
- * - UI-Elemente müssen noch nicht funktionieren!!!
- * - aufteilung neu probieren, main buttons
- * 
- * 
-  //theo: 
-   - borders fertig machen,
-   - multiplikatoren für länder stats hizufügen
-   - map skizze schicken
-
-*/
-
-
 //Imports
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -38,11 +19,15 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 import com.geoproject.Game;
 import com.geoproject.libraries.*;
+import com.geoproject.Player;
 
 //Klasse
 public class UI extends JFrame implements ActionListener {
@@ -51,7 +36,9 @@ public class UI extends JFrame implements ActionListener {
     JLabel p1MapArea, p2MapArea;
     JTextField pTurnField, p1MoneyField, p2MoneyField;
     JComboBox<String> p1CountryDropdown, p2CountryDropdown;
-    JTextArea p1StatsArea, p2StatsArea;
+    /* JTextArea p1StatsArea, p2StatsArea; */
+    JTable p1StatsTable, p2StatsTable;
+    JScrollPane p1StatsScrollPane, p2StatsScrollPane;
 
     JButton buyCountriesButton, upgradeButton, eventManagerButton;
     JPanel subPanel;
@@ -60,7 +47,6 @@ public class UI extends JFrame implements ActionListener {
     
     JButton[] subButtons1, subButtons2, subSubButtons2[], subButtons3, subSubButtons3[];
     JButton[] buttons;
-    JButton backbutton;
 
     Game game = new Game();
     
@@ -72,8 +58,6 @@ public class UI extends JFrame implements ActionListener {
     //Erstellt eine neue GUI
     private void createNewUI() {
         //Optimieren und kommentieren!!!!!!!!
-        //evtl. für jeden spieler eine karte mit den besitzten ländern farblich markiert und wenn draufdrücken, dann die wwerte dieses eines landes vom spieler anzeigen
-        //oder abhängig vom gedrüchten hauptbutton ein droppdown menü anzeigen, wo man eben das anzuzeigende land/eveltklasse/... auswählen kann
         //oder zeile 99 scroll leayout nutzen
         //benennung der buttons klären(allgemeines konzept)
         //überhaupt schlau, die UI so zu machen, und nicht zb droppdown, wo ein land auswählen und dann die werte angezeigt bekommt oder man es kaufen kann
@@ -87,6 +71,7 @@ public class UI extends JFrame implements ActionListener {
         frame = new JFrame("Geonopoly");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(null);
+        frame.setSize(1600, 940);
         
         //Fenster wird automatisch auf Fullscreen gesetzt, Layout muss noch angepasst werden
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -106,26 +91,42 @@ public class UI extends JFrame implements ActionListener {
         pTurnField.setBounds(10, 10, 100, 30);
         pTurnField.setEditable(false);
 
-        //TextAreas für die Stats beider Spieler
+        /*//TextAreas für die Stats beider Spieler
         p1StatsArea = new JTextArea("Property (P1): -");
-        p1StatsArea.setBounds(120, 200, 660, 120);
+        p1StatsArea.setBounds(10, 200, 945, 120);
         p1StatsArea.setEditable(false);
         p1StatsArea.setLineWrap(true);
         p1StatsArea.setWrapStyleWord(true);
         
         p2StatsArea = new JTextArea("Property (P2): -");
-        p2StatsArea.setBounds(790, 200, 660, 120);
+        p2StatsArea.setBounds(965, 200, 945, 120);
         p2StatsArea.setEditable(false);
         p2StatsArea.setLineWrap(true);
         p2StatsArea.setWrapStyleWord(true);
+         */
+
+        // Initialize tables for player stats
+        p1StatsTable = new JTable();
+        p1StatsTable.setShowGrid(false);
+        p1StatsTable.setIntercellSpacing(new Dimension(0, 0));
+        p1StatsTable.getTableHeader().setUI(null);
+        p1StatsScrollPane = new JScrollPane(p1StatsTable);
+        p1StatsScrollPane.setBounds(120, 200, 835, 120);
+        
+        p2StatsTable = new JTable();
+        p2StatsTable.setShowGrid(false);
+        p2StatsTable.setIntercellSpacing(new Dimension(0, 0));
+        p2StatsTable.getTableHeader().setUI(null);
+        p2StatsScrollPane = new JScrollPane(p2StatsTable);
+        p2StatsScrollPane.setBounds(965, 200, 835, 120);
         
         //TextField für den Kontostand beider Spieler
         p1MoneyField = new JTextField("Money (P1): ----");
-        p1MoneyField.setBounds(1460, 10, 115, 30);
+        p1MoneyField.setBounds(1795, 10, 115, 30);
         p1MoneyField.setEditable(false);
         
         p2MoneyField = new JTextField("Money (P2): ----");
-        p2MoneyField.setBounds(1460, 50, 115, 30);
+        p2MoneyField.setBounds(1795, 50, 115, 30);
         p2MoneyField.setEditable(false);
 
         //Bitte erklären, was das alles ist
@@ -135,24 +136,17 @@ public class UI extends JFrame implements ActionListener {
         p2CountryDropdown = new JComboBox<>();
         p2CountryDropdown.setBounds(790, 170, 660, 30);
 
-        backbutton = new JButton("back");
-        backbutton.setBounds(10, 50, 100, 30);
-        backbutton.addActionListener(this);
-        backbutton.setEnabled(true);
-        frame.add(backbutton);
-
-
-        //Für später
+        //WTF
         p1MapArea = new JLabel("Hier Platz für Karte der besitzten länder(P1)");
         p1MapArea.setBounds(380, 70, 660, 30);
         
         p2MapArea = new JLabel("Hier Platz für Karte der besitzten länder(P2)");
         p2MapArea.setBounds(1050, 70, 660, 30);
 
-        //Fontgrößen der Buttons
+        //WTF
         Font buttonFont = new Font("Arial", Font.CENTER_BASELINE, 14);//increase size after deciding about he questions about naming
 
-        /*Hier grob erklären, wie deine Submenüs funktionieren*/
+        //Du musst mir mal erklären, wie deine Submenüs funktionieren
         buyCountriesButton = new JButton("buy (-countries?)");
         buyCountriesButton.setBounds(500, 350, 180, 50);
         buyCountriesButton.setFont(buttonFont);
@@ -173,8 +167,9 @@ public class UI extends JFrame implements ActionListener {
         
         finishTurnButton = new JButton("finish turn");
         finishTurnButton.setBounds(1350, 370, 100, 30);
+        // backButton = new JButton("back");
         
-        buttons = new JButton[] {buyCountriesButton, upgradeButton, eventManagerButton, finishTurnButton};
+        buttons = new JButton[] {buyCountriesButton, upgradeButton, eventManagerButton, /*backButton,*/ finishTurnButton};
 
         for (JButton button : buttons) {
             button.addActionListener(this);
@@ -184,14 +179,16 @@ public class UI extends JFrame implements ActionListener {
         frame.getContentPane().removeAll();
         subPanel.removeAll();
 
-        testValues();
+        testValues();                                                                   //for tests
         UIupdate();
 
         frame.add(pTurnField);
         frame.add(p1MoneyField);
         frame.add(p2MoneyField);
-        frame.add(p1StatsArea);
-        frame.add(p2StatsArea);
+        frame.add(p1StatsScrollPane);
+        frame.add(p2StatsScrollPane);
+        /*frame.add(p1StatsArea);
+        frame.add(p2StatsArea); */
         frame.add(p1CountryDropdown);
         frame.add(p2CountryDropdown);
         frame.add(p1MapArea);
@@ -281,9 +278,6 @@ public class UI extends JFrame implements ActionListener {
         UIupdate();
     }
 
-    //Ab hier müssen wir BEIDE alles 100% verstehen! Deshalb:
-    //1. Nichts großes ohne Absprache machen
-    //2. Alles detailiert kommentieren!
     private void showMainMenu() {
         UIupdate();
         subPanel.removeAll();
@@ -296,13 +290,14 @@ public class UI extends JFrame implements ActionListener {
 
 
     void UIupdate() {
-        p1StatsArea.setText(game.p1.getPossession());
-        p2StatsArea.setText(game.p2.getPossession());
-
+        /*p1StatsArea.setText(game.p1.getLevels());
+        p2StatsArea.setText(game.p2.getLevels()); */
         p1MoneyField.setText("Money (P1): " + game.p1.playerMoney);
         p2MoneyField.setText("Money (P2): " + game.p2.playerMoney);
         pTurnField.setText("Player " + game.currentPlayerValue + "'s turn");
         updateCountryDropdowns();
+        updateStatsTable(p1StatsTable, game.p1);
+        updateStatsTable(p2StatsTable, game.p2);
     }
 
     void updateCountryDropdowns() {
@@ -357,7 +352,8 @@ public class UI extends JFrame implements ActionListener {
                         subButtons2[i].setEnabled(false);
                     }
                 }
-            } case 3 -> {
+            }
+            /*case 3 -> {
                 subButtons3 = new JButton[EventLibrary.eventNames.length];
                 for (int i = 0; i < EventLibrary.eventNames.length; i++) {
                     String eventName = (i < EventLibrary.eventNames.length) ? EventLibrary.eventNames[i] + ": " + game.currentPlayer.eventValues[i][0] : "no eventname: " + i;
@@ -367,12 +363,30 @@ public class UI extends JFrame implements ActionListener {
                     subButtons3[i].setEnabled(true);
                 }
             }
-
             default -> {
             }
         }
+        //Wo gehört das hier hin?
         subPanel.revalidate();
         subPanel.repaint();
+        
+        //Wofür ist das und warum ist es ein Kommentar?
+            /*
+            case 2 -> {
+                int ownedCountriesCount = 0;
+                for (int i = 0; i < game.currentPlayer.countryValues.length; i++) {
+                    if (game.currentPlayer.countryValues[i][0] == 1) {
+                        ownedCountriesCount++;
+                    }
+                }
+
+                subButtons = new JButton[CountryLibrary.StatNames.length];
+                for (int i = 0; i < CountryLibrary.StatNames.length; i++) {
+                    subButtons[i] = new JButton(CountryLibrary.StatNames[i][0]);
+                    subPanel.add(subButtons[i]);
+                }
+            }*/
+        }
     }
 
     //Was macht das?
@@ -386,13 +400,13 @@ public class UI extends JFrame implements ActionListener {
                 subSubPanel.add(subSubButtons2[buttonPressed][i]);
             }
         } else if (MainButtonNumber == 3) {
-            subSubButtons3[buttonPressed] = new JButton[EventLibrary.statNames.length + 2];
+            //subSubButtons3[buttonPressed] = new JButton[EventLibrary.statNames.length + 2];
             int k = 0;
-            for (k = 0; k < EventLibrary.statNames.length; k++) {
+            /*for (k = 0; k < EventLibrary.statNames.length; k++) {
                 subSubButtons3[buttonPressed][k] = new JButton(EventLibrary.statNames[k] + " = " + game.currentPlayer.eventValues[buttonPressed][k]);
                 subSubButtons3[buttonPressed][k].addActionListener(this);
                 subSubPanel.add(subSubButtons3[buttonPressed][k]);
-            }
+            }*/
             subSubButtons3[buttonPressed][k] = new JButton("buy");
             subSubButtons3[buttonPressed][k].addActionListener(this);
             subSubPanel.add(subSubButtons3[buttonPressed][k]);
@@ -403,6 +417,28 @@ public class UI extends JFrame implements ActionListener {
         }
         subSubPanel.revalidate();
         subSubPanel.repaint();
+    }
+
+    void updateStatsTable(JTable table, Player player) {
+        String[] columnNames = new String[CountryLibrary.statNames.length + 1];
+        columnNames[0] = "Country";
+        for (int i = 0; i < CountryLibrary.statNames.length; i++) {
+            columnNames[i + 1] = CountryLibrary.statNames[i][1];
+        }
+
+        DefaultTableModel model = new DefaultTableModel(0, columnNames.length);
+        for (int i = 0; i < player.countryValues.length; i++) {
+            if (player.countryValues[i][0] == 1) {
+                Object[] row = new Object[columnNames.length];
+                row[0] = (i < CountryLibrary.countryNames.length) ? CountryLibrary.countryNames[i] : "no countryname: " + i;
+                for (int j = 1; j < row.length; j++) {
+                    row[j] = CountryLibrary.statNames[j - 1][1] + ": " + player.countryValues[i][j];
+                }
+                model.addRow(row);
+            }
+        }
+        table.setModel(model);
+        table.getColumnModel().getColumn(0).setPreferredWidth(150); // Set preferred width for the first column
     }
 
     //Wir müssen das ASAP hier wegkriegen
@@ -419,11 +455,11 @@ public class UI extends JFrame implements ActionListener {
         game.currentPlayer.countryValues[7][0] = 1;
         game.currentPlayer.countryValues[1][1] = 2;
         game.currentPlayer.countryValues[2][1] = 3;
-        game.currentPlayer.countryValues[3][1] = 4;
+        game.currentPlayer.countryValues[3][6] = 4;
         game.currentPlayer.countryValues[4][2] = 5;
         game.currentPlayer.countryValues[5][2] = 6;
         game.currentPlayer.countryValues[6][3] = 7;
-        game.currentPlayer.countryValues[7][3] = 8;
+        game.currentPlayer.countryValues[7][7] = 8;
         game.currentPlayer.countryValues[1][1] = 12;
         game.currentPlayer.countryValues[2][2] = 13;
         game.currentPlayer.countryValues[3][3] = 14;
