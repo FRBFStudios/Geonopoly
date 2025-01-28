@@ -1,7 +1,8 @@
 package com.geoproject;
+import com.geoproject.libraries.CountryLibrary;
 
 public class Player {
-    public int playerMoney;
+    public int playerMoney = 1000;
     
     public int[][] countryValues = new int[33][8];
     public int[][] eventValues = new int[50][2]; //NUR BEISPIELHAFT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -10,9 +11,7 @@ public class Player {
         countryValues[defaultCountry][0] = 1;
     }
     
-    //Das hier muss optimiert und kommentiert werden
-    //Außerdem funktioniert es nicht
-    /*
+    //Das hier muss kommentiert werden
     public String getPossession() {
         StringBuilder result = new StringBuilder();
 
@@ -54,28 +53,4 @@ public class Player {
         }
         return result.toString().trim();
     }
-    
-
-
-
-    public String getBesitz() {
-        StringBuilder result = new StringBuilder();
-
-        result.append("Länder in Besitz:        ");
-
-        result.append(besitzt_de == 1 ? "Deutschland     "   : "");
-        result.append(besitzt_china == 1 ? "China     "   : "");
-        result.append(besitzt_chile == 1 ? "Chile     "   : "");
-        result.append(besitzt_usa == 1 ? "USA     "   : "");
-
-        result.append("\nDeutschland:   ");
-
-        if (deEdelsteinLevel != 0) result.append("Edelsteinlevel: ").append(deEdelsteinLevel).append("        ");
-        if (deWaldLevel != 0) result.append("Waldlevel: ").append(deWaldLevel).append("        ");
-        if (deIndustrieLevel != 0) result.append("Industrielevel: ").append(deIndustrieLevel).append("        ");
-        if (deLandwirtschaftLevel != 0) result.append("Landwirtschaftslevel: ").append(deLandwirtschaftLevel);
-
-        
-        return result.toString().trim();
-    }*/
 }
