@@ -32,7 +32,7 @@ import javax.swing.JTextField;
 
 import com.geoproject.Game;
 import com.geoproject.libraries.CountryLibrary;
-//import com.geoproject.libraries.EventLibrary;
+import com.geoproject.libraries.EventLibrary;
 
 //Klasse
 public class UI extends JFrame implements ActionListener {
@@ -46,7 +46,6 @@ public class UI extends JFrame implements ActionListener {
     JButton buyCountriesButton, upgradeButton, eventManagerButton;
     JPanel subPanel;
     JPanel subSubPanel;
-    // JButton backButton;
     JButton finishTurnButton;
     
     JButton[] subButtons1, subButtons2, subSubButtons2[], subButtons3, subSubButtons3[];
@@ -167,7 +166,7 @@ public class UI extends JFrame implements ActionListener {
         frame.getContentPane().removeAll();
         subPanel.removeAll();
 
-        testValues();                                                                   //for tests
+        testValues();
         UIupdate();
 
         frame.add(pTurnField);
@@ -184,11 +183,10 @@ public class UI extends JFrame implements ActionListener {
         frame.add(eventManagerButton);
         frame.add(subPanel);
         frame.add(subSubPanel);
-        // frame.add(backButton);
         frame.add(finishTurnButton);
         frame.setVisible(true);
         subSubButtons2 = new JButton[CountryLibrary.countryNames.length][];
-        //subSubButtons3 = new JButton[EventLibrary.eventNames.length][];
+        subSubButtons3 = new JButton[EventLibrary.eventNames.length][];
     }
 
     @Override
@@ -205,7 +203,6 @@ public class UI extends JFrame implements ActionListener {
             showMainMenu();
             updateSubPanel(3);
             System.out.println("eventManager pressed");
-        // } else if (e.getSource() == backButton) {
         } else if (e.getSource() == finishTurnButton) {
             System.out.println("finish turn pressed");
             game.switchPlayer();
@@ -342,8 +339,7 @@ public class UI extends JFrame implements ActionListener {
                         subButtons2[i].setEnabled(false);
                     }
                 }
-            }
-            /*case 3 -> {
+            } case 3 -> {
                 subButtons3 = new JButton[EventLibrary.eventNames.length];
                 for (int i = 0; i < EventLibrary.eventNames.length; i++) {
                     String eventName = (i < EventLibrary.eventNames.length) ? EventLibrary.eventNames[i] + ": " + game.currentPlayer.eventValues[i][0] : "no eventname: " + i;
@@ -352,7 +348,7 @@ public class UI extends JFrame implements ActionListener {
                     subPanel.add(subButtons3[i]);
                     subButtons3[i].setEnabled(true);
                 }
-            }*/
+            }
 
             default -> {
             }
@@ -372,13 +368,13 @@ public class UI extends JFrame implements ActionListener {
                 subSubPanel.add(subSubButtons2[buttonPressed][i]);
             }
         } else if (MainButtonNumber == 3) {
-            //subSubButtons3[buttonPressed] = new JButton[EventLibrary.statNames.length + 2];
+            subSubButtons3[buttonPressed] = new JButton[EventLibrary.statNames.length + 2];
             int k = 0;
-            /*for (k = 0; k < EventLibrary.statNames.length; k++) {
+            for (k = 0; k < EventLibrary.statNames.length; k++) {
                 subSubButtons3[buttonPressed][k] = new JButton(EventLibrary.statNames[k] + " = " + game.currentPlayer.eventValues[buttonPressed][k]);
                 subSubButtons3[buttonPressed][k].addActionListener(this);
                 subSubPanel.add(subSubButtons3[buttonPressed][k]);
-            }*/
+            }
             subSubButtons3[buttonPressed][k] = new JButton("buy");
             subSubButtons3[buttonPressed][k].addActionListener(this);
             subSubPanel.add(subSubButtons3[buttonPressed][k]);
