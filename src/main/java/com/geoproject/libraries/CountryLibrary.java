@@ -8,7 +8,6 @@ public class CountryLibrary
 {
     @SuppressWarnings("unused")
     public static int[][] borders = new int[][] {
-        {0, 0, 0, 0, 0, 0},//NULL
         {2, 3, 4, 5, 6, 7},//DE
         {1, 3, 5, 8, 0, 0},//BENELUX
         {1, 2, 4, 9, 19, 23},//DEN
@@ -25,7 +24,7 @@ public class CountryLibrary
     };
 
     @SuppressWarnings("unused")
-    public static String[] countryNames = new String[] {"Kein Land", "Deutschland", "BeNeLux", "Dänemark", "Polen", "Frankreich",
+    public static String[] countryNames = new String[] {"Deutschland", "BeNeLux", "Dänemark", "Polen", "Frankreich",
             "Tschechien", "Österreich und Schweiz", "Vereinigtes Königreich", "Skandinavien", "Baltikum", "Finnland",
             "Slowakei", "Ukraine", "Spanien", "Italien", "Slowenien", "Ungarn", "Irland", "Island", "Vereinigte Staaten",
             "Russland", "Belarus", "Kanada", "Romänien"};
