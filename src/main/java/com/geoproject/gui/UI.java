@@ -4,6 +4,14 @@ package com.geoproject.gui;
 //Authors: Theodor, Timo
 //Version: 28/01/2025
 
+/*TO DO
+ * - Dropdown unten hinzufügen (Detailed Info)
+ * - Alles kommentieren und damit strukturieren
+ * - Oben mitte reworken
+ * - Alles neu zentrieren (weil es jetzt fullscreen ist)
+ * - UI-Elemente müssen noch nicht funktionieren!!!
+ */
+
 //Imports
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -69,7 +77,6 @@ public class UI extends JFrame implements ActionListener {
         frame = new JFrame("Geonopoly");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(null);
-        frame.setSize(1600, 940);
         
         //Fenster wird automatisch auf Fullscreen gesetzt, Layout muss noch angepasst werden
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -118,17 +125,17 @@ public class UI extends JFrame implements ActionListener {
         p2CountryDropdown = new JComboBox<>();
         p2CountryDropdown.setBounds(790, 170, 660, 30);
 
-        //WTF
+        //Für später
         p1MapArea = new JLabel("Hier Platz für Karte der besitzten länder(P1)");
         p1MapArea.setBounds(380, 70, 660, 30);
         
         p2MapArea = new JLabel("Hier Platz für Karte der besitzten länder(P2)");
         p2MapArea.setBounds(1050, 70, 660, 30);
 
-        //WTF
+        //Fontgrößen der Buttons
         Font buttonFont = new Font("Arial", Font.CENTER_BASELINE, 14);//increase size after deciding about he questions about naming
 
-        //Du musst mir mal erklären, wie deine Submenüs funktionieren
+        /*Hier grob erklären, wie deine Submenüs funktionieren*/
         buyCountriesButton = new JButton("buy (-countries?)");
         buyCountriesButton.setBounds(500, 350, 180, 50);
         buyCountriesButton.setFont(buttonFont);
@@ -149,9 +156,8 @@ public class UI extends JFrame implements ActionListener {
         
         finishTurnButton = new JButton("finish turn");
         finishTurnButton.setBounds(1350, 370, 100, 30);
-        // backButton = new JButton("back");
         
-        buttons = new JButton[] {buyCountriesButton, upgradeButton, eventManagerButton, /*backButton,*/ finishTurnButton};
+        buttons = new JButton[] {buyCountriesButton, upgradeButton, eventManagerButton, finishTurnButton};
 
         for (JButton button : buttons) {
             button.addActionListener(this);
@@ -260,6 +266,9 @@ public class UI extends JFrame implements ActionListener {
         UIupdate();
     }
 
+    //Ab hier müssen wir BEIDE alles 100% verstehen! Deshalb:
+    //1. Nichts großes ohne Absprache machen
+    //2. Alles detailiert kommentieren!
     private void showMainMenu() {
         UIupdate();
         subPanel.removeAll();
@@ -272,10 +281,9 @@ public class UI extends JFrame implements ActionListener {
 
 
     void UIupdate() {
-        /* Kommentiert, da getPossession noch nicht funktional ist
         p1StatsArea.setText(game.p1.getPossession());
         p2StatsArea.setText(game.p2.getPossession());
-        */
+
         p1MoneyField.setText("Money (P1): " + game.p1.playerMoney);
         p2MoneyField.setText("Money (P2): " + game.p2.playerMoney);
         pTurnField.setText("Player " + game.currentPlayerValue + "'s turn");
@@ -344,31 +352,13 @@ public class UI extends JFrame implements ActionListener {
                     subPanel.add(subButtons3[i]);
                     subButtons3[i].setEnabled(true);
                 }
-            }
+            }*/
+
             default -> {
             }
         }
-        //Wo gehört das hier hin?
         subPanel.revalidate();
         subPanel.repaint();
-        
-        //Wofür ist das und warum ist es ein Kommentar?
-            /*
-            case 2 -> {
-                int ownedCountriesCount = 0;
-                for (int i = 0; i < game.currentPlayer.countryValues.length; i++) {
-                    if (game.currentPlayer.countryValues[i][0] == 1) {
-                        ownedCountriesCount++;
-                    }
-                }
-
-                subButtons = new JButton[CountryLibrary.StatNames.length];
-                for (int i = 0; i < CountryLibrary.StatNames.length; i++) {
-                    subButtons[i] = new JButton(CountryLibrary.StatNames[i][0]);
-                    subPanel.add(subButtons[i]);
-                }
-            }*/
-        }
     }
 
     //Was macht das?
