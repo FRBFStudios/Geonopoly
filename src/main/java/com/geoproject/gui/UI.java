@@ -4,13 +4,24 @@ package com.geoproject.gui;
 //Authors: Theodor, Timo
 //Version: 28/01/2025
 
+
+//EVENTS BLEIBEN DRAUßEN
 /*TO DO
  * - Dropdown unten hinzufügen (Detailed Info)
  * - Alles kommentieren und damit strukturieren
  * - Oben mitte reworken
  * - Alles neu zentrieren (weil es jetzt fullscreen ist)
  * - UI-Elemente müssen noch nicht funktionieren!!!
- */
+ * - aufteilung neu probieren, main buttons
+ * 
+ * 
+  //theo: 
+   - borders fertig machen,
+   - multiplikatoren für länder stats hizufügen
+   - map skizze schicken
+
+*/
+
 
 //Imports
 import java.awt.Dimension;
@@ -31,8 +42,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import com.geoproject.Game;
-import com.geoproject.libraries.CountryLibrary;
-import com.geoproject.libraries.EventLibrary;
+import com.geoproject.libraries.*;
 
 //Klasse
 public class UI extends JFrame implements ActionListener {
@@ -50,6 +60,7 @@ public class UI extends JFrame implements ActionListener {
     
     JButton[] subButtons1, subButtons2, subSubButtons2[], subButtons3, subSubButtons3[];
     JButton[] buttons;
+    JButton backbutton;
 
     Game game = new Game();
     
@@ -123,6 +134,13 @@ public class UI extends JFrame implements ActionListener {
         
         p2CountryDropdown = new JComboBox<>();
         p2CountryDropdown.setBounds(790, 170, 660, 30);
+
+        backbutton = new JButton("back");
+        backbutton.setBounds(10, 50, 100, 30);
+        backbutton.addActionListener(this);
+        backbutton.setEnabled(true);
+        frame.add(backbutton);
+
 
         //Für später
         p1MapArea = new JLabel("Hier Platz für Karte der besitzten länder(P1)");

@@ -2,7 +2,7 @@ package com.geoproject;
 
 //Verknüpft Daten aus allen Klassen und liefert Updates an die GUI.
 
-import com.geoproject.libraries.CountryLibrary;
+import com.geoproject.libraries.*;
 
 //Authors: Theodor, Timo
 //Version: 28/1/2025

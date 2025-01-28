@@ -1,5 +1,5 @@
 package com.geoproject;
-import com.geoproject.libraries.CountryLibrary;
+import com.geoproject.libraries.*;
 
 public class Player {
     public int playerMoney = 1000;
