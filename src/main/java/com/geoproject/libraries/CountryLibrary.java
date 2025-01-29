@@ -25,6 +25,12 @@ public class CountryLibrary
     };
 
     @SuppressWarnings("unused")
+	public static int[][] countryStats = new int[][] {
+	{0,0},
+	{0,0}
+	};  //bitte Verfollständigen!
+
+    @SuppressWarnings("unused")
     public static String[] countryNames = new String[] {"Deutschland", "BeNeLux", "Dänemark", "Polen", "Frankreich",
             "Tschechien", "Österreich und Schweiz", "Vereinigtes Königreich", "Skandinavien", "Baltikum", "Finnland",
             "Slowakei", "Ukraine", "Spanien", "Italien", "Slowenien", "Ungarn", "Irland", "Island", "Vereinigte Staaten",
