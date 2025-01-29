@@ -71,7 +71,6 @@ public class UI extends JFrame implements ActionListener {
         frame = new JFrame("Geonopoly");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(null);
-        frame.setSize(1600, 940);
         
         //Fenster wird automatisch auf Fullscreen gesetzt, Layout muss noch angepasst werden
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
