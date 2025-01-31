@@ -21,7 +21,8 @@ package com.geoproject.gui;
 
 */
 
-
+import java.awt.*;
+import java.awt.event.*;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -30,6 +31,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.Color;
 
 import javax.swing.*;
 import javax.swing.JButton;
@@ -41,6 +45,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 
 import com.geoproject.Game;
@@ -70,6 +76,8 @@ public class UI extends JFrame implements ActionListener {
     
     JTextField searchBar;
     JLabel searchResultsLabel;
+    JTable searchResultsTable;
+    JScrollPane searchResultsScrollPane;
 
     //Konstruktor
     public UI() {
@@ -95,17 +103,19 @@ public class UI extends JFrame implements ActionListener {
         frame.setSize(1600, 940);
         
         //Fenster wird automatisch auf Fullscreen gesetzt, Layout muss noch angepasst werden
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        //Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         
-        frame.setSize(screenSize.width, screenSize.height);
-        frame.setLocationRelativeTo(null);
+        //bitte so lasssen, sonnst verschwindel manche elemente
+        frame.setSize(1920, 1040);
+        //frame.setLocationRelativeTo(null);
 
-        frame.addWindowListener(new WindowAdapter() {
+        //bitte weglassen, worgt nur für porbleme wenn auf anderen monitoren geöffnet usw.
+        /*frame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowOpened(WindowEvent e) {
                 frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
             }
-        });
+        });*/
 
         //Zeigt den Spieler an, der am Zug ist
         pTurnField = new JTextField("Player -'s turn");
@@ -132,14 +142,14 @@ public class UI extends JFrame implements ActionListener {
         p1StatsTable.setIntercellSpacing(new Dimension(0, 0));
         p1StatsTable.getTableHeader().setUI(null);
         p1StatsScrollPane = new JScrollPane(p1StatsTable);
-        p1StatsScrollPane.setBounds(120, 200, 835, 120);
+        p1StatsScrollPane.setBounds(120, 200, 815, 120);
         
         p2StatsTable = new JTable();
         p2StatsTable.setShowGrid(false);
         p2StatsTable.setIntercellSpacing(new Dimension(0, 0));
         p2StatsTable.getTableHeader().setUI(null);
         p2StatsScrollPane = new JScrollPane(p2StatsTable);
-        p2StatsScrollPane.setBounds(965, 200, 835, 120);
+        p2StatsScrollPane.setBounds(965, 200, 815, 120);
         
         //TextField für den Kontostand beider Spieler
         p1MoneyField = new JTextField("Money (P1): ----");
@@ -165,32 +175,31 @@ public class UI extends JFrame implements ActionListener {
         p2MapArea.setBounds(1050, 70, 660, 30);
 
         //WTF
-        Font buttonFont = new Font("Arial", Font.CENTER_BASELINE, 14);//increase size after deciding about he questions about naming
+        Font buttonFont = new Font("Arial", Font.CENTER_BASELINE, 15);
 
         //Du musst mir mal erklären, wie deine Submenüs funktionieren
-        buyCountriesButton = new JButton("buy (-countries?)");
-        buyCountriesButton.setBounds(500, 350, 180, 50);
+        buyCountriesButton = new JButton("buy countries");
+        buyCountriesButton.setBounds(660, 350, 180, 50);
         buyCountriesButton.setFont(buttonFont);
         
-        upgradeButton = new JButton("upgrade(econ.&events?)");
-        upgradeButton.setBounds(700, 350, 180, 50);
+        upgradeButton = new JButton("upgrade economy");
+        upgradeButton.setBounds(860, 350, 180, 50);
         upgradeButton.setFont(buttonFont);
         
-        eventManagerButton = new JButton("manage (-events?)");
-        eventManagerButton.setBounds(900, 350, 180, 50);
+        eventManagerButton = new JButton("manage events");
+        eventManagerButton.setBounds(1060, 350, 180, 50);
         eventManagerButton.setFont(buttonFont);
         
-        subPanel = new JPanel(new FlowLayout()); //hier gab es scroll layout, vielleicht auch für property nutzen!
+        subPanel = new JPanel(new FlowLayout());
         subPanel.setBounds(120, 450, 1330, 120);
         
         subSubPanel = new JPanel(new FlowLayout());
         subSubPanel.setBounds(120, 580, 1330, 120);
         
         finishTurnButton = new JButton("finish turn");
-        finishTurnButton.setBounds(1350, 370, 100, 30);
-        // backButton = new JButton("back");
+        finishTurnButton.setBounds(1600, 370, 100, 30);
         
-        buttons = new JButton[] {buyCountriesButton, upgradeButton, eventManagerButton, /*backButton,*/ finishTurnButton};
+        buttons = new JButton[] {buyCountriesButton, upgradeButton, eventManagerButton, finishTurnButton};
 
         for (JButton button : buttons) {
             button.addActionListener(this);
@@ -198,17 +207,45 @@ public class UI extends JFrame implements ActionListener {
         }
 
         // Initialize search bar
-        searchBar = new JTextField();
-        searchBar.setBounds((frame.getWidth() - 400) / 2, frame.getHeight() - 50, 400, 30);
-        searchBar.addActionListener(this);
-        
-        // Initialize search results label
-        searchResultsLabel = new JLabel();
-        searchResultsLabel.setBounds((frame.getWidth() - 400) / 2, frame.getHeight() - 100, 400, 30);
-        
-        // Add the search bar and results label to the frame
-        frame.add(searchBar);
-        frame.add(searchResultsLabel);
+        searchBar = new JTextField("Search...");
+        searchBar.setBounds(/*(frame.getWidth() - 400)*/800, 960, 360, 30);
+        searchBar.setForeground(Color.GRAY);
+        searchBar.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                // if (searchBar.getText().equals("Search...")) {
+                    searchBar.setText("");
+                    searchBar.setForeground(Color.BLACK);
+                // }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (searchBar.getText().isEmpty()) {
+                    searchBar.setForeground(Color.GRAY);
+                    searchBar.setText("Search...");
+                }
+            }
+        });
+        searchBar.getDocument().addDocumentListener(new DocumentListener() {
+            public void changedUpdate(DocumentEvent e) {
+                updateSearchResults();
+            }
+            public void removeUpdate(DocumentEvent e) {
+                updateSearchResults();
+            }
+            public void insertUpdate(DocumentEvent e) {
+                updateSearchResults();
+            }
+        });
+
+        // Initialize search results table
+        searchResultsTable = new JTable();
+        searchResultsTable.setShowGrid(false);
+        searchResultsTable.setIntercellSpacing(new Dimension(0, 0));
+        searchResultsTable.getTableHeader().setUI(null);
+        searchResultsScrollPane = new JScrollPane(searchResultsTable);
+        searchResultsScrollPane.setBounds(700, 850, 560, 100);
 
         frame.getContentPane().removeAll();
         subPanel.removeAll();
@@ -217,6 +254,8 @@ public class UI extends JFrame implements ActionListener {
         testValues();                                                                   //for tests
         UIupdate();
 
+        frame.add(searchBar);
+        frame.add(searchResultsScrollPane);
         frame.add(pTurnField);
         frame.add(p1MoneyField);
         frame.add(p2MoneyField);
@@ -423,7 +462,6 @@ public class UI extends JFrame implements ActionListener {
             default -> {
             }
         }
-        //Wo gehört das hier hin?
         subPanel.revalidate();
         subPanel.repaint();
         
@@ -496,6 +534,25 @@ public class UI extends JFrame implements ActionListener {
         }
         table.setModel(model);
         table.getColumnModel().getColumn(0).setPreferredWidth(150); // Set preferred width for the first column
+    }
+
+    private void updateSearchResults() {
+        String query = searchBar.getText().toLowerCase();
+        DefaultTableModel model = new DefaultTableModel(new String[]{"Results"}, 0);
+
+        for (String countryName : CountryLibrary.countryNames) {
+            if (countryName.toLowerCase().contains(query)) {
+                model.addRow(new Object[]{countryName});
+            }
+        }
+
+        for (String eventName : EventLibrary.eventNames) {
+            if (eventName.toLowerCase().contains(query)) {
+                model.addRow(new Object[]{eventName});
+            }
+        }
+
+        searchResultsTable.setModel(model);
     }
 
     //Wir müssen das ASAP hier wegkriegen
