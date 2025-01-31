@@ -4,8 +4,7 @@ package com.geoproject.gui;
 //Authors: Theodor, Timo
 //Version: 28/01/2025
 
-//Imports
-//EVENTS BLEIBEN DRAUßEN
+//Imports//EVENTS BLEIBEN DRAUßEN
 /*TO DO
  * - Dropdown unten hinzufügen (Detailed Info)
  * - Alles kommentieren und damit strukturieren
@@ -21,6 +20,7 @@ package com.geoproject.gui;
    - map skizze schicken
 
 */
+
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
