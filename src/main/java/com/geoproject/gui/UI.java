@@ -51,6 +51,9 @@ public class UI extends JFrame implements ActionListener {
 
     Game game = new Game();
     
+    JTextField searchBar;
+    JLabel searchResultsLabel;
+
     //Konstruktor
     public UI() {
         createNewUI();
@@ -177,8 +180,22 @@ public class UI extends JFrame implements ActionListener {
             button.setEnabled(true);
         }
 
+        // Initialize search bar
+        searchBar = new JTextField();
+        searchBar.setBounds((frame.getWidth() - 400) / 2, frame.getHeight() - 50, 400, 30);
+        searchBar.addActionListener(this);
+        
+        // Initialize search results label
+        searchResultsLabel = new JLabel();
+        searchResultsLabel.setBounds((frame.getWidth() - 400) / 2, frame.getHeight() - 100, 400, 30);
+        
+        // Add the search bar and results label to the frame
+        frame.add(searchBar);
+        frame.add(searchResultsLabel);
+
         frame.getContentPane().removeAll();
         subPanel.removeAll();
+        subSubPanel.removeAll();
 
         testValues();                                                                   //for tests
         UIupdate();
@@ -224,6 +241,24 @@ public class UI extends JFrame implements ActionListener {
             System.out.println("finish turn pressed");
             game.switchPlayer();
             showMainMenu();
+        } else if (e.getSource() == searchBar) {
+            String query = searchBar.getText().toLowerCase();
+            StringBuilder results = new StringBuilder("<html>");
+            
+            for (String countryName : CountryLibrary.countryNames) {
+                if (countryName.toLowerCase().contains(query)) {
+                    results.append(countryName).append("<br>");
+                }
+            }
+            
+            for (String eventName : EventLibrary.eventNames) {
+                if (eventName.toLowerCase().contains(query)) {
+                    results.append(eventName).append("<br>");
+                }
+            }
+            
+            results.append("</html>");
+            searchResultsLabel.setText(results.toString());
         } else {
             if (subButtons1 != null) {
                 for (int i = 0; i < subButtons1.length; i++) {
