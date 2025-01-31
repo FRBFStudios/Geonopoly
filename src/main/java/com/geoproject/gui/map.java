@@ -1,15 +1,18 @@
 package com.geoproject.gui;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class map extends JFrame implements ActionListener {
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+public class Map extends JFrame implements ActionListener {
     private static final int WIDTH = 800;
     private static final int HEIGHT = 600;
 
-    public map() {
+    public Map() {
         setTitle("Map Visualizations");
         setSize(WIDTH, HEIGHT);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -70,6 +73,7 @@ public class map extends JFrame implements ActionListener {
     }
 
     public static void main(String[] args) {
-        new map();
+        @SuppressWarnings("unused")
+        Map testmap = new Map();
     }
 }
