@@ -5,6 +5,23 @@ package com.geoproject.gui;
 //Version: 28/01/2025
 
 //Imports
+//EVENTS BLEIBEN DRAUßEN
+/*TO DO
+ * - Dropdown unten hinzufügen (Detailed Info)
+ * - Alles kommentieren und damit strukturieren
+ * - Oben mitte reworken
+ * - Alles neu zentrieren (weil es jetzt fullscreen ist)
+ * - UI-Elemente müssen noch nicht funktionieren!!!
+ * - aufteilung neu probieren, main buttons
+ * 
+ * 
+  //theo: 
+   - borders fertig machen,
+   - multiplikatoren für länder stats hizufügen
+   - map skizze schicken
+
+*/
+
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
