@@ -71,7 +71,7 @@ public class Map extends JFrame implements ActionListener {
         JButton source = (JButton) e.getSource();
         System.out.println("Country clicked: " + source.getText());
     }
-
+    
     public static void main(String[] args) {
         @SuppressWarnings("unused")
         Map testmap = new Map();

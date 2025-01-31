@@ -28,7 +28,7 @@ public class CountryLibrary
 	public static int[][] countryStats = new int[][] {
 	{0,0},
 	{0,0}
-	};  //bitte Verfollständigen!
+	};  //bitte Vervollständigen!
 
     @SuppressWarnings("unused")
     public static String[] countryNames = new String[] {"Deutschland", "BeNeLux", "Dänemark", "Polen", "Frankreich",

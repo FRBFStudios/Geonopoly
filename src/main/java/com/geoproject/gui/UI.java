@@ -14,6 +14,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import javax.swing.*;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -71,6 +72,7 @@ public class UI extends JFrame implements ActionListener {
         frame = new JFrame("Geonopoly");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(null);
+        frame.setSize(1600, 940);
         
         //Fenster wird automatisch auf Fullscreen gesetzt, Layout muss noch angepasst werden
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -203,6 +205,7 @@ public class UI extends JFrame implements ActionListener {
         subSubButtons3 = new JButton[EventLibrary.eventNames.length][];
     }
 
+    //methode zu ausführen von aktionen bei buttonklick
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == buyCountriesButton) {
@@ -277,6 +280,7 @@ public class UI extends JFrame implements ActionListener {
         UIupdate();
     }
 
+    //zeigt ein aufgeräumtes Hauptmenü an (ohne Submenüs)
     private void showMainMenu() {
         UIupdate();
         subPanel.removeAll();
@@ -287,7 +291,7 @@ public class UI extends JFrame implements ActionListener {
         subSubPanel.repaint();
     }
 
-
+    //Aktualisiert die GUI
     void UIupdate() {
         /*p1StatsArea.setText(game.p1.getLevels());
         p2StatsArea.setText(game.p2.getLevels()); */
@@ -299,6 +303,7 @@ public class UI extends JFrame implements ActionListener {
         updateStatsTable(p2StatsTable, game.p2);
     }
 
+    //NUR EIN TEST: Aktualisiert die TEST Dropdowns 
     void updateCountryDropdowns() {
         p1CountryDropdown.removeAllItems();
         p2CountryDropdown.removeAllItems();
@@ -320,6 +325,7 @@ public class UI extends JFrame implements ActionListener {
         }
     }
 
+    //zeigt die buttons für das subpanel an, je nachdem, welcher hauptbuttons gedrückt wurde, im array subbuttons1-3, um nachher zu wissen, welcher gedrückt wurde
     void updateSubPanel(int buttonPressed) {
         subPanel.removeAll();
         switch (buttonPressed) {
@@ -352,7 +358,7 @@ public class UI extends JFrame implements ActionListener {
                     }
                 }
             }
-            /*case 3 -> {
+            case 3 -> {
                 subButtons3 = new JButton[EventLibrary.eventNames.length];
                 for (int i = 0; i < EventLibrary.eventNames.length; i++) {
                     String eventName = (i < EventLibrary.eventNames.length) ? EventLibrary.eventNames[i] + ": " + game.currentPlayer.eventValues[i][0] : "no eventname: " + i;
@@ -369,26 +375,25 @@ public class UI extends JFrame implements ActionListener {
         subPanel.revalidate();
         subPanel.repaint();
         
-        //Wofür ist das und warum ist es ein Kommentar?
-            /*
-            case 2 -> {
-                int ownedCountriesCount = 0;
-                for (int i = 0; i < game.currentPlayer.countryValues.length; i++) {
-                    if (game.currentPlayer.countryValues[i][0] == 1) {
-                        ownedCountriesCount++;
-                    }
+        //Möchte ich mir für späteren anwendungsfall bitte merken
+        /*
+        case 2 -> {
+            int ownedCountriesCount = 0;
+            for (int i = 0; i < game.currentPlayer.countryValues.length; i++) {
+                if (game.currentPlayer.countryValues[i][0] == 1) {
+                    ownedCountriesCount++;
                 }
+            }
 
-                subButtons = new JButton[CountryLibrary.StatNames.length];
-                for (int i = 0; i < CountryLibrary.StatNames.length; i++) {
-                    subButtons[i] = new JButton(CountryLibrary.StatNames[i][0]);
-                    subPanel.add(subButtons[i]);
-                }
-            }*/
-        }
+            subButtons = new JButton[CountryLibrary.StatNames.length];
+            for (int i = 0; i < CountryLibrary.StatNames.length; i++) {
+                subButtons[i] = new JButton(CountryLibrary.StatNames[i][0]);
+                subPanel.add(subButtons[i]);
+            }
+        }*/
     }
 
-    //Was macht das?
+    //zeigt die buttons für das subsubpanel an, je nachdem, welcher hauptbuttons gedrückt wurde, im array subsubbuttons2-3, um nachher zu wissen, welcher gedrückt wurde
     void updateSubSubPanel(int buttonPressed, int MainButtonNumber) {
         subSubPanel.removeAll();
         if (MainButtonNumber == 2) {    
@@ -399,13 +404,13 @@ public class UI extends JFrame implements ActionListener {
                 subSubPanel.add(subSubButtons2[buttonPressed][i]);
             }
         } else if (MainButtonNumber == 3) {
-            //subSubButtons3[buttonPressed] = new JButton[EventLibrary.statNames.length + 2];
+            subSubButtons3[buttonPressed] = new JButton[EventLibrary.statNames.length + 2];
             int k = 0;
-            /*for (k = 0; k < EventLibrary.statNames.length; k++) {
+            for (k = 0; k < EventLibrary.statNames.length; k++) {
                 subSubButtons3[buttonPressed][k] = new JButton(EventLibrary.statNames[k] + " = " + game.currentPlayer.eventValues[buttonPressed][k]);
                 subSubButtons3[buttonPressed][k].addActionListener(this);
                 subSubPanel.add(subSubButtons3[buttonPressed][k]);
-            }*/
+            }
             subSubButtons3[buttonPressed][k] = new JButton("buy");
             subSubButtons3[buttonPressed][k].addActionListener(this);
             subSubPanel.add(subSubButtons3[buttonPressed][k]);
@@ -418,6 +423,7 @@ public class UI extends JFrame implements ActionListener {
         subSubPanel.repaint();
     }
 
+    //Aktualisiert die Stats-Tabelle(früher p1StatsArea)
     void updateStatsTable(JTable table, Player player) {
         String[] columnNames = new String[CountryLibrary.statNames.length + 1];
         columnNames[0] = "Country";
@@ -466,6 +472,17 @@ public class UI extends JFrame implements ActionListener {
         game.currentPlayer.countryValues[5][5] = 16;
         game.currentPlayer.countryValues[6][1] = 17;
         game.currentPlayer.countryValues[7][2] = 18;
+        game.currentPlayer.countryValues[8][3] = 19;
+        game.currentPlayer.countryValues[9][0] = 1;
+        game.currentPlayer.countryValues[10][0] = 1;
+        game.currentPlayer.countryValues[12][0] = 1;
+        game.currentPlayer.countryValues[13][5] = 6;
+        game.currentPlayer.countryValues[9][0] = 7;
+        game.currentPlayer.countryValues[8][0] = 1;
+        game.currentPlayer.countryValues[14][0] = 1;
+        game.currentPlayer.countryValues[15][0] = 1;
+        game.currentPlayer.countryValues[16][0] = 1;
+        game.currentPlayer.countryValues[17][0] = 1;
 
         game.currentPlayer.eventValues[0][0] = 5;
         game.currentPlayer.eventValues[1][0] = 1;
