@@ -25,10 +25,41 @@ public class CountryLibrary
     };
 
     @SuppressWarnings("unused")
-	public static int[][] countryStats = new int[][] {
-	{0,0},
-	{0,0}
-	};  //bitte Vervollständigen!
+    public static int[][] statsUpgradeCosts = new int[][] {//pro land utnerschiedlich? Bitte ausfüllen
+
+    };
+
+    @SuppressWarnings("unused")
+    public static int[] countryPrice = new int[] //Bitte ausfüllen
+        {100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100};
+
+    @SuppressWarnings("unused")
+	public static int[][] statsMultiplier = new int[][] {
+        {1, 1, 1, 1, 1, 1, 1},//DE
+        {1, 1, 1, 1, 1, 1, 1},//BENELUX
+        {1, 1, 1, 1, 1, 1, 1},//DEN
+        {1, 1, 1, 1, 1, 1, 1},//POL
+        {1, 1, 1, 1, 1, 1, 1},//FRA
+        {1, 1, 1, 1, 1, 1, 1},//CZE
+        {1, 1, 1, 1, 1, 1, 1},//SWI/AU
+        {1, 1, 1, 1, 1, 1, 1},//UK
+        {1, 1, 1, 1, 1, 1, 1},//SCAN
+        {1, 1, 1, 1, 1, 1, 1},//BALT
+        {1, 1, 1, 1, 1, 1, 1},//FIN
+        {1, 1, 1, 1, 1, 1, 1},//SLOVA
+        {1, 1, 1, 1, 1, 1, 1},//UKR
+        {1, 1, 1, 1, 1, 1, 1},//SPA
+        {1, 1, 1, 1, 1, 1, 1},//ITA
+        {1, 1, 1, 1, 1, 1, 1},//SLO
+        {1, 1, 1, 1, 1, 1, 1},//HUN
+        {1, 1, 1, 1, 1, 1, 1},//IRE
+        {1, 1, 1, 1, 1, 1, 1},//ICE
+        {1, 1, 1, 1, 1, 1, 1},//USA
+        {1, 1, 1, 1, 1, 1, 1},//RUS
+        {1, 1, 1, 1, 1, 1, 1},//BEL
+        {1, 1, 1, 1, 1, 1, 1},//CAN
+        {1, 1, 1, 1, 1, 1, 1},//ROM
+	};  //bitte Vervollständigen (werte von 1 bis 5 wären wahrscheinlich sinnvoll)!
 
     @SuppressWarnings("unused")
     public static String[] countryNames = new String[] {"Deutschland", "BeNeLux", "Dänemark", "Polen", "Frankreich",
