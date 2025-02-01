@@ -103,11 +103,11 @@ public class UI extends JFrame implements ActionListener {
         //Fenster wird automatisch auf Fullscreen gesetzt, Layout muss noch angepasst werden
         //Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         
-        //bitte so lasssen, sonnst verschwindel manche elemente
+    //bitte so lasssen, sonnst verschwinden manche elemente
         frame.setSize(1920, 1040);
         //frame.setLocationRelativeTo(null);
 
-        //bitte weglassen, worgt nur für porbleme wenn auf anderen monitoren geöffnet usw.
+    //bitte weglassen, worgt nur für porbleme wenn auf anderen monitoren geöffnet usw.
         /*frame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowOpened(WindowEvent e) {
@@ -117,7 +117,7 @@ public class UI extends JFrame implements ActionListener {
 
         //Zeigt den Spieler an, der am Zug ist
         pTurnField = new JTextField("Player -'s turn");
-        pTurnField.setBounds(10, 10, 100, 30);
+        pTurnField.setBounds(10, 10, 115, 30);
         pTurnField.setEditable(false);
 
         /*//TextAreas für die Stats beider Spieler
@@ -141,7 +141,7 @@ public class UI extends JFrame implements ActionListener {
         p1StatsTable.getTableHeader().setUI(null);
         p1StatsTable.setBackground(Color.WHITE);
         p1StatsScrollPane = new JScrollPane(p1StatsTable);
-        p1StatsScrollPane.setBounds(120, 200, 815, 120);
+        p1StatsScrollPane.setBounds(140, 200, 805, 120);
         p1StatsScrollPane.getViewport().setBackground(Color.WHITE);
         
         p2StatsTable = new JTable();
@@ -150,16 +150,16 @@ public class UI extends JFrame implements ActionListener {
         p2StatsTable.getTableHeader().setUI(null);
         p2StatsTable.setBackground(Color.WHITE);
         p2StatsScrollPane = new JScrollPane(p2StatsTable);
-        p2StatsScrollPane.setBounds(965, 200, 815, 120);
+        p2StatsScrollPane.setBounds(975, 200, 805, 120);
         p2StatsScrollPane.getViewport().setBackground(Color.WHITE);
         
         //TextField für den Kontostand beider Spieler
-        p1MoneyField = new JTextField("Money (P1): ----");
-        p1MoneyField.setBounds(1795, 10, 115, 30);
+        p1MoneyField = new JTextField("Money P1: ----");
+        p1MoneyField.setBounds(1785, 10, 115, 30);
         p1MoneyField.setEditable(false);
         
-        p2MoneyField = new JTextField("Money (P2): ----");
-        p2MoneyField.setBounds(1795, 50, 115, 30);
+        p2MoneyField = new JTextField("Money P2: ----");
+        p2MoneyField.setBounds(1785, 50, 115, 30);
         p2MoneyField.setEditable(false);
 
         //WTF
@@ -174,15 +174,15 @@ public class UI extends JFrame implements ActionListener {
 
         //Du musst mir mal erklären, wie deine Submenüs funktionieren
         buyCountriesButton = new JButton("buy countries");
-        buyCountriesButton.setBounds(660, 350, 180, 50);
+        buyCountriesButton.setBounds(670, 350, 180, 50);
         buyCountriesButton.setFont(buttonFont);
         
         upgradeButton = new JButton("upgrade economy");
-        upgradeButton.setBounds(860, 350, 180, 50);
+        upgradeButton.setBounds(870, 350, 180, 50);
         upgradeButton.setFont(buttonFont);
         
         eventManagerButton = new JButton("manage events");
-        eventManagerButton.setBounds(1060, 350, 180, 50);
+        eventManagerButton.setBounds(1070, 350, 180, 50);
         eventManagerButton.setFont(buttonFont);
         
         finishTurnButton = new JButton("finish turn");
@@ -203,7 +203,7 @@ public class UI extends JFrame implements ActionListener {
 
         // Initialize search bar
         searchBar = new JTextField("Search...");
-        searchBar.setBounds(/*(frame.getWidth() - 400)*/800, 960, 360, 30);
+        searchBar.setBounds(/*(frame.getWidth() - 400)*/780, 960, 360, 30);
         searchBar.setForeground(Color.GRAY);
         searchBar.addFocusListener(new FocusAdapter() {
             @Override
@@ -237,7 +237,7 @@ public class UI extends JFrame implements ActionListener {
             }
         });
 
-        // Initialize search results table
+        // Initialize search results components
         searchResultsTable = new JTable();
         searchResultsTable.setShowGrid(false);
         searchResultsTable.setIntercellSpacing(new Dimension(0, 0));
@@ -382,8 +382,8 @@ public class UI extends JFrame implements ActionListener {
     void UIupdate() {
         /*p1StatsArea.setText(game.p1.getLevels());
         p2StatsArea.setText(game.p2.getLevels()); */
-        p1MoneyField.setText("Money (P1): " + game.p1.playerMoney);
-        p2MoneyField.setText("Money (P2): " + game.p2.playerMoney);
+        p1MoneyField.setText("Money P1: " + game.p1.playerMoney);
+        p2MoneyField.setText("Money P2: " + game.p2.playerMoney);
         pTurnField.setText("Player " + game.currentPlayerValue + "'s turn");
         updateStatsTable(p1StatsTable, game.p1);
         updateStatsTable(p2StatsTable, game.p2);
