@@ -67,6 +67,7 @@ public class UI extends JFrame implements ActionListener {
     JPanel subPanel;
     JPanel subSubPanel;
     JButton finishTurnButton;
+    JButton mainMenuButton;
     
     JButton[] subButtons1, subButtons2, subSubButtons2[], subButtons3, subSubButtons3[];
     JButton[] buttons;
@@ -186,7 +187,10 @@ public class UI extends JFrame implements ActionListener {
         eventManagerButton.setFont(buttonFont);
         
         finishTurnButton = new JButton("finish turn");
-        finishTurnButton.setBounds(1600, 370, 100, 30);
+        finishTurnButton.setBounds(1570, 370, 100, 30);
+
+        mainMenuButton = new JButton("Main Menu");
+        mainMenuButton.setBounds(260, 370, 100, 30);
 
         subPanel = new JPanel(new FlowLayout());
         subPanel.setBounds(260, 450, 1400, 120);
@@ -194,7 +198,7 @@ public class UI extends JFrame implements ActionListener {
         subSubPanel = new JPanel(new FlowLayout());
         subSubPanel.setBounds(260, 580, 1400, 120);
 
-        buttons = new JButton[] {buyCountriesButton, upgradeButton, eventManagerButton, finishTurnButton};
+        buttons = new JButton[] {buyCountriesButton, upgradeButton, eventManagerButton, finishTurnButton, mainMenuButton};
 
         for (JButton button : buttons) {
             button.addActionListener(this);
@@ -247,6 +251,8 @@ public class UI extends JFrame implements ActionListener {
         searchResultsScrollPanel.setBounds(650, 855, 620, 100);
         searchResultsScrollPanel.getViewport().setBackground(frame.getBackground());
 
+
+        //Alle Elemente werden dem Fenster hinzugefügt, nachdem das fenster gecleared wurde
         frame.getContentPane().removeAll();
         subPanel.removeAll();
         subSubPanel.removeAll();
@@ -271,6 +277,7 @@ public class UI extends JFrame implements ActionListener {
         frame.add(subPanel);
         frame.add(subSubPanel);
         frame.add(finishTurnButton);
+        frame.add(mainMenuButton);
         frame.setVisible(true);
         subSubButtons2 = new JButton[CountryLibrary.countryNames.length][];
         subSubButtons3 = new JButton[EventLibrary.eventNames.length][];
@@ -286,31 +293,18 @@ public class UI extends JFrame implements ActionListener {
         } else if (e.getSource() == upgradeButton) {
             showMainMenu();
             updateSubPanel(2);
-            System.out.println("upgrade Button pressed");
+            System.out.println("upgrade country Button pressed");
         } else if (e.getSource() == eventManagerButton) {
             showMainMenu();
             updateSubPanel(3);
-            System.out.println("eventManager pressed");
+            System.out.println("eventManager Button pressed");
         } else if (e.getSource() == finishTurnButton) {
-            System.out.println("finish turn pressed");
+            System.out.println("finish turn Button pressed");
             game.switchPlayer();
             showMainMenu();
-        } else if (e.getSource() == searchBar) {
-            String query = searchBar.getText().toLowerCase();
-            StringBuilder results = new StringBuilder("<html>");
-            
-            for (String countryName : CountryLibrary.countryNames) {
-                if (countryName.toLowerCase().contains(query)) {
-                    results.append(countryName).append("<br>");
-                }
-            }
-            
-            for (String eventName : EventLibrary.eventNames) {
-                if (eventName.toLowerCase().contains(query)) {
-                    results.append(eventName).append("<br>");
-                }
-            }
-            
+        } else if (e.getSource() == mainMenuButton) {
+            System.out.println("main menu Button pressed");
+            showMainMenu(); 
         } else {
             if (subButtons1 != null) {
                 for (int i = 0; i < subButtons1.length; i++) {
