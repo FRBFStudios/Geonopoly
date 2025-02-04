@@ -45,9 +45,7 @@ public class CountryLibrary
     };
 
     @SuppressWarnings("unused")
-    public static int[][] statsUpgradeCosts = new int[][] {//pro land utnerschiedlich? Bitte ausfüllen
-
-    };
+    public static int statsUpgradeCosts = 100; //Kosten für das Upgraden der Stats
 
     @SuppressWarnings("unused")
     public static int[] countryPrice = new int[] //Bitte ausfüllen
