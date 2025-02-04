@@ -7,7 +7,7 @@ import javax.swing.*;
 
 import java.awt.*;
 
-public class Main {
+public class Elementetest {
     public static void main(String[] args) {
         // JFrame
         JFrame frame = new JFrame("Swing Components Example");
