@@ -110,7 +110,7 @@ public class CopyOfWorldMap extends JPanel {
     public static void main(String[] args) {
         JFrame frame = new JFrame("World Map");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(new WorldMap());
+        frame.add(new CopyOfWorldMap());
         frame.setSize(800, 800);
         frame.setVisible(true);
     }
