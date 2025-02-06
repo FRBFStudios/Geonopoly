@@ -2,9 +2,12 @@ package com.geoproject.gui;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
+// import java.awt.event.FocusAdapter;
+// import java.awt.event.FocusEvent;
 import javax.swing.border.LineBorder;
+import java.awt.event.*;
+
+import com.geoproject.libraries.CountryLibrary;
 
 public class Map extends JFrame {
     JFrame frame;
@@ -61,29 +64,37 @@ public class Map extends JFrame {
 //.
 //.
 //.
-class MapPanel extends JPanel {
-    JButton button1, button2, button3, button4;
+class MapPanel extends JPanel implements ActionListener {
+    MapButton[] mapButtons;
 
     public MapPanel(JButton[] MainButtons) {
-        setLayout(new FlowLayout());
+        setLayout(new FlowLayout());        //NOCH ÄNDERN!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-        button1 = new JButton("Button 1");
-        button2 = new JButton("Button 2");
-        button3 = new JButton("Button 3");
-        button4 = new JButton("Button 4");
+        mapButtons = new MapButton[CountryLibrary.countryNames.length];
+        for (int i = 0; i < CountryLibrary.countryNames.length; i++) {
+            mapButtons[i] = new MapButton(CountryLibrary.countryNames[i]);
+            mapButtons[i].addActionListener(this);
+            add(mapButtons[i]);
+        }
+
+
+        /*button1 = new MapButton("Button 1");
+        button2 = new MapButton("Button 2");
+        button3 = new MapButton("Button 3");
+        button4 = new MapButton("Button 4");
 
         add(button1);
         add(button2);
         add(button3);
-        add(button4);
+        add(button4);*/
 
         MapButton test = new MapButton("test");
         add(test);
 
-        addHoverListeners(button1, MainButtons[0]);
+        /*addHoverListeners(button1, MainButtons[0]);
         addHoverListeners(button2, MainButtons[0]);
         addHoverListeners(button3, MainButtons[1]);
-        addHoverListeners(button4, MainButtons[1]);
+        addHoverListeners(button4, MainButtons[1]);*/
     }
 
     private void addHoverListeners(JButton button, JButton targetButton) {
@@ -98,6 +109,13 @@ class MapPanel extends JPanel {
                 targetButton.setBackground(UIManager.getColor("Button.background"));
             }
         });
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == mapButtons[0]) {
+            System.out.println("mapButtons 0 presses (should get removed)");
+        }
     }
 }
 //.
@@ -114,6 +132,7 @@ class MapButton extends JButton {
         setFocusPainted(true);
         setBorderPainted(true);
         setContentAreaFilled(false);
-        setBorder(new LineBorder(Color.BLACK, 2)); // Set a thicker border
+        setFont(new Font(getFont().getName(), getFont().getStyle(), 12));
+        // setBorder(new LineBorder(Color.BLACK, 2)); // Set a thicker border
     }
 }

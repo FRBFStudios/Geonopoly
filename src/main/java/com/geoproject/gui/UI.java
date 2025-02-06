@@ -53,6 +53,8 @@ public class UI extends JFrame implements ActionListener {
     JFrame frame;
     
     JLabel p1MapArea, p2MapArea;
+    MapPanel mapPanel1, mapPanel2;
+
     JTextField pTurnField, p1MoneyField, p2MoneyField;
     JComboBox<String> p1CountryDropdown, p2CountryDropdown;
     /* JTextArea p1StatsArea, p2StatsArea; */
@@ -274,6 +276,8 @@ public class UI extends JFrame implements ActionListener {
         frame.add(subPanel);
         frame.add(subSubPanel);
         frame.add(finishTurnButton);
+
+        //MapPanel mapPanel1 = new MapPanel(buttons);
 
         frame.setVisible(true);
         subSubButtons2 = new JButton[CountryLibrary.countryNames.length][];

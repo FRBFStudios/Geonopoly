@@ -7,6 +7,15 @@ import java.awt.event.FocusEvent;
 
 public class MapTest extends JFrame {
 
+    public static void main(String[] args) {
+        // Create and display the form
+        SwingUtilities.invokeLater(() -> {
+            MapTest mapTest = new MapTest();
+            mapTest.setVisible(true);
+        });
+    }
+
+
     public MapTest() {
         // Set the title of the window
         setTitle("Map Test");
@@ -109,11 +118,4 @@ public class MapTest extends JFrame {
         });
     }
 
-    public static void main(String[] args) {
-        // Create and display the form
-        SwingUtilities.invokeLater(() -> {
-            MapTest mapTest = new MapTest();
-            mapTest.setVisible(true);
-        });
-    }
 }
