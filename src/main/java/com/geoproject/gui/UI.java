@@ -9,6 +9,7 @@ package com.geoproject.gui;
  * - Oben mitte reworken
  * - aufteilung neu probieren, main buttons
  *  - droppdown, wo ein land auswählen und dann die werte angezeigt bekommt oder man es kaufen kann
+ *  - so machen, dass auf map.java zugegriffen wird, statt nacher alles zu kopieren
  * 
   //theo: 
    - borders fertig machen,
@@ -69,7 +70,6 @@ public class UI extends JFrame implements ActionListener {
     Game game = new Game();
     
     JTextField searchBar;
-    JLabel searchResultsLabel;
     JTable searchResultsTable;
     JScrollPane searchResultsScrollPanel;
 
@@ -93,7 +93,6 @@ public class UI extends JFrame implements ActionListener {
         frame = new JFrame("Geonopoly");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(null);
-        frame.setSize(1600, 940);
         
         //Fenster wird automatisch auf Fullscreen gesetzt, Layout muss noch angepasst werden
         //Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -300,23 +299,7 @@ public class UI extends JFrame implements ActionListener {
             game.switchPlayer();
             showMainMenu();
         } else if (e.getSource() == searchBar) {
-            String query = searchBar.getText().toLowerCase();
-            StringBuilder results = new StringBuilder("<html>");
-            
-            for (String countryName : CountryLibrary.countryNames) {
-                if (countryName.toLowerCase().contains(query)) {
-                    results.append(countryName).append("<br>");
-                }
-            }
-            
-            for (String eventName : EventLibrary.eventNames) {
-                if (eventName.toLowerCase().contains(query)) {
-                    results.append(eventName).append("<br>");
-                }
-            }
-            
-            results.append("</html>");
-            searchResultsLabel.setText(results.toString());
+            System.out.println("searchBar pressed");
         } else {
             if (subButtons1 != null) {
                 for (int i = 0; i < subButtons1.length; i++) {
