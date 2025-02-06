@@ -6,19 +6,13 @@ package com.geoproject.gui;
 
 //Imports//EVENTS BLEIBEN DRAUßEN
 /*TO DO
- * - Dropdown unten hinzufügen (Detailed Info)
- * - Alles kommentieren und damit strukturieren
  * - Oben mitte reworken
- * - Alles neu zentrieren (weil es jetzt fullscreen ist)
- * - UI-Elemente müssen noch nicht funktionieren!!!
  * - aufteilung neu probieren, main buttons
- * 
+ *  - droppdown, wo ein land auswählen und dann die werte angezeigt bekommt oder man es kaufen kann
  * 
   //theo: 
    - borders fertig machen,
    - multiplikatoren für länder stats hizufügen
-   - map skizze schicken
-
 */
 
 import java.awt.*;
@@ -91,7 +85,6 @@ public class UI extends JFrame implements ActionListener {
         //benennung der buttons klären(allgemeines konzept)
         //überhaupt schlau, die UI so zu machen, und nicht zb droppdown, wo ein land auswählen und dann die werte angezeigt bekommt oder man es kaufen kann
         //über umsetzung von eventklasse?? (oder wie sonnst die unterschiedlichen actions speichern? oder einfach array dass für jede mgl sache ein obj. hat) sprechen
-        //über kaufbarkeit und anzahl und verkaufbarkeit von events sprechen
         
         
         //Alle Elemente des Fensters werden initialisiert
