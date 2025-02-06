@@ -274,6 +274,7 @@ public class UI extends JFrame implements ActionListener {
         frame.add(subPanel);
         frame.add(subSubPanel);
         frame.add(finishTurnButton);
+
         frame.setVisible(true);
         subSubButtons2 = new JButton[CountryLibrary.countryNames.length][];
         subSubButtons3 = new JButton[EventLibrary.eventNames.length][];
