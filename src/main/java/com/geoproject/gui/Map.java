@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import javax.swing.border.LineBorder;
 
 public class Map extends JFrame {
     JFrame frame;
@@ -26,7 +27,7 @@ public class Map extends JFrame {
         frame.setLayout(null); // Set layout to null for absolute positioning
 
         panel = new JPanel(new FlowLayout());
-        panel.setBounds(710, 200, 500, 50); // Set bounds for the panel
+        panel.setBounds(710, 200, 500, 50);
 
         button1 = new JButton("topButton 1");
         button2 = new JButton("topButton 2");
@@ -42,8 +43,10 @@ public class Map extends JFrame {
         
         frame.add(panel);
 
+
+        //muss in UI übertragen werden
         MapPanel mapPanel = new MapPanel(buttons);
-        mapPanel.setBounds(760, 300, 400, 150); // Adjust bounds to avoid overlap
+        mapPanel.setBounds(760, 300, 400, 150);
         frame.add(mapPanel);
 
         frame.setVisible(true);
@@ -74,6 +77,9 @@ class MapPanel extends JPanel {
         add(button3);
         add(button4);
 
+        MapButton test = new MapButton("test");
+        add(test);
+
         addHoverListeners(button1, MainButtons[0]);
         addHoverListeners(button2, MainButtons[0]);
         addHoverListeners(button3, MainButtons[1]);
@@ -102,9 +108,12 @@ class MapPanel extends JPanel {
 //.
 //.
 //.
-class MapButtons extends JButton {
-    public MapButtons(String text) {
+class MapButton extends JButton {
+    public MapButton(String text) {
         super(text);
-        setFocusPainted(false);
+        setFocusPainted(true);
+        setBorderPainted(true);
+        setContentAreaFilled(false);
+        setBorder(new LineBorder(Color.BLACK, 2)); // Set a thicker border
     }
 }
