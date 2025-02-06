@@ -1,5 +1,7 @@
+com\geoproject\libraries\EventLibrary.class
 com\geoproject\Player.class
 com\geoproject\Game.class
-com\geoproject\gui\UI.class
+com\geoproject\gui\UI$1.class
 com\geoproject\Geonopoly.class
 com\geoproject\libraries\CountryLibrary.class
+com\geoproject\gui\UI.class
