@@ -135,4 +135,6 @@ class MapButton extends JButton {
         setFont(new Font(getFont().getName(), getFont().getStyle(), 12));
         // setBorder(new LineBorder(Color.BLACK, 2)); // Set a thicker border
     }
+    
+
 }

@@ -56,7 +56,7 @@ public class UI extends JFrame implements ActionListener {
     MapPanel mapPanel1, mapPanel2;
 
     JTextField pTurnField, p1MoneyField, p2MoneyField;
-    JComboBox<String> p1CountryDropdown, p2CountryDropdown;
+    // JComboBox<String> p1DisplayCartegoryDropdown, p2DisplayCartegoryDropdown;
     /* JTextArea p1StatsArea, p2StatsArea; */
     JTable p1StatsTable, p2StatsTable;
     JScrollPane p1StatsScrollPane, p2StatsScrollPane;
@@ -137,7 +137,7 @@ public class UI extends JFrame implements ActionListener {
         p1StatsTable.getTableHeader().setUI(null);
         p1StatsTable.setBackground(Color.WHITE);
         p1StatsScrollPane = new JScrollPane(p1StatsTable);
-        p1StatsScrollPane.setBounds(120, 200, 815, 120);
+        p1StatsScrollPane.setBounds(120, 300, 815, 120);
         p1StatsScrollPane.getViewport().setBackground(Color.WHITE);
         
         p2StatsTable = new JTable();
@@ -146,56 +146,55 @@ public class UI extends JFrame implements ActionListener {
         p2StatsTable.getTableHeader().setUI(null);
         p2StatsTable.setBackground(Color.WHITE);
         p2StatsScrollPane = new JScrollPane(p2StatsTable);
-        p2StatsScrollPane.setBounds(965, 200, 815, 120);
+        p2StatsScrollPane.setBounds(965, 300, 815, 120);
         p2StatsScrollPane.getViewport().setBackground(Color.WHITE);
         
         //TextField für den Kontostand beider Spieler
-        p1MoneyField = new JTextField("Money (P1): ----");
-        p1MoneyField.setBounds(1795, 10, 115, 30);
+        p1MoneyField = new JTextField("Money P1: ----");
+        p1MoneyField.setBounds(1790, 10, 110, 30);
         p1MoneyField.setEditable(false);
         
-        p2MoneyField = new JTextField("Money (P2): ----");
-        p2MoneyField.setBounds(1795, 50, 115, 30);
+        p2MoneyField = new JTextField("Money P2: ----");
+        p2MoneyField.setBounds(1790, 50, 110, 30);
         p2MoneyField.setEditable(false);
 
         //Bitte erklären, was das alles ist
-        p1CountryDropdown = new JComboBox<>();
-        p1CountryDropdown.setBounds(120, 170, 660, 30);
+        // p1DisplayCartegoryDropdown = new JComboBox<>();
+        // p1DisplayCartegoryDropdown.setBounds(120, 270, 660, 30); 
         
-        p2CountryDropdown = new JComboBox<>();
-        p2CountryDropdown.setBounds(965, 170, 660, 30);
+        // p2DisplayCartegoryDropdown = new JComboBox<>();
+        // p2DisplayCartegoryDropdown.setBounds(965, 270, 660, 30); 
 
-        //WTF
         p1MapArea = new JLabel("Hier Platz für Karte der besitzten länder(P1)");
-        p1MapArea.setBounds(380, 70, 660, 30);
+        p1MapArea.setBounds(120, 10, 815, 270);
+        p1MapArea.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         
         p2MapArea = new JLabel("Hier Platz für Karte der besitzten länder(P2)");
-        p2MapArea.setBounds(1050, 70, 660, 30);
+        p2MapArea.setBounds(965, 10, 815, 270);
+        p2MapArea.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
-        //WTF
+
         Font buttonFont = new Font("Arial", Font.CENTER_BASELINE, 15);
-
-        //Du musst mir mal erklären, wie deine Submenüs funktionieren
         buyCountriesButton = new JButton("buy countries");
-        buyCountriesButton.setBounds(660, 350, 180, 50);
+        buyCountriesButton.setBounds(660, 450, 180, 50);
         buyCountriesButton.setFont(buttonFont);
         
         upgradeButton = new JButton("upgrade economy");
-        upgradeButton.setBounds(860, 350, 180, 50);
+        upgradeButton.setBounds(860, 450, 180, 50); 
         upgradeButton.setFont(buttonFont);
         
         eventManagerButton = new JButton("manage events");
-        eventManagerButton.setBounds(1060, 350, 180, 50);
+        eventManagerButton.setBounds(1060, 450, 180, 50); 
         eventManagerButton.setFont(buttonFont);
         
         finishTurnButton = new JButton("finish turn");
-        finishTurnButton.setBounds(1600, 370, 100, 30);
+        finishTurnButton.setBounds(1600, 450, 100, 30); 
 
         subPanel = new JPanel(new FlowLayout());
-        subPanel.setBounds(260, 450, 1400, 120);
+        subPanel.setBounds(150, 520, 1620, 180); 
         
         subSubPanel = new JPanel(new FlowLayout());
-        subSubPanel.setBounds(260, 580, 1400, 120);
+        subSubPanel.setBounds(260, 700, 1400, 120); 
 
         buttons = new JButton[] {buyCountriesButton, upgradeButton, eventManagerButton, finishTurnButton};
 
@@ -266,8 +265,8 @@ public class UI extends JFrame implements ActionListener {
         frame.add(p2StatsScrollPane);
         /*frame.add(p1StatsArea);
         frame.add(p2StatsArea); */
-        frame.add(p1CountryDropdown);
-        frame.add(p2CountryDropdown);
+        // frame.add(p1DisplayCartegoryDropdown);
+        // frame.add(p2DisplayCartegoryDropdown);
         frame.add(p1MapArea);
         frame.add(p2MapArea);
         frame.add(buyCountriesButton);
@@ -376,36 +375,36 @@ public class UI extends JFrame implements ActionListener {
     void UIupdate() {
         /*p1StatsArea.setText(game.p1.getLevels());
         p2StatsArea.setText(game.p2.getLevels()); */
-        p1MoneyField.setText("Money (P1): " + game.p1.playerMoney);
-        p2MoneyField.setText("Money (P2): " + game.p2.playerMoney);
+        p1MoneyField.setText("Money P1: " + game.p1.playerMoney);
+        p2MoneyField.setText("Money P2: " + game.p2.playerMoney);
         pTurnField.setText("Player " + game.currentPlayerValue + "'s turn");
-        updateCountryDropdowns();
+        // updateCountryDropdowns();
         updateStatsTable(p1StatsTable, game.p1);
         updateStatsTable(p2StatsTable, game.p2);
         updateSearchResults();
     }
 
     //NUR EIN TEST: Aktualisiert die TEST Dropdowns 
-    void updateCountryDropdowns() {
-        p1CountryDropdown.removeAllItems();
-        p2CountryDropdown.removeAllItems();
+    // void updateCountryDropdowns() {
+    //     p1DisplayCartegoryDropdown.removeAllItems();
+    //     p2DisplayCartegoryDropdown.removeAllItems();
 
-        for (int i = 0; i < game.p1.countryValues.length; i++) {
-            if (game.p1.countryValues[i][0] == 1) {
-                if (i < CountryLibrary.countryNames.length) {
-                    p1CountryDropdown.addItem(CountryLibrary.countryNames[i]);
-                } else {
-                    p1CountryDropdown.addItem("no countryname: " + i);
-                }
-            }
-        }
+    //     for (int i = 0; i < game.p1.countryValues.length; i++) {
+    //         if (game.p1.countryValues[i][0] == 1) {
+    //             if (i < CountryLibrary.countryNames.length) {
+    //                 p1DisplayCartegoryDropdown.addItem(CountryLibrary.countryNames[i]);
+    //             } else {
+    //                 p1DisplayCartegoryDropdown.addItem("no countryname: " + i);
+    //             }
+    //         }
+    //     }
 
-        for (int i = 0; i < game.p2.countryValues.length; i++) {
-            if (game.p2.countryValues[i][0] == 1) {
-                p2CountryDropdown.addItem(CountryLibrary.countryNames[i]);
-            }
-        }
-    }
+    //     for (int i = 0; i < game.p2.countryValues.length; i++) {
+    //         if (game.p2.countryValues[i][0] == 1) {
+    //             p2DisplayCartegoryDropdown.addItem(CountryLibrary.countryNames[i]);
+    //         }
+    //     }
+    // }
 
     //zeigt die buttons für das subpanel an, je nachdem, welcher hauptbuttons gedrückt wurde, im array subbuttons1-3, um nachher zu wissen, welcher gedrückt wurde
     void updateSubPanel(int buttonPressed) {
