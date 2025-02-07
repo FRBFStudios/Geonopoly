@@ -16,21 +16,15 @@ package com.geoproject.gui;
    - multiplikatoren für länder stats hizufügen
 */
 
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
-import java.awt.Color;
 
-import javax.swing.*;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -38,15 +32,15 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 
 import com.geoproject.Game;
-import com.geoproject.libraries.*;
 import com.geoproject.Player;
+import com.geoproject.libraries.CountryLibrary;
+import com.geoproject.libraries.EventLibrary;
 
 //Klasse
 public class UI extends JFrame implements ActionListener {
@@ -539,7 +533,7 @@ public class UI extends JFrame implements ActionListener {
             if (countryName.toLowerCase().contains(query)) {
                 Object[] row = new Object[columnNames.length];
                 row[0] =  countryName;
-                row[1] = "Price: " + CountryLibrary.countryPrice[java.util.Arrays.asList(CountryLibrary.countryNames).indexOf(countryName)];
+                row[1] = "Price: " + CountryLibrary.getCountryPrice(java.util.Arrays.asList(CountryLibrary.countryNames).indexOf(countryName));
                 for (int j = 2; j < row.length; j++) {
                     int countryIndex = java.util.Arrays.asList(CountryLibrary.countryNames).indexOf(countryName);
                     row[j] = CountryLibrary.statNames[j - 2][1] + ": " + CountryLibrary.statsMultiplier[countryIndex][j - 2];
