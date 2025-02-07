@@ -537,22 +537,23 @@ public class UI extends JFrame implements ActionListener {
         for (int i = 0; i < CountryLibrary.statNames.length; i++) {
             columnNames[i + 2] = CountryLibrary.statNames[i][1];
         }
-        DefaultTableModel model = new DefaultTableModel(columnNames, 0);//erstellt eine tabelle mit dem richtigen formfaktor
+        DefaultTableModel model = new DefaultTableModel(columnNames, 0);
 
-        for (String countryName : CountryLibrary.countryNames) {
+        for (int i = 0; i < CountryLibrary.countryNames.length; i++) {
+            String countryName = CountryLibrary.countryNames[i];
             if (countryName.toLowerCase().contains(query)) {
                 Object[] row = new Object[columnNames.length];
-                row[0] =  countryName;
-                row[1] = "Price: " + CountryLibrary.countryPrice[java.util.Arrays.asList(CountryLibrary.countryNames).indexOf(countryName)];
+                row[0] = countryName;
+                row[1] = "Price: " + CountryLibrary.countryPrice[i];
                 for (int j = 2; j < row.length; j++) {
-                    int countryIndex = java.util.Arrays.asList(CountryLibrary.countryNames).indexOf(countryName);
-                    row[j] = CountryLibrary.statNames[j - 2][1] + ": " + CountryLibrary.statsMultiplier[countryIndex][j - 2];
+                    row[j] = CountryLibrary.statNames[j - 2][1] + ": " + CountryLibrary.statsMultiplier[i][j - 2];
                 }
                 model.addRow(row);
             }
         }
 
-        for (String eventName : EventLibrary.eventNames) {
+        for (int i = 0; i < EventLibrary.eventNames.length; i++) {
+            String eventName = EventLibrary.eventNames[i];
             if (eventName.toLowerCase().contains(query)) {
                 model.addRow(new Object[]{eventName});
             }

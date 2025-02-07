@@ -49,7 +49,7 @@ public class CountryLibrary
 
     @SuppressWarnings("unused")
     public static int[] countryPrice = new int[] //Bitte ausfüllen
-        {100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100};
+        {100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100};
 
     @SuppressWarnings("unused")
 	public static int[][] statsMultiplier = new int[][] {
@@ -77,13 +77,63 @@ public class CountryLibrary
         {1, 1, 1, 1, 1, 1, 1},//BEL
         {1, 1, 1, 1, 1, 1, 1},//CAN
         {1, 1, 1, 1, 1, 1, 1},//ROM
+        {1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1},
 	};  //bitte Vervollständigen (werte von 1 bis 5 wären wahrscheinlich sinnvoll)!
 
     @SuppressWarnings("unused")
-    public static String[] countryNames = new String[] {"Deutschland", "BeNeLux", "Dänemark", "Polen", "Frankreich",
-            "Tschechien", "Österreich und Schweiz", "Vereinigtes Königreich", "Skandinavien", "Baltikum", "Finnland",
-            "Slowakei", "Ukraine", "Spanien", "Italien", "Slowenien", "Ungarn", "Irland", "Island", "Vereinigte Staaten",
-            "Russland", "Belarus", "Kanada", "Romänien"};
+    //Array, der die Namen der Länder beinhält
+    public static String[] countryNames = new String[] {"Deutschland", "BeNeLux-Ländergruppe", "Dänemark", "Polen", "Frankreich",
+        "Tschechien", "Österreich und Schweiz", "Vereinigtes Königreich", "Skandinavische Ländergruppe", "Baltikum", "Finnland",
+        "Slowakei", "Belarus", "Ukraine", "Italien", "Balkanländergruppe", "Ungarn", "Romänien", "Griechenland und Makedonien",
+        "Vereinigte Staaten", "Kanada", "Mexiko", "Mittelamerikanische Ländergruppe", "Kolumbien", "Venezuela", "Brasilien", "Ecuador",
+        "Peru", "Guyana", "Suriname", "Argentinien", "Chile", "Grönland", "Bolivien", "Paraguay", "Uruguay", "Island", "Irland", "Russland",
+        "Türkei", "Syrien", "Jordanien", "Israel und Palästina", "Beirut", "Saudi-Arabien", "Jemen", "Oman", "Spanien", "VAE und Katar",
+        "Irak", "Georgien, Armenien und Aserbaidschan", "Bulgarien", "Iran", "Pakistan", "Kasachstan", "Usbekistan", "Turkmenistan",
+        "Tadschikistan", "Afghanistan", "Kirgistan", "Indien", "Burma", "Bangladesch", "Nepal", "Kuba", "Sri Lanka", "Mongolei", "China"
+    };
 
     //Ich glaube, das kann weg
     @SuppressWarnings("unused")
