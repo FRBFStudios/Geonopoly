@@ -49,7 +49,7 @@ public class Map extends JFrame {
 
         //muss in UI übertragen werden
         MapPanel mapPanel = new MapPanel(buttons);
-        mapPanel.setBounds(760, 300, 400, 150);
+        mapPanel.setBounds(760, 300, 815, 295);
         frame.add(mapPanel);
 
         frame.setVisible(true);
@@ -68,25 +68,20 @@ class MapPanel extends JPanel implements ActionListener {
     MapButton[] mapButtons;
 
     public MapPanel(JButton[] MainButtons) {
-        setLayout(new FlowLayout());        //NOCH ÄNDERN!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.weightx = 1.0;
+        gbc.weighty = 1.0;
 
         mapButtons = new MapButton[CountryLibrary.countryNames.length];
         for (int i = 0; i < CountryLibrary.countryNames.length; i++) {
             mapButtons[i] = new MapButton(CountryLibrary.countryNames[i]);
             mapButtons[i].addActionListener(this);
-            add(mapButtons[i]);
+            gbc.gridx = i % 3; // Adjust this based on your desired layout
+            gbc.gridy = i / 3;
+            add(mapButtons[i], gbc);
         }
-
-
-        /*button1 = new MapButton("Button 1");
-        button2 = new MapButton("Button 2");
-        button3 = new MapButton("Button 3");
-        button4 = new MapButton("Button 4");
-
-        add(button1);
-        add(button2);
-        add(button3);
-        add(button4);*/
 
         MapButton test = new MapButton("test");
         add(test);

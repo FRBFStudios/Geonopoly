@@ -6,7 +6,7 @@ package com.geoproject.libraries;
 
 public class CountryLibrary
 {
-    @SuppressWarnings("unused")
+    
     public static int[][] borders = new int[][] {
         {2, 3, 4, 5, 6, 7},//DE - 1
         {1, 3, 5, 8, 0, 0},//BENELUX - 2
@@ -44,14 +44,14 @@ public class CountryLibrary
         {0, 0, 0, 0, 0, 0},//
     };
 
-    @SuppressWarnings("unused")
+    
     public static int statsUpgradeCosts = 100; //Kosten für das Upgraden der Stats
 
-    @SuppressWarnings("unused")
+    
     public static int[] countryPrice = new int[] //Bitte ausfüllen
         {100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100};
 
-    @SuppressWarnings("unused")
+    
 	public static int[][] statsMultiplier = new int[][] {
         {1, 1, 1, 1, 1, 1, 1},//DE
         {1, 1, 1, 1, 1, 1, 1},//BENELUX
@@ -123,20 +123,20 @@ public class CountryLibrary
         {1, 1, 1, 1, 1, 1, 1},
 	};  //bitte Vervollständigen (werte von 1 bis 5 wären wahrscheinlich sinnvoll)!
 
-    @SuppressWarnings("unused")
+    
     //Array, der die Namen der Länder beinhält
-    public static String[] countryNames = new String[] {"Deutschland", "BeNeLux-Ländergruppe", "Dänemark", "Polen", "Frankreich",
-        "Tschechien", "Österreich und Schweiz", "Vereinigtes Königreich", "Skandinavische Ländergruppe", "Baltikum", "Finnland",
-        "Slowakei", "Belarus", "Ukraine", "Italien", "Balkanländergruppe", "Ungarn", "Romänien", "Griechenland und Makedonien",
+    public static String[] countryNames = new String[] {"Deutschland", "BeNeLux", "Dänemark", "Polen", "Frankreich",
+        "Tschechien", "Österreich & Schweiz", "Vereinigtes Königreich", "Skandinavische Ländergruppe", "Baltikum", "Finnland",
+        "Slowakei", "Belarus", "Ukraine", "Italien", "Balkanländergruppe", "Ungarn", "Romänien", "Griechenland & Makedonien",
         "Vereinigte Staaten", "Kanada", "Mexiko", "Mittelamerikanische Ländergruppe", "Kolumbien", "Venezuela", "Brasilien", "Ecuador",
         "Peru", "Guyana", "Suriname", "Argentinien", "Chile", "Grönland", "Bolivien", "Paraguay", "Uruguay", "Island", "Irland", "Russland",
-        "Türkei", "Syrien", "Jordanien", "Israel und Palästina", "Beirut", "Saudi-Arabien", "Jemen", "Oman", "Spanien", "VAE und Katar",
-        "Irak", "Georgien, Armenien und Aserbaidschan", "Bulgarien", "Iran", "Pakistan", "Kasachstan", "Usbekistan", "Turkmenistan",
+        "Türkei", "Syrien", "Jordanien", "Israel & Palästina", "Beirut", "Saudi-Arabien", "Jemen", "Oman", "Spanien", "VAE & Katar",
+        "Irak", "Georgien, Armenien & Aserbaidschan", "Bulgarien", "Iran", "Pakistan", "Kasachstan", "Usbekistan", "Turkmenistan",
         "Tadschikistan", "Afghanistan", "Kirgistan", "Indien", "Burma", "Bangladesch", "Nepal", "Kuba", "Sri Lanka", "Mongolei", "China"
     };
 
     //Ich glaube, das kann weg
-    @SuppressWarnings("unused")
+    
     public static String[][] statNames = new String[][] {
         {"Bergbau", "Bb"},
         {"Landwirtschaft", "Lw"},

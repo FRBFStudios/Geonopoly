@@ -5,7 +5,6 @@ import com.geoproject.libraries.CountryLibrary;
 //This class runs everything.
 public class Geonopoly {
     public static void main(String[] args) {
-        @SuppressWarnings("unused")
         Player player = new Player(0);
         if (CountryLibrary.countryNames.length == CountryLibrary.statsMultiplier.length) {
             if (CountryLibrary.countryNames.length == player.countryValues.length) {
