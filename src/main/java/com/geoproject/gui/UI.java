@@ -11,6 +11,8 @@ package com.geoproject.gui;
  *  - droppdown, wo ein land auswählen und dann die werte angezeigt bekommt oder man es kaufen kann
  *  - so machen, dass auf map.java zugegriffen wird, statt nacher alles zu kopieren
  *  - evtl umsetzen, dass searchresults nur angezeigt wird, wenn was eingegeben, und dann popt es über die subpanels drüber. UM PLATZ ZU SPAREN
+ *  - lieber das array in map.java in countrylibrary packen
+ *  - perfekter befehl: mache alles proportional 1/4 kleiner und ändere die position der elemente entsprechend, damit das fenster genauso wie vorher aussieht aber 1/4 kleiner
  * 
   //theo: 
    - borders fertig machen,
@@ -133,6 +135,8 @@ public class UI extends JFrame implements ActionListener {
         p2MapArea.setIcon(new ImageIcon(new ImageIcon("src/main/java/com/geoproject/gui/map070225.jpg").getImage().getScaledInstance(-1, p2MapArea.getHeight(), Image.SCALE_SMOOTH)));
 
 
+        mapPanel1 = new MapPanel(buttons);
+        mapPanel1.setBounds(120, 5, 815, 425);
 
         // Initialize tables for player stats
         p1StatsTable = new JTable();
@@ -152,9 +156,6 @@ public class UI extends JFrame implements ActionListener {
         p2StatsScrollPane = new JScrollPane(p2StatsTable);
         p2StatsScrollPane.setBounds(965, 435, 815, 120);
         p2StatsScrollPane.getViewport().setBackground(Color.WHITE);
-
-        mapPanel1 = new MapPanel(buttons);
-        mapPanel1.setBounds(760, 300, 815, 295);
         
         Font buttonFont = new Font("Arial", Font.CENTER_BASELINE, 14);
         buyCountriesButton = new JButton("buy countries");
@@ -243,9 +244,9 @@ public class UI extends JFrame implements ActionListener {
         frame.add(pTurnField);
         frame.add(p1MoneyField);
         frame.add(p2MoneyField);
+        frame.add(mapPanel1);
         frame.add(p1MapArea);
         frame.add(p2MapArea);
-        frame.add(mapPanel1);
         frame.add(p1StatsScrollPane);
         frame.add(p2StatsScrollPane);
         /*frame.add(p1StatsArea);

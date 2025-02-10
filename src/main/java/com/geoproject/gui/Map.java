@@ -15,9 +15,9 @@ public class Map extends JFrame {
     JButton button1, button2, button3;
     JButton[] buttons = new JButton[3];
     
-    public static void main(String[] args) {
-        new Map();
-    }
+    // public static void main(String[] args) {
+    //     new Map();
+    // }
 
     //.
     //.
@@ -87,12 +87,18 @@ class MapPanel extends JPanel implements ActionListener {
         add(test);*/
 
         setLayout(null);
+        setOpaque(false);
+
         mapButtons = new MapButton[CountryLibrary.countryNames.length];
-        for (int i = 0; i < CountryLibrary.countryNames.length; i++) {
-            mapButtons[i] = new MapButton(CountryLibrary.countryNames[i]);
-            mapButtons[i].addActionListener(this);
-            mapButtons[i].setBounds(0, 0, 100, 100);
-            add(mapButtons[i]);
+        for (int i = 0; i < CountryLibrary.countryShortNames.length; i++) {
+            if (i < countryMapLayout.length) {
+                System.out.println("i: " + i);
+                mapButtons[i] = new MapButton(CountryLibrary.countryShortNames[i]);
+                mapButtons[i].addActionListener(this);
+                mapButtons[i].setBounds(countryMapLayout[i][0], countryMapLayout[i][1], countryMapLayout[i][2], countryMapLayout[i][3]);
+                mapButtons[i].setFont(new Font(getFont().getName(), getFont().getStyle(), countryMapLayout[i][4]));
+                add(mapButtons[i]);
+            }
         }
 
         /*addHoverListeners(button1, MainButtons[0]);
@@ -121,8 +127,19 @@ class MapPanel extends JPanel implements ActionListener {
             System.out.println("mapButtons 0 presses (should get removed)");
         }
     }
+
+    //maps sind 815x425
+    //EVTL AUCH TEXTORIENTIERUNG ALS VARIABLE REINNEHMEN
+    public static int[][] countryMapLayout = new int[][] {
+        {310,90,50,50,10},//DE 0
+        {280,90,30,25,10},//BNL 1
+        {295,70,65,20,10},//DEN 2
+        {360,90,65,30,10},//POL 3
+        {255,115,55,65,10},//FRA 4
+        {360,120,40,20,10},//CZE 5
+        {360,120,40,20,10}
+    };
 }
-//.
 //.
 //.
 //.
@@ -136,9 +153,21 @@ class MapButton extends JButton {
         setFocusPainted(true);
         setBorderPainted(true);
         setContentAreaFilled(false);
-        setFont(new Font(getFont().getName(), getFont().getStyle(), 12));
-        // setBorder(new LineBorder(Color.BLACK, 2)); // Set a thicker border
-    }
-    
+        setForeground(Color.RED); // Set text color to black
+        setFont(new Font(getFont().getName(), getFont().getStyle(), 10));
+        setBorder(new LineBorder(Color.BLACK, 2)); // Set a thicker border
+        
+        // Add hover effect
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                setBorder(new LineBorder(Color.GREEN, 2)); // Change border color on hover
+            }
 
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                setBorder(new LineBorder(Color.BLACK, 2)); // Revert border color when not hovering
+            }
+        });
+    }
 }
+
+
