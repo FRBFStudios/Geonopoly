@@ -123,25 +123,6 @@ public class UI extends JFrame implements ActionListener {
         p2StatsArea.setEditable(false);
         p2StatsArea.setLineWrap(true);
         p2StatsArea.setWrapStyleWord(true); */
-
-        // Initialize tables for player stats
-        p1StatsTable = new JTable();
-        p1StatsTable.setShowGrid(false);
-        p1StatsTable.setIntercellSpacing(new Dimension(0, 0));
-        p1StatsTable.getTableHeader().setUI(null);
-        p1StatsTable.setBackground(Color.WHITE);
-        p1StatsScrollPane = new JScrollPane(p1StatsTable);
-        p1StatsScrollPane.setBounds(120, 315, 815, 120);
-        p1StatsScrollPane.getViewport().setBackground(Color.WHITE);
-        
-        p2StatsTable = new JTable();
-        p2StatsTable.setShowGrid(false);
-        p2StatsTable.setIntercellSpacing(new Dimension(0, 0));
-        p2StatsTable.getTableHeader().setUI(null);
-        p2StatsTable.setBackground(Color.WHITE);
-        p2StatsScrollPane = new JScrollPane(p2StatsTable);
-        p2StatsScrollPane.setBounds(965, 315, 815, 120);
-        p2StatsScrollPane.getViewport().setBackground(Color.WHITE);
         
         //TextField für den Kontostand beider Spieler
         p1MoneyField = new JTextField("Money P1: ----");
@@ -158,34 +139,55 @@ public class UI extends JFrame implements ActionListener {
         // p2DisplayCartegoryDropdown.setBounds(965, 270, 660, 30); 
 
         p1MapArea = new JLabel(new ImageIcon("src/main/java/com/geoproject/gui/map070225.jpg"));
-        p1MapArea.setBounds(120, 10, 815, 295);
+        p1MapArea.setBounds(120, 5, 815, 425);
         p1MapArea.setIcon(new ImageIcon(new ImageIcon("src/main/java/com/geoproject/gui/map070225.jpg").getImage().getScaledInstance(-1, p1MapArea.getHeight(), Image.SCALE_SMOOTH)));
         
         p2MapArea = new JLabel(new ImageIcon("src/main/java/com/geoproject/gui/map070225.jpg"));
-        p2MapArea.setBounds(965, 10, 815, 295);
+        p2MapArea.setBounds(965, 5, 815, 425);
         p2MapArea.setIcon(new ImageIcon(new ImageIcon("src/main/java/com/geoproject/gui/map070225.jpg").getImage().getScaledInstance(-1, p2MapArea.getHeight(), Image.SCALE_SMOOTH)));
 
-        Font buttonFont = new Font("Arial", Font.CENTER_BASELINE, 15);
+        // Initialize tables for player stats
+        p1StatsTable = new JTable();
+        p1StatsTable.setShowGrid(false);
+        p1StatsTable.setIntercellSpacing(new Dimension(0, 0));
+        p1StatsTable.getTableHeader().setUI(null);
+        p1StatsTable.setBackground(Color.WHITE);
+        p1StatsScrollPane = new JScrollPane(p1StatsTable);
+        p1StatsScrollPane.setBounds(120, 435, 815, 120);
+        p1StatsScrollPane.getViewport().setBackground(Color.WHITE);
+        
+        p2StatsTable = new JTable();
+        p2StatsTable.setShowGrid(false);
+        p2StatsTable.setIntercellSpacing(new Dimension(0, 0));
+        p2StatsTable.getTableHeader().setUI(null);
+        p2StatsTable.setBackground(Color.WHITE);
+        p2StatsScrollPane = new JScrollPane(p2StatsTable);
+        p2StatsScrollPane.setBounds(965, 435, 815, 120);
+        p2StatsScrollPane.getViewport().setBackground(Color.WHITE);
+
+        
+        Font buttonFont = new Font("Arial", Font.CENTER_BASELINE, 14);
         buyCountriesButton = new JButton("buy countries");
-        buyCountriesButton.setBounds(660, 450, 144, 50);
+        buyCountriesButton.setBounds(660, 570, 180, 50);
         buyCountriesButton.setFont(buttonFont);
 
         upgradeButton = new JButton("upgrade economy");
-        upgradeButton.setBounds(860, 450, 144, 50); 
+        upgradeButton.setBounds(860, 570, 180, 50); 
         upgradeButton.setFont(buttonFont);
         
         eventManagerButton = new JButton("manage events");
-        eventManagerButton.setBounds(1060, 450, 180, 50); 
+        eventManagerButton.setBounds(1060, 570, 180, 50); 
         eventManagerButton.setFont(buttonFont);
         
         finishTurnButton = new JButton("finish turn");
-        finishTurnButton.setBounds(1600, 450, 100, 30); 
+        finishTurnButton.setBounds(1600, 570, 100, 30); 
+
 
         subPanel = new JPanel(new FlowLayout());
-        subPanel.setBounds(150, 520, 1620, 180); 
+        subPanel.setBounds(150, 630, 1620, 180); 
         
         subSubPanel = new JPanel(new FlowLayout());
-        subSubPanel.setBounds(260, 700, 1400, 90); 
+        subSubPanel.setBounds(260, 800, 1400, 50); 
 
         buttons = new JButton[] {buyCountriesButton, upgradeButton, eventManagerButton, finishTurnButton};
 
@@ -196,7 +198,7 @@ public class UI extends JFrame implements ActionListener {
 
         // Initialize search bar
         searchBar = new JTextField("Search...");
-        searchBar.setBounds(/*(frame.getWidth() - 400)*/750, 960, 400, 30);
+        searchBar.setBounds(/*(frame.getWidth() - 400)*/750, 965, 400, 30);
         searchBar.setForeground(Color.GRAY);
         searchBar.addFocusListener(new FocusAdapter() {
             @Override
@@ -237,7 +239,7 @@ public class UI extends JFrame implements ActionListener {
         searchResultsTable.getTableHeader().setUI(null);
         searchResultsTable.setBackground(Color.WHITE);
         searchResultsScrollPanel = new JScrollPane(searchResultsTable);
-        searchResultsScrollPanel.setBounds(580, 855, 740, 100);
+        searchResultsScrollPanel.setBounds(580, 860, 740, 100);
         searchResultsScrollPanel.getViewport().setBackground(frame.getBackground());
 
         frame.getContentPane().removeAll();
