@@ -19,28 +19,14 @@ package com.geoproject.gui;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
-import java.awt.Color;
 
 import javax.swing.*;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
@@ -146,6 +132,8 @@ public class UI extends JFrame implements ActionListener {
         p2MapArea.setBounds(965, 5, 815, 425);
         p2MapArea.setIcon(new ImageIcon(new ImageIcon("src/main/java/com/geoproject/gui/map070225.jpg").getImage().getScaledInstance(-1, p2MapArea.getHeight(), Image.SCALE_SMOOTH)));
 
+
+
         // Initialize tables for player stats
         p1StatsTable = new JTable();
         p1StatsTable.setShowGrid(false);
@@ -165,6 +153,8 @@ public class UI extends JFrame implements ActionListener {
         p2StatsScrollPane.setBounds(965, 435, 815, 120);
         p2StatsScrollPane.getViewport().setBackground(Color.WHITE);
 
+        mapPanel1 = new MapPanel(buttons);
+        mapPanel1.setBounds(760, 300, 815, 295);
         
         Font buttonFont = new Font("Arial", Font.CENTER_BASELINE, 14);
         buyCountriesButton = new JButton("buy countries");
@@ -249,26 +239,27 @@ public class UI extends JFrame implements ActionListener {
         testValues();                                                                   //for tests
         UIupdate();
 
-        frame.add(searchBar);
-        frame.add(searchResultsScrollPanel);
+        
         frame.add(pTurnField);
         frame.add(p1MoneyField);
         frame.add(p2MoneyField);
+        frame.add(p1MapArea);
+        frame.add(p2MapArea);
+        frame.add(mapPanel1);
         frame.add(p1StatsScrollPane);
         frame.add(p2StatsScrollPane);
         /*frame.add(p1StatsArea);
         frame.add(p2StatsArea); */
         // frame.add(p1DisplayCartegoryDropdown);
         // frame.add(p2DisplayCartegoryDropdown);
-        frame.add(p1MapArea);
-        frame.add(p2MapArea);
         frame.add(buyCountriesButton);
         frame.add(upgradeButton);
         frame.add(eventManagerButton);
+        frame.add(finishTurnButton);
         frame.add(subPanel);
         frame.add(subSubPanel);
-        frame.add(finishTurnButton);
-
+        frame.add(searchBar);
+        frame.add(searchResultsScrollPanel);
         //MapPanel mapPanel1 = new MapPanel(buttons);
 
         frame.setVisible(true);

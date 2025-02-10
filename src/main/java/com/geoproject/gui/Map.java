@@ -68,7 +68,7 @@ class MapPanel extends JPanel implements ActionListener {
     MapButton[] mapButtons;
 
     public MapPanel(JButton[] MainButtons) {
-        setLayout(new GridBagLayout());
+        /*setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.BOTH;
         gbc.weightx = 1.0;
@@ -84,7 +84,16 @@ class MapPanel extends JPanel implements ActionListener {
         }
 
         MapButton test = new MapButton("test");
-        add(test);
+        add(test);*/
+
+        setLayout(null);
+        mapButtons = new MapButton[CountryLibrary.countryNames.length];
+        for (int i = 0; i < CountryLibrary.countryNames.length; i++) {
+            mapButtons[i] = new MapButton(CountryLibrary.countryNames[i]);
+            mapButtons[i].addActionListener(this);
+            mapButtons[i].setBounds(0, 0, 100, 100);
+            add(mapButtons[i]);
+        }
 
         /*addHoverListeners(button1, MainButtons[0]);
         addHoverListeners(button2, MainButtons[0]);
