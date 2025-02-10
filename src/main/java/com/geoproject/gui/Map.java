@@ -92,7 +92,6 @@ class MapPanel extends JPanel implements ActionListener {
         mapButtons = new MapButton[CountryLibrary.countryNames.length];
         for (int i = 0; i < CountryLibrary.countryShortNames.length; i++) {
             if (i < countryMapLayout.length) {
-                System.out.println("i: " + i);
                 mapButtons[i] = new MapButton(CountryLibrary.countryShortNames[i]);
                 mapButtons[i].addActionListener(this);
                 mapButtons[i].setBounds(countryMapLayout[i][0], countryMapLayout[i][1], countryMapLayout[i][2], countryMapLayout[i][3]);
@@ -137,6 +136,7 @@ class MapPanel extends JPanel implements ActionListener {
         {360,90,65,30,10},//POL 3
         {255,115,55,65,10},//FRA 4
         {360,120,40,20,10},//CZE 5
+        {310,140,90,20,10},//AU & SWI 6
         {310,140,90,20,10}
     };
 }
