@@ -137,7 +137,7 @@ class MapPanel extends JPanel implements ActionListener {
         {360,90,65,30,10},//POL 3
         {255,115,55,65,10},//FRA 4
         {360,120,40,20,10},//CZE 5
-        {360,120,40,20,10}
+        {310,140,90,20,10}
     };
 }
 //.
