@@ -10,6 +10,8 @@ com\geoproject\gui\Map.class
 com\geoproject\Geonopoly.class
 com\geoproject\libraries\CountryLibrary.class
 com\geoproject\gui\UI$2.class
+com\geoproject\gui\RussiaPanel$1.class
+com\geoproject\gui\RussiaPanel.class
 com\geoproject\gui\MapPanel.class
 com\geoproject\gui\MapTest$2.class
 com\geoproject\gui\MapPanel$1.class

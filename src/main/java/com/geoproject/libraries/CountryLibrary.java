@@ -87,7 +87,7 @@ public class CountryLibrary
     // FRA = 4 // DE, BNL, SWI/AU, UK, ITA, BRA, SUR, SPA,
     // CZE = 5 // DE, POL, SWI/AU, SLOVA,
     // SWI/AU = 6 // DE, FRA, CZE, SLOVA, ITA, BALK, HUN,
-    // UK = 7 // BNL, FRA, USA, ICE, IRE,
+    // UK = 7 // (hier) BNL, (hier) FRA, (hier) USA, (hier) ICE, IRE,
     // SCAN = 8 // DEN, FIN, RUS,
     // BALT = 9 // POL, FIN, UKR, RUS,
     // FIN = 10 // SCAN, BALT, RUS,

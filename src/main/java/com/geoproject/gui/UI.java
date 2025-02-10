@@ -13,7 +13,9 @@ package com.geoproject.gui;
  *  - evtl umsetzen, dass searchresults nur angezeigt wird, wenn was eingegeben, und dann popt es über die subpanels drüber. UM PLATZ ZU SPAREN
  *  - lieber das array in map.java in countrylibrary packen
  *  - perfekter befehl: mache alles proportional 1/4 kleiner und ändere die position der elemente entsprechend, damit das fenster genauso wie vorher aussieht aber 1/4 kleiner
- * 
+ *  - pfeile in map hinzufügen (auf "(hier)" achten)
+ *  - WICHTIG evtl ganz auf pfeile verzichten??? WICHTIG
+ *  - evtl schriftgrößen von mapcountries anpassen
   //theo: 
    - borders fertig machen,
    - multiplikatoren für länder stats hizufügen

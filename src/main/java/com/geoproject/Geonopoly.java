@@ -15,6 +15,8 @@ public class Geonopoly {
                 System.out.println("CountryLibrary.countryNames.length:" + CountryLibrary.countryNames.length);
                 System.out.println("CountryLibrary.statsMultiplier.length:" + CountryLibrary.statsMultiplier.length);
                 System.out.println("player.countryValues.length:" + player.countryValues.length);
+                System.out.println("Started perfectly fine!");
+                System.out.println("");
             }
             else {System.out.println("CountryLibrary.countryNames.length != player.countryValues.length");}
         } else {System.out.println("CountryLibrary.countryNames.length != CountryLibrary.statsMultiplier.length");}

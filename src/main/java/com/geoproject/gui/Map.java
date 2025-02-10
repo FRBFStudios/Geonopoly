@@ -6,6 +6,7 @@ import java.awt.*;
 // import java.awt.event.FocusEvent;
 import javax.swing.border.LineBorder;
 import java.awt.event.*;
+import java.awt.geom.Area;
 
 import com.geoproject.libraries.CountryLibrary;
 
@@ -100,6 +101,10 @@ class MapPanel extends JPanel implements ActionListener {
             }
         }
 
+        RussiaPanel russiaPanel = new RussiaPanel();
+        russiaPanel.setBounds(400, 5, 200, 100);
+        add(russiaPanel);
+
         /*addHoverListeners(button1, MainButtons[0]);
         addHoverListeners(button2, MainButtons[0]);
         addHoverListeners(button3, MainButtons[1]);
@@ -137,7 +142,38 @@ class MapPanel extends JPanel implements ActionListener {
         {255,115,55,65,10},//FRA 4
         {360,120,40,20,10},//CZE 5
         {310,140,90,20,10},//AU & SWI 6
-        {310,140,90,20,10}
+        {245,55,25,30,10},//UK 7
+        {325,5,40,60,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        //{400,5,200,100,10},// RUS 38
     };
 }
 //.
@@ -167,6 +203,33 @@ class MapButton extends JButton {
                 setBorder(new LineBorder(Color.BLACK, 2)); // Revert border color when not hovering
             }
         });
+    }
+}
+
+class RussiaPanel extends JPanel {
+    public RussiaPanel() {
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                System.out.println("Russia clicked");
+            }
+        });
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.setColor(Color.RED);
+
+        // Erstelle ein Quadrat
+        Area russia = new Area(new Rectangle(50, 50, 100, 100));
+
+        // Entferne das Quadrat in der unteren rechten Ecke
+        Area missingSquare = new Area(new Rectangle(100, 100, 50, 50));
+        russia.subtract(missingSquare);
+
+        g2d.fill(russia);
     }
 }
 
