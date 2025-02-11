@@ -83,9 +83,11 @@ class MapPanel extends JPanel implements ActionListener {
             }
         }
 
-        RussiaPanel russiaPanel = new RussiaPanel();
-        russiaPanel.setBounds(400, 5, 200, 100);
-        add(russiaPanel);
+
+
+        // RussiaPanel russiaPanel = new RussiaPanel();
+        // russiaPanel.setBounds(400, 5, 200, 100);
+        // add(russiaPanel);
         
         createPolygon();
 
@@ -96,6 +98,8 @@ class MapPanel extends JPanel implements ActionListener {
         addHoverListeners(button3, MainButtons[1]);
         addHoverListeners(button4, MainButtons[1]);*/
     }
+
+
 
     private void createPolygon() {
         // Add a hexagonal button
@@ -150,6 +154,10 @@ class MapPanel extends JPanel implements ActionListener {
 
         hexButton.addActionListener(this);
     }
+
+
+
+
     private void addHoverListeners(JButton button, JButton targetButton) {
         button.addFocusListener(new FocusAdapter() {
             @Override
@@ -174,6 +182,8 @@ class MapPanel extends JPanel implements ActionListener {
         }
     }
 
+
+
     //maps sind 815x425
     //EVTL AUCH TEXTORIENTIERUNG ALS VARIABLE REINNEHMEN
     public static int[][] countryMapLayout = new int[][] {
@@ -185,8 +195,8 @@ class MapPanel extends JPanel implements ActionListener {
         {360,120,40,20,10},//CZE 5
         {310,140,90,20,10},//AU & SWI 6
         {245,55,25,30,10},//UK 7
-        {325,5,40,60,10},//
-        {0,0,0,0,10},//
+        {325,5,40,60,10},//SCAN 8
+        {450,70,40,20,10},//
         {0,0,0,0,10},//
         {0,0,0,0,10},//
         {0,0,0,0,10},//

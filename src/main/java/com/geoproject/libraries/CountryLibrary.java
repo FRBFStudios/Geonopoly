@@ -12,7 +12,7 @@ public class CountryLibrary
         {0, 4, 7},//BeNeLux = 1
         {0, 8, 32},//Dänemark = 2
         {0, 5, 9, 11, 12, 13},//Polen = 3
-        {0, 1, 6, 7, 14, 25, 29, 47},//Frankreich = 4
+        {0, 1, 6, 7, 14, 47},//Frankreich = 4
         {0, 3, 6, 11},//Tschechien = 5
         {0, 4, 5, 11, 14, 15, 16},//AU & SWI = 6
         {1, 4, 19, 36, 37},//UK = 7
@@ -83,8 +83,8 @@ public class CountryLibrary
     // DE = 0 // BNL, DEN, FRA, CZE, SWI/AU,
     // BNL = 1 // DE, FRA, UK,
     // DEN = 2 // DE, SCAN, GRO,
-    // POL = 3 // DE, CZE, BALT, SLOVA, UKR, SPA,
-    // FRA = 4 // DE, BNL, SWI/AU, UK, ITA, BRA, SUR, SPA,
+    // POL = 3 // DE, CZE, BALT, SLOVA, BLR, UKR, 
+    // FRA = 4 // DE, BNL, SWI/AU, UK, ITA, SPA,
     // CZE = 5 // DE, POL, SWI/AU, SLOVA,
     // SWI/AU = 6 // DE, FRA, CZE, SLOVA, ITA, BALK, HUN,
     // UK = 7 // (hier) BNL, (hier) FRA, (hier) USA, (hier) ICE, IRE,
@@ -92,9 +92,9 @@ public class CountryLibrary
     // BALT = 9 // POL, FIN, UKR, RUS,
     // FIN = 10 // SCAN, BALT, RUS,
     // SLOVA = 11 // POL, CZE, SWI/AU, UKR, HUN,
-    // UKR = 12 // POL, BALT, UKR, RUS,
-    // SPA = 13 // POL, SLOVA, UKR, ROM, RUS, TUR,
-    // ITA = 14 // FRA, SWI/AU, ITA, SPA,
+    // BLR = 12 // POL, BALT, UKR, RUS,
+    // UKR = 13 // POL, SLOVA, BLR, ROM, RUS, TUR,
+    // ITA = 14 // FRA, SWI/AU, BALK, SPA,
     // BALK = 15 // SWI/AU, ITA, HUN, GRE/MAK,
     // HUN = 16 // SWI/AU, SLOVA, UKR, BALK, ROM, GRE/MAK,
     // ROM = 17 // UKR, HUN, GRE/MAK, BUL,
@@ -130,7 +130,7 @@ public class CountryLibrary
     // SPA = 47 // FRA, ITA, MEX, MIDAM, BRA,
     // VAE/QAT = 48 // SAU, OMA, IRN,
     // IRA = 49 // TUR, SYR, JOR, SAU, IRN,
-    // GEO/ARM/AZE = 50 // RUS, TUR, IRN, GEO/ARM/AZE, TKM,
+    // GEO/ARM/AZE = 50 // RUS, TUR, IRN, KAZ, TKM,
     // BUL = 51 // ROM, GRE/MAK, TUR,
     // IRN = 52 // TUR, SAU, VAE/QAT, IRA, GEO/ARM/AZE, PAK, TKM, AFG,
     // PAK = 53 // IRN, TKM, AFG, IND, CHI,
@@ -203,14 +203,14 @@ public class CountryLibrary
         "Slowakei", "Belarus", "Ukraine & Moldau", "Italien", "Balkan", "Ungarn", "Rumänien", "Griechenland & Nordmazedonien",
         "Vereinigte Staaten", "Kanada", "Mexiko", "Mittelamerikanische Ländergruppe", "Kolumbien", "Venezuela", "Brasilien", "Ecuador",
         "Peru", "Guyana", "Suriname", "Argentinien", "Chile", "Grönland", "Bolivien", "Paraguay", "Uruguay", "Island", "Irland", "Russland",
-        "Türkei & Zypern", "Syrien", "Jordanien", "Israel & Palästina", "Beirut", "Saudi-Arabien", "Jemen", "Oman", "Iberische Halbinsel",
+        "Türkei & Zypern", "Syrien", "Jordanien", "Israel & Palästina", "Beirut", "Saudi-Arabien", "Jemen", "Oman", "Spanien",
         "VAE & Katar", "Irak", "Georgien, Armenien & Aserbaidschan", "Bulgarien", "Iran", "Pakistan", "Kasachstan", "Usbekistan", "Turkmenistan",
         "Tadschikistan", "Afghanistan", "Kirgisistan", "Indien", "Burma", "Bangladesch", "Nepal", "Kuba & Karibik", "Sri Lanka", "Mongolei", "China"
     };
 
 
     //Wichtig!!!!! bitte beim compilen übernehmen
-    public static String[] countryShortNames = new String[] {"DE", "BNL", "DEN", "POL", "FRA", "CZE", "SWI/AU", "UK", "SCAN", "BALT", "FIN", "SLOVA", "UKR", "SPA", "ITA", "BALK", "HUN", "ROM", "GRE/MAK", "USA", "CAN", "MEX", "MIDAM", "COL", "VEN", "BRA", "ECU", "PER", "GUY", "SUR", "ARG", "CHI", "GRO", "BOL", "PAR", "URU", "ICE", "IRE", "RUS", "TUR", "SYR", "JOR", "ISR/PAL", "BEI", "SAU", "YEM", "OMA", "SPA", "VAE/QAT", "IRA", "GEO/ARM/AZE", "BUL", "IRN", "PAK", "KAZ", "UZB", "TKM", "TAD", "AFG", "KIR", "IND", "BUR", "BAN", "NEP", "CUB", "SRI", "MON", "CHI"};
+    public static String[] countryShortNames = new String[] {"DE", "BNL", "DEN", "POL", "FRA", "CZE", "SWI/AU", "UK", "SCAN", "BALT", "FIN", "SLOVA", "BLR", "UKR", "ITA", "BALK", "HUN", "ROM", "GRE/MAK", "USA", "CAN", "MEX", "MIDAM", "COL", "VEN", "BRA", "ECU", "PER", "GUY", "SUR", "ARG", "CHI", "GRO", "BOL", "PAR", "URU", "ICE", "IRE", "RUS", "TUR", "SYR", "JOR", "ISR/PAL", "BEI", "SAU", "YEM", "OMA", "SPA", "VAE/QAT", "IRA", "GEO/ARM/AZE", "BUL", "IRN", "PAK", "KAZ", "UZB", "TKM", "TAD", "AFG", "KIR", "IND", "BUR", "BAN", "NEP", "CUB", "SRI", "MON", "CHI"};
     
     //Listet alle Industrietypen
     public static String[][] statNames = new String[][] {
