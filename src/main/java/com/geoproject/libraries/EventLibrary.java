@@ -5,9 +5,9 @@ public class EventLibrary {
 
     
     
-    @SuppressWarnings("unused")
+    
     public static String[] eventNames = new String[] {"dürre", "regen", "krieg", "doppelte einnahmen"};     //nur beispielhaft
 
-    @SuppressWarnings("unused")
+    
     public static String[] statNames = new String[] {"Count", "level"};     //nur beispielhaft //buy, sell im ui dazufügen, generell irgendwo noch price integrieren
 }

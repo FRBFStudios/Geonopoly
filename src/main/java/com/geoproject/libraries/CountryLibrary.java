@@ -6,7 +6,7 @@ package com.geoproject.libraries;
 
 public class CountryLibrary
 {
-    //Beinhält die Grenzländer aller Länder (muss komplett neu ausgefüllt werden)
+    //nur von theo übernommen, nichts neues
     public static int[][] borders = new int[][] {
         {1, 2, 4, 5, 6},//Deutschland = 0
         {0, 4, 7},//BeNeLux = 1
@@ -78,6 +78,79 @@ public class CountryLibrary
         {38, 53, 54, 57, 58, 59, 60, 61, 63, 66},//China = 67
     };
 
+    // NICHT WEGMACHEN!!!!!!!!!!
+    // Borders mit country names, damit besser und übersichtlicher und schneller bei Mapdesign(anordnung ...)
+    // DE = 0 // BNL, DEN, FRA, CZE, SWI/AU,
+    // BNL = 1 // DE, FRA, UK,
+    // DEN = 2 // DE, SCAN, GRO,
+    // POL = 3 // DE, CZE, BALT, SLOVA, UKR, SPA,
+    // FRA = 4 // DE, BNL, SWI/AU, UK, ITA, BRA, SUR, SPA,
+    // CZE = 5 // DE, POL, SWI/AU, SLOVA,
+    // SWI/AU = 6 // DE, FRA, CZE, SLOVA, ITA, BALK, HUN,
+    // UK = 7 // (hier) BNL, (hier) FRA, (hier) USA, (hier) ICE, IRE,
+    // SCAN = 8 // DEN, FIN, RUS,
+    // BALT = 9 // POL, FIN, UKR, RUS,
+    // FIN = 10 // SCAN, BALT, RUS,
+    // SLOVA = 11 // POL, CZE, SWI/AU, UKR, HUN,
+    // UKR = 12 // POL, BALT, UKR, RUS,
+    // SPA = 13 // POL, SLOVA, UKR, ROM, RUS, TUR,
+    // ITA = 14 // FRA, SWI/AU, ITA, SPA,
+    // BALK = 15 // SWI/AU, ITA, HUN, GRE/MAK,
+    // HUN = 16 // SWI/AU, SLOVA, UKR, BALK, ROM, GRE/MAK,
+    // ROM = 17 // UKR, HUN, GRE/MAK, BUL,
+    // GRE/MAK = 18 // BALK, HUN, ROM, BUL,
+    // USA = 19 // UK, CAN, MEX, IRE, RUS, CUB,
+    // CAN = 20 // USA, GRO,
+    // MEX = 21 // USA, MIDAM, SPA, CUB,
+    // MIDAM = 22 // MEX, COL, SPA,
+    // COL = 23 // MIDAM, VEN, BRA, ECU, PER,
+    // VEN = 24 // COL, BRA, GUY, CUB,
+    // BRA = 25 // FRA, COL, VEN, PER, GUY, SUR, ARG, BOL, PAR, URU, SPA,
+    // ECU = 26 // COL, PER,
+    // PER = 27 // COL, BRA, ECU, BOL, CHI,
+    // GUY = 28 // VEN, BRA, SUR,
+    // SUR = 29 // FRA, BRA, GUY,
+    // ARG = 30 // CHI, BOL, PAR, URU,
+    // CHI = 31 // PER, ARG, BOL,
+    // GRO = 32 // DEN, CAN, ICE,
+    // BOL = 33 // BRA, PER, ARG, CHI, PAR,
+    // PAR = 34 // BRA, ARG, BOL,
+    // URU = 35 // BRA, ARG,
+    // ICE = 36 // UK, GRO, IRE,
+    // IRE = 37 // UK, USA, ICE,
+    // RUS = 38 // SCAN, BALT, FIN, UKR, USA, TUR, GEO/ARM/AZE, KAZ, MON, CHI,
+    // TUR = 39 // UKR, GRE/MAK, RUS, SYR, IRA, GEO/ARM/AZE, BUL, IRN,
+    // SYR = 40 // TUR, JOR, ISR/PAL, BEI, IRA,
+    // JOR = 41 // SYR, ISR/PAL, SAU, IRA,
+    // ISR/PAL = 42 // SYR, JOR, BEI,
+    // BEI = 43 // SYR, ISR/PAL,
+    // SAU = 44 // JOR, YEM, OMA, VAE/QAT, IRN,
+    // YEM = 45 // SAU, OMA,
+    // OMA = 46 // SAU, YEM, VAE/QAT,
+    // SPA = 47 // FRA, ITA, MEX, MIDAM, BRA,
+    // VAE/QAT = 48 // SAU, OMA, IRN,
+    // IRA = 49 // TUR, SYR, JOR, SAU, IRN,
+    // GEO/ARM/AZE = 50 // RUS, TUR, IRN, GEO/ARM/AZE, TKM,
+    // BUL = 51 // ROM, GRE/MAK, TUR,
+    // IRN = 52 // TUR, SAU, VAE/QAT, IRA, GEO/ARM/AZE, PAK, TKM, AFG,
+    // PAK = 53 // IRN, TKM, AFG, IND, CHI,
+    // KAZ = 54 // RUS, GEO/ARM/AZE, UZB, TKM, KIR, CHI,
+    // UZB = 55 // KAZ, TKM, TAD, AFG, KIR,
+    // TKM = 56 // GEO/ARM/AZE, IRN, KAZ, UZB, AFG,
+    // TAD = 57 // UZB, AFG, KIR, CHI,
+    // AFG = 58 // IRN, PAK, UZB, TKM, TAD, CHI,
+    // KIR = 59 // KAZ, UZB, TAD, CHI,
+    // IND = 60 // PAK, BUR, NEP, BAN, SRI, CHI,
+    // BUR = 61 // IND, NEP, BAN, CHI,
+    // BAN = 62 // IND, BUR,
+    // NEP = 63 // IND, BUR, CHI,
+    // CUB = 64 // USA, MEX, VEN,
+    // SRI = 65 // IND,
+    // MON = 66 // RUS, CHI,
+    // CHI = 67 // RUS, PAK, KAZ, TAD, AFG, KIR, IND, BUR, NEP, MON,
+
+
+
     public static int industryUpgradeCost = 100; //Kosten für das Upgraden der Industrien
 
     //Berechnet den Preis eines Landes nach der Formel BIP in USD / 1.000
@@ -120,21 +193,26 @@ public class CountryLibrary
 	};
 
     //Array, der die Namen der Länder beinhält. HOCHGRADIG SENSITIV! NICHTS ÄNDERN!
-    public static String[] countryNames = new String[] {"Deutschland", "BeNeLux-Ländergruppe", "Dänemark", "Polen", "Frankreich und Monaco",
-            "Tschechien", "Österreich, Liechtenstein und Schweiz", "Vereinigtes Königreich", "Skandinavische Ländergruppe", "Baltikum", "Finnland",
-            "Slowakei", "Belarus", "Ukraine und Moldau", "Italien", "Balkanländergruppe", "Ungarn", "Rumänien", "Griechenland und Nordmazedonien",
-            "Vereinigte Staaten", "Kanada", "Mexiko", "Mittelamerikanische Ländergruppe", "Kolumbien", "Venezuela", "Brasilien", "Ecuador",
-            "Peru", "Guyana", "Suriname", "Argentinien", "Chile", "Grönland", "Bolivien", "Paraguay", "Uruguay", "Island", "Irland", "Russland",
-            "Türkei und Zypern", "Syrien", "Jordanien", "Israel und Palästina", "Beirut", "Erweitertes Saudi-Arabien", "Jemen", "Oman", "Länder der Iberischen Halbinsel",
-            "VAE und Katar", "Irak", "Georgien, Armenien und Aserbaidschan", "Bulgarien", "Iran", "Pakistan", "Kasachstan", "Usbekistan", "Turkmenistan",
-            "Tadschikistan", "Afghanistan", "Kirgisistan", "Indien", "Burma", "Bangladesch", "Nepal", "Kuba und Karibische Ländergruppe", "Sri Lanka", "Mongolei", "China"};
+    public static String[] countryNames = new String[] {"Deutschland", "BeNeLux", "Dänemark", "Polen", "Frankreich & Monaco",
+        "Tschechien", "Österreich, Liechtenstein & Schweiz", "Vereinigtes Königreich", "Skandinavien", "Baltikum", "Finnland",
+        "Slowakei", "Belarus", "Ukraine & Moldau", "Italien", "Balkan", "Ungarn", "Rumänien", "Griechenland & Nordmazedonien",
+        "Vereinigte Staaten", "Kanada", "Mexiko", "Mittelamerikanische Ländergruppe", "Kolumbien", "Venezuela", "Brasilien", "Ecuador",
+        "Peru", "Guyana", "Suriname", "Argentinien", "Chile", "Grönland", "Bolivien", "Paraguay", "Uruguay", "Island", "Irland", "Russland",
+        "Türkei & Zypern", "Syrien", "Jordanien", "Israel & Palästina", "Beirut", "Saudi-Arabien", "Jemen", "Oman", "Iberische Halbinsel",
+        "VAE & Katar", "Irak", "Georgien, Armenien & Aserbaidschan", "Bulgarien", "Iran", "Pakistan", "Kasachstan", "Usbekistan", "Turkmenistan",
+        "Tadschikistan", "Afghanistan", "Kirgisistan", "Indien", "Burma", "Bangladesch", "Nepal", "Kuba & Karibik", "Sri Lanka", "Mongolei", "China"
+    };
 
+
+    //Wichtig!!!!! bitte beim compilen übernehmen
+    public static String[] countryShortNames = new String[] {"DE", "BNL", "DEN", "POL", "FRA", "CZE", "SWI/AU", "UK", "SCAN", "BALT", "FIN", "SLOVA", "UKR", "SPA", "ITA", "BALK", "HUN", "ROM", "GRE/MAK", "USA", "CAN", "MEX", "MIDAM", "COL", "VEN", "BRA", "ECU", "PER", "GUY", "SUR", "ARG", "CHI", "GRO", "BOL", "PAR", "URU", "ICE", "IRE", "RUS", "TUR", "SYR", "JOR", "ISR/PAL", "BEI", "SAU", "YEM", "OMA", "SPA", "VAE/QAT", "IRA", "GEO/ARM/AZE", "BUL", "IRN", "PAK", "KAZ", "UZB", "TKM", "TAD", "AFG", "KIR", "IND", "BUR", "BAN", "NEP", "CUB", "SRI", "MON", "CHI"};
+    
     //Listet alle Industrietypen
     public static String[][] statNames = new String[][] {
-        {"Bergbau", "BB"},
-        {"Landwirtschaft", "LW"},
-        {"Warenproduktion", "WP"},
-        {"Maschinenbau", "MB"},
+        {"Bergbau", "Bb"},
+        {"Landwirtschaft", "Lw"},
+        {"Warenproduktion", "Wp"},
+        {"Maschinenbau", "Mb"},
         {"Tourismus", "T"},
         {"Energie", "E"},
         {"Dienstleistungen", "DL"},

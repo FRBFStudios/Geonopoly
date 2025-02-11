@@ -10,29 +10,25 @@ package com.geoproject.gui;
  * - aufteilung neu probieren, main buttons
  *  - droppdown, wo ein land auswählen und dann die werte angezeigt bekommt oder man es kaufen kann
  *  - so machen, dass auf map.java zugegriffen wird, statt nacher alles zu kopieren
- * 
+ *  - evtl umsetzen, dass searchresults nur angezeigt wird, wenn was eingegeben, und dann popt es über die subpanels drüber. UM PLATZ ZU SPAREN
+ *  - lieber das array in map.java in countrylibrary packen
+ *  - perfekter befehl: mache alles proportional 1/4 kleiner und ändere die position der elemente entsprechend, damit das fenster genauso wie vorher aussieht aber 1/4 kleiner
+ *  - pfeile in map hinzufügen (auf "(hier)" achten)
+ *  - WICHTIG evtl ganz auf pfeile verzichten??? WICHTIG
+ *  - evtl schriftgrößen von mapcountries anpassen
   //theo: 
    - borders fertig machen,
    - multiplikatoren für länder stats hizufügen
 */
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
+import java.awt.*;
+import java.awt.event.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
+import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
@@ -47,8 +43,10 @@ public class UI extends JFrame implements ActionListener {
     JFrame frame;
     
     JLabel p1MapArea, p2MapArea;
+    MapPanel mapPanel1, mapPanel2;
+
     JTextField pTurnField, p1MoneyField, p2MoneyField;
-    JComboBox<String> p1CountryDropdown, p2CountryDropdown;
+    // JComboBox<String> p1DisplayCartegoryDropdown, p2DisplayCartegoryDropdown;
     /* JTextArea p1StatsArea, p2StatsArea; */
     JTable p1StatsTable, p2StatsTable;
     JScrollPane p1StatsScrollPane, p2StatsScrollPane;
@@ -90,37 +88,56 @@ public class UI extends JFrame implements ActionListener {
         
         //Fenster wird automatisch auf Fullscreen gesetzt, Layout muss noch angepasst werden
         //Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        
-        //bitte so lasssen, sonnst verschwindel manche elemente
+                        //BITTE SO LASSEN, sonnst verschwinden manche elemente
         frame.setSize(1920, 1040);
         //frame.setLocationRelativeTo(null);
 
-        //bitte weglassen, worgt nur für porbleme wenn auf anderen monitoren geöffnet usw.
+                        //BITTE WEGLASSEN, worgt nur für porbleme wenn auf anderen monitoren geöffnet usw.
         /*frame.addWindowListener(new WindowAdapter() {
             @Override
-            public void windowOpened(WindowEvent e) {
-                frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-            }
+            public void windowOpened(WindowEvent e) {frame.setExtendedState(JFrame.MAXIMIZED_BOTH);}
         });*/
 
         //Zeigt den Spieler an, der am Zug ist
         pTurnField = new JTextField("Player -'s turn");
         pTurnField.setBounds(10, 10, 100, 30);
         pTurnField.setEditable(false);
-
-        /*//TextAreas für die Stats beider Spieler
-        p1StatsArea = new JTextArea("Property (P1): -");
+        /*p1StatsArea = new JTextArea("Property (P1): -");
         p1StatsArea.setBounds(10, 200, 945, 120);
         p1StatsArea.setEditable(false);
         p1StatsArea.setLineWrap(true);
         p1StatsArea.setWrapStyleWord(true);
-        
         p2StatsArea = new JTextArea("Property (P2): -");
         p2StatsArea.setBounds(965, 200, 945, 120);
         p2StatsArea.setEditable(false);
         p2StatsArea.setLineWrap(true);
-        p2StatsArea.setWrapStyleWord(true);
-         */
+        p2StatsArea.setWrapStyleWord(true); */
+        
+        //TextField für den Kontostand beider Spieler
+        p1MoneyField = new JTextField("Money P1: ----");
+        p1MoneyField.setBounds(1790, 10, 110, 30);
+        p1MoneyField.setEditable(false);
+        
+        p2MoneyField = new JTextField("Money P2: ----");
+        p2MoneyField.setBounds(1790, 50, 110, 30);
+        p2MoneyField.setEditable(false);
+
+        // p1DisplayCartegoryDropdown = new JComboBox<>();
+        // p1DisplayCartegoryDropdown.setBounds(120, 270, 660, 30); 
+        // p2DisplayCartegoryDropdown = new JComboBox<>();
+        // p2DisplayCartegoryDropdown.setBounds(965, 270, 660, 30); 
+
+        p1MapArea = new JLabel(new ImageIcon("src/main/java/com/geoproject/gui/map070225.jpg"));
+        p1MapArea.setBounds(120, 5, 815, 425);
+        p1MapArea.setIcon(new ImageIcon(new ImageIcon("src/main/java/com/geoproject/gui/map070225.jpg").getImage().getScaledInstance(-1, p1MapArea.getHeight(), Image.SCALE_SMOOTH)));
+        
+        p2MapArea = new JLabel(new ImageIcon("src/main/java/com/geoproject/gui/map070225.jpg"));
+        p2MapArea.setBounds(965, 5, 815, 425);
+        p2MapArea.setIcon(new ImageIcon(new ImageIcon("src/main/java/com/geoproject/gui/map070225.jpg").getImage().getScaledInstance(-1, p2MapArea.getHeight(), Image.SCALE_SMOOTH)));
+
+
+        mapPanel1 = new MapPanel(buttons);
+        mapPanel1.setBounds(120, 5, 815, 425);
 
         // Initialize tables for player stats
         p1StatsTable = new JTable();
@@ -129,7 +146,7 @@ public class UI extends JFrame implements ActionListener {
         p1StatsTable.getTableHeader().setUI(null);
         p1StatsTable.setBackground(Color.WHITE);
         p1StatsScrollPane = new JScrollPane(p1StatsTable);
-        p1StatsScrollPane.setBounds(120, 200, 815, 120);
+        p1StatsScrollPane.setBounds(120, 435, 815, 120);
         p1StatsScrollPane.getViewport().setBackground(Color.WHITE);
         
         p2StatsTable = new JTable();
@@ -138,56 +155,31 @@ public class UI extends JFrame implements ActionListener {
         p2StatsTable.getTableHeader().setUI(null);
         p2StatsTable.setBackground(Color.WHITE);
         p2StatsScrollPane = new JScrollPane(p2StatsTable);
-        p2StatsScrollPane.setBounds(965, 200, 815, 120);
+        p2StatsScrollPane.setBounds(965, 435, 815, 120);
         p2StatsScrollPane.getViewport().setBackground(Color.WHITE);
         
-        //TextField für den Kontostand beider Spieler
-        p1MoneyField = new JTextField("Money (P1): ----");
-        p1MoneyField.setBounds(1795, 10, 115, 30);
-        p1MoneyField.setEditable(false);
-        
-        p2MoneyField = new JTextField("Money (P2): ----");
-        p2MoneyField.setBounds(1795, 50, 115, 30);
-        p2MoneyField.setEditable(false);
-
-        //Bitte erklären, was das alles ist
-        p1CountryDropdown = new JComboBox<>();
-        p1CountryDropdown.setBounds(120, 170, 660, 30);
-        
-        p2CountryDropdown = new JComboBox<>();
-        p2CountryDropdown.setBounds(965, 170, 660, 30);
-
-        //WTF
-        p1MapArea = new JLabel("Hier Platz für Karte der besitzten länder(P1)");
-        p1MapArea.setBounds(380, 70, 660, 30);
-        
-        p2MapArea = new JLabel("Hier Platz für Karte der besitzten länder(P2)");
-        p2MapArea.setBounds(1050, 70, 660, 30);
-
-        //WTF
-        Font buttonFont = new Font("Arial", Font.CENTER_BASELINE, 15);
-
-        //Du musst mir mal erklären, wie deine Submenüs funktionieren
+        Font buttonFont = new Font("Arial", Font.CENTER_BASELINE, 14);
         buyCountriesButton = new JButton("buy countries");
-        buyCountriesButton.setBounds(660, 350, 180, 50);
+        buyCountriesButton.setBounds(660, 570, 180, 50);
         buyCountriesButton.setFont(buttonFont);
-        
+
         upgradeButton = new JButton("upgrade economy");
-        upgradeButton.setBounds(860, 350, 180, 50);
+        upgradeButton.setBounds(860, 570, 180, 50); 
         upgradeButton.setFont(buttonFont);
         
         eventManagerButton = new JButton("manage events");
-        eventManagerButton.setBounds(1060, 350, 180, 50);
+        eventManagerButton.setBounds(1060, 570, 180, 50); 
         eventManagerButton.setFont(buttonFont);
         
         finishTurnButton = new JButton("finish turn");
-        finishTurnButton.setBounds(1600, 370, 100, 30);
+        finishTurnButton.setBounds(1600, 570, 100, 30); 
+
 
         subPanel = new JPanel(new FlowLayout());
-        subPanel.setBounds(260, 450, 1400, 120);
+        subPanel.setBounds(150, 630, 1620, 180); 
         
         subSubPanel = new JPanel(new FlowLayout());
-        subSubPanel.setBounds(260, 580, 1400, 120);
+        subSubPanel.setBounds(260, 800, 1400, 50); 
 
         buttons = new JButton[] {buyCountriesButton, upgradeButton, eventManagerButton, finishTurnButton};
 
@@ -198,7 +190,7 @@ public class UI extends JFrame implements ActionListener {
 
         // Initialize search bar
         searchBar = new JTextField("Search...");
-        searchBar.setBounds(/*(frame.getWidth() - 400)*/800, 960, 360, 30);
+        searchBar.setBounds(/*(frame.getWidth() - 400)*/750, 965, 400, 30);
         searchBar.setForeground(Color.GRAY);
         searchBar.addFocusListener(new FocusAdapter() {
             @Override
@@ -239,7 +231,7 @@ public class UI extends JFrame implements ActionListener {
         searchResultsTable.getTableHeader().setUI(null);
         searchResultsTable.setBackground(Color.WHITE);
         searchResultsScrollPanel = new JScrollPane(searchResultsTable);
-        searchResultsScrollPanel.setBounds(650, 855, 620, 100);
+        searchResultsScrollPanel.setBounds(580, 860, 740, 100);
         searchResultsScrollPanel.getViewport().setBackground(frame.getBackground());
 
         frame.getContentPane().removeAll();
@@ -249,25 +241,28 @@ public class UI extends JFrame implements ActionListener {
         testValues();                                                                   //for tests
         UIupdate();
 
-        frame.add(searchBar);
-        frame.add(searchResultsScrollPanel);
+        
         frame.add(pTurnField);
         frame.add(p1MoneyField);
         frame.add(p2MoneyField);
+        frame.add(mapPanel1);
+        frame.add(p1MapArea);
+        frame.add(p2MapArea);
         frame.add(p1StatsScrollPane);
         frame.add(p2StatsScrollPane);
         /*frame.add(p1StatsArea);
         frame.add(p2StatsArea); */
-        frame.add(p1CountryDropdown);
-        frame.add(p2CountryDropdown);
-        frame.add(p1MapArea);
-        frame.add(p2MapArea);
+        // frame.add(p1DisplayCartegoryDropdown);
+        // frame.add(p2DisplayCartegoryDropdown);
         frame.add(buyCountriesButton);
         frame.add(upgradeButton);
         frame.add(eventManagerButton);
+        frame.add(finishTurnButton);
         frame.add(subPanel);
         frame.add(subSubPanel);
-        frame.add(finishTurnButton);
+        frame.add(searchBar);
+        frame.add(searchResultsScrollPanel);
+        //MapPanel mapPanel1 = new MapPanel(buttons);
 
         frame.setVisible(true);
         subSubButtons2 = new JButton[CountryLibrary.countryNames.length][];
@@ -366,36 +361,36 @@ public class UI extends JFrame implements ActionListener {
     void UIupdate() {
         /*p1StatsArea.setText(game.p1.getLevels());
         p2StatsArea.setText(game.p2.getLevels()); */
-        p1MoneyField.setText("Money (P1): " + game.p1.playerMoney);
-        p2MoneyField.setText("Money (P2): " + game.p2.playerMoney);
+        p1MoneyField.setText("Money P1: " + game.p1.playerMoney);
+        p2MoneyField.setText("Money P2: " + game.p2.playerMoney);
         pTurnField.setText("Player " + game.currentPlayerValue + "'s turn");
-        updateCountryDropdowns();
+        // updateCountryDropdowns();
         updateStatsTable(p1StatsTable, game.p1);
         updateStatsTable(p2StatsTable, game.p2);
         updateSearchResults();
     }
 
     //NUR EIN TEST: Aktualisiert die TEST Dropdowns 
-    void updateCountryDropdowns() {
-        p1CountryDropdown.removeAllItems();
-        p2CountryDropdown.removeAllItems();
+    // void updateCountryDropdowns() {
+    //     p1DisplayCartegoryDropdown.removeAllItems();
+    //     p2DisplayCartegoryDropdown.removeAllItems();
 
-        for (int i = 0; i < game.p1.countryValues.length; i++) {
-            if (game.p1.countryValues[i][0] == 1) {
-                if (i < CountryLibrary.countryNames.length) {
-                    p1CountryDropdown.addItem(CountryLibrary.countryNames[i]);
-                } else {
-                    p1CountryDropdown.addItem("no countryname: " + i);
-                }
-            }
-        }
+    //     for (int i = 0; i < game.p1.countryValues.length; i++) {
+    //         if (game.p1.countryValues[i][0] == 1) {
+    //             if (i < CountryLibrary.countryNames.length) {
+    //                 p1DisplayCartegoryDropdown.addItem(CountryLibrary.countryNames[i]);
+    //             } else {
+    //                 p1DisplayCartegoryDropdown.addItem("no countryname: " + i);
+    //             }
+    //         }
+    //     }
 
-        for (int i = 0; i < game.p2.countryValues.length; i++) {
-            if (game.p2.countryValues[i][0] == 1) {
-                p2CountryDropdown.addItem(CountryLibrary.countryNames[i]);
-            }
-        }
-    }
+    //     for (int i = 0; i < game.p2.countryValues.length; i++) {
+    //         if (game.p2.countryValues[i][0] == 1) {
+    //             p2DisplayCartegoryDropdown.addItem(CountryLibrary.countryNames[i]);
+    //         }
+    //     }
+    // }
 
     //zeigt die buttons für das subpanel an, je nachdem, welcher hauptbuttons gedrückt wurde, im array subbuttons1-3, um nachher zu wissen, welcher gedrückt wurde
     void updateSubPanel(int buttonPressed) {
@@ -446,9 +441,8 @@ public class UI extends JFrame implements ActionListener {
         subPanel.revalidate();
         subPanel.repaint();
         
-        //Möchte ich mir für späteren anwendungsfall bitte merken
-        /*
-        case 2 -> {
+        //Möchte ich mir für späteren anwendungsfall bitte merken 
+        /*case 2 -> {
             int ownedCountriesCount = 0;
             for (int i = 0; i < game.currentPlayer.countryValues.length; i++) {
                 if (game.currentPlayer.countryValues[i][0] == 1) {
@@ -527,29 +521,30 @@ public class UI extends JFrame implements ActionListener {
         for (int i = 0; i < CountryLibrary.statNames.length; i++) {
             columnNames[i + 2] = CountryLibrary.statNames[i][1];
         }
-        DefaultTableModel model = new DefaultTableModel(columnNames, 0);//erstellt eine tabelle mit dem richtigen formfaktor
+        DefaultTableModel model = new DefaultTableModel(columnNames, 0);
 
-        for (String countryName : CountryLibrary.countryNames) {
+        for (int i = 0; i < CountryLibrary.countryNames.length; i++) {
+            String countryName = CountryLibrary.countryNames[i];
             if (countryName.toLowerCase().contains(query)) {
                 Object[] row = new Object[columnNames.length];
-                row[0] =  countryName;
-                row[1] = "Price: " + CountryLibrary.getCountryPrice(java.util.Arrays.asList(CountryLibrary.countryNames).indexOf(countryName));
+                row[0] = countryName;
+                row[1] = "Price: " + CountryLibrary.getCountryPrice(i);
                 for (int j = 2; j < row.length; j++) {
-                    int countryIndex = java.util.Arrays.asList(CountryLibrary.countryNames).indexOf(countryName);
-                    row[j] = CountryLibrary.statNames[j - 2][1] + ": " + CountryLibrary.statsMultiplier[countryIndex][j - 2];
+                    row[j] = CountryLibrary.statNames[j - 2][1] + ": " + CountryLibrary.statsMultiplier[i][j - 2];
                 }
                 model.addRow(row);
             }
         }
 
-        for (String eventName : EventLibrary.eventNames) {
+        for (int i = 0; i < EventLibrary.eventNames.length; i++) {
+            String eventName = EventLibrary.eventNames[i];
             if (eventName.toLowerCase().contains(query)) {
                 model.addRow(new Object[]{eventName});
             }
         }
 
         searchResultsTable.setModel(model);
-        searchResultsTable.getColumnModel().getColumn(0).setPreferredWidth(200);
+        searchResultsTable.getColumnModel().getColumn(0).setPreferredWidth(300);
     }
 
     //Wir müssen das ASAP hier wegkriegen
