@@ -16,6 +16,7 @@ package com.geoproject.gui;
  *  - pfeile in map hinzufügen (auf "(hier)" achten)
  *  - WICHTIG evtl ganz auf pfeile verzichten??? WICHTIG
  *  - evtl schriftgrößen von mapcountries anpassen
+ *  - z. 534  statsMultiplier wenn alles fertig wieder hinzugefügt
   //theo: 
    - borders fertig machen,
    - multiplikatoren für länder stats hizufügen
@@ -23,10 +24,6 @@ package com.geoproject.gui;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -530,7 +527,7 @@ public class UI extends JFrame implements ActionListener {
                 row[0] = countryName;
                 row[1] = "Price: " + CountryLibrary.getCountryPrice(i);
                 for (int j = 2; j < row.length; j++) {
-                    row[j] = CountryLibrary.statNames[j - 2][1] + ": " + CountryLibrary.statsMultiplier[i][j - 2];
+                    row[j] = CountryLibrary.statNames[j - 2][1] + ": " /*+ CountryLibrary.statsMultiplier[i][j - 2]*/;
                 }
                 model.addRow(row);
             }

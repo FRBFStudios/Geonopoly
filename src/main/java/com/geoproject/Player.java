@@ -5,7 +5,7 @@ import com.geoproject.libraries.*;
 public class Player {
     public int playerMoney;
     
-    public int[][] countryValues = new int[68][8];
+    public int[][] countryValues = new int[68][9];
     public int[][] eventValues = new int[50][2]; //NUR BEISPIELHAFT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     
     public Player(int defaultCountry) {

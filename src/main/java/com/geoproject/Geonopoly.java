@@ -1,5 +1,4 @@
 package com.geoproject;
-import java.sql.Time;
 
 import com.geoproject.gui.*;
 import com.geoproject.libraries.CountryLibrary;
@@ -8,7 +7,7 @@ import com.geoproject.libraries.CountryLibrary;
 public class Geonopoly {
     public static void main(String[] args) {
         Player player = new Player(0);
-        if (CountryLibrary.countryNames.length == CountryLibrary.statsMultiplier.length) {
+        //if (CountryLibrary.countryNames.length == CountryLibrary.statsMultiplier.length) {
             if (CountryLibrary.countryNames.length == player.countryValues.length) {
                 new UI();
                 System.out.println(new java.util.Date() + " Geonopoly started");
@@ -19,6 +18,6 @@ public class Geonopoly {
                 System.out.println("");
             }
             else {System.out.println("CountryLibrary.countryNames.length != player.countryValues.length");}
-        } else {System.out.println("CountryLibrary.countryNames.length != CountryLibrary.statsMultiplier.length");}
+        //} else {System.out.println("CountryLibrary.countryNames.length != CountryLibrary.statsMultiplier.length");}
     }
 }
