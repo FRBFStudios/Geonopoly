@@ -18,6 +18,7 @@ package com.geoproject.gui;
  *  - evtl schriftgrößen von mapcountries anpassen
  *  - z. 534  statsMultiplier wenn alles fertig wieder hinzugefügt
  *  - polygon updaten damit werte übergeben werden können
+ *  - manche connektions diskutieren
   //theo: 
    - borders fertig machen,
    - multiplikatoren für länder stats hizufügen
