@@ -94,6 +94,8 @@ public class MapTest extends JFrame {
         });
     }
 
+    
+
     private void addHoverListenerToButton(JButton button, JButton leftNeighbor, JButton rightNeighbor) {
         button.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
