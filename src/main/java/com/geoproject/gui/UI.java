@@ -17,6 +17,7 @@ package com.geoproject.gui;
  *  - WICHTIG evtl ganz auf pfeile verzichten??? WICHTIG
  *  - evtl schriftgrößen von mapcountries anpassen
  *  - z. 534  statsMultiplier wenn alles fertig wieder hinzugefügt
+ *  - polygon updaten damit werte übergeben werden können
   //theo: 
    - borders fertig machen,
    - multiplikatoren für länder stats hizufügen
