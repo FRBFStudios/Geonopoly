@@ -25,7 +25,7 @@ public class CountryLibrary
         {4, 6, 15, 47},//Italien = 14
         {6, 14, 16, 18},//Balkan = 15
         {6, 11, 13, 15, 17, 18},//Ungarn = 16
-        {13, 16, 18, 51},//Romänien = 17
+        {13, 16, 18, 51},//Rumänien = 17
         {15, 16, 17, 51},//Griechenland = 18
         {7, 20, 21, 37, 38, 64},//USA = 19
         {19, 32},//Kanada = 20
@@ -93,19 +93,36 @@ public class CountryLibrary
         {357022, 84552242, 4527009},//DE
         {74657, 30640541, 1873073},//BENELUX
         {43094, 5977412, 407092},//DEN
+        {312685, 38539201, 811736},//POL
+        {643801, 66548530, 3052712},//FRA
+        {78867, 10735859, 343208},//CZE
+        {125308, 18795915, 1412473},//SWI/AU/LI
+        {243610, 69138192, 3382115},//UK
+        {774097, 16183659, 1070225},//SCAN
+        {175117, 6091527, 162781},//BALT
+        {338145, 5617310, 295618},//FIN
+        {49035, 5506760, 132832},//SLOVA
+        {207600, 9056696, 71792},//BELA
+        {637401, 40895182, 194916},//UKR
+        {301340, 59342867, 2301603},//ITA
+        {258975, 18890828, 225621},//BALK
+        {93028, 9676135, 212464},//HUN
+        {238391, 19015088, 351074},//ROM
+        {157670, 13082778, 253044},//GRE
+        {9525067, 345426571, 27720725},//USA
     };
 
     //Beinhält die StatsMultiplier der Industrien, ohne Wirtschaft
-    //Werte (von 1-100) basieren auf dem Anteil des Sektors am BIP
+    //Werte (von 1-10) basieren auf dem Anteil des Sektors am BIP
 	public static int[][] statsMultiplier = new int[][] {
-        {3, 1, 24, 10, 4, 1, 60},//DE
+        {3, 1, 3, 2, 4, 1, 6},//DE
         {1, 1, 1, 1, 1, 1, 1},//
 	};
 
     //Array, der die Namen der Länder beinhält. HOCHGRADIG SENSITIV! NICHTS ÄNDERN!
     public static String[] countryNames = new String[] {"Deutschland", "BeNeLux-Ländergruppe", "Dänemark", "Polen", "Frankreich und Monaco",
             "Tschechien", "Österreich, Liechtenstein und Schweiz", "Vereinigtes Königreich", "Skandinavische Ländergruppe", "Baltikum", "Finnland",
-            "Slowakei", "Belarus", "Ukraine und Moldavien", "Italien", "Balkanländergruppe", "Ungarn", "Romänien", "Griechenland und Nordmazedonien",
+            "Slowakei", "Belarus", "Ukraine und Moldau", "Italien", "Balkanländergruppe", "Ungarn", "Rumänien", "Griechenland und Nordmazedonien",
             "Vereinigte Staaten", "Kanada", "Mexiko", "Mittelamerikanische Ländergruppe", "Kolumbien", "Venezuela", "Brasilien", "Ecuador",
             "Peru", "Guyana", "Suriname", "Argentinien", "Chile", "Grönland", "Bolivien", "Paraguay", "Uruguay", "Island", "Irland", "Russland",
             "Türkei und Zypern", "Syrien", "Jordanien", "Israel und Palästina", "Beirut", "Erweitertes Saudi-Arabien", "Jemen", "Oman", "Länder der Iberischen Halbinsel",
