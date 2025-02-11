@@ -155,8 +155,13 @@ public class CountryLibrary
 
     //Berechnet den Preis eines Landes nach der Formel BIP in USD / 1.000
     public static int getCountryPrice(int countryID) {
-        int price = Math.round(countryData[countryID][2] / 1000);
-        return price;
+        try {
+            int price = Math.round(countryData[countryID][2] / 1000);
+            return price;
+        } catch (Exception e) {
+            // Handle the error gracefully, e.g., return a default value or log the error
+            return -1; // Default value indicating an error
+        }
     }
 
 
