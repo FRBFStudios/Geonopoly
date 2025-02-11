@@ -542,6 +542,7 @@ public class UI extends JFrame implements ActionListener {
 
         searchResultsTable.setModel(model);
         searchResultsTable.getColumnModel().getColumn(0).setPreferredWidth(300);
+        searchResultsTable.getColumnModel().getColumn(1).setPreferredWidth(150);
     }
 
     //Wir müssen das ASAP hier wegkriegen
