@@ -1,5 +1,4 @@
-#uwu
-owo :3c
+uwu owo :3c
 
 #Konzept und Regeln
 Am Anfang der Runde: Jeder kriegt ein (zunächst) festes Startland (P1 kriegt USA, P2 kriegt Russland) (später wählbar)
@@ -56,6 +55,9 @@ finishTurnButton
 
 #To Do
 **Fixes**
-keine
+Theodor: Keine
+Timo:
+- Gelbe Errors in der UI-Klasse fixen
 **Features**
 - Länder kaufen
+- UI-Design

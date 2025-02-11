@@ -1,8 +1,8 @@
 package com.geoproject.libraries;
 
-//Welche Länder grenzen an welche?
-//Author: Theodor
-//Version: 21/1/2025
+//Informationen über die Länder
+//Autor: Theodor
+//Version: 7/2/2025
 
 public class CountryLibrary
 {
@@ -25,7 +25,7 @@ public class CountryLibrary
         {4, 6, 15, 47},//Italien = 14
         {6, 14, 16, 18},//Balkan = 15
         {6, 11, 13, 15, 17, 18},//Ungarn = 16
-        {13, 16, 18, 51},//Romänien = 17
+        {13, 16, 18, 51},//Rumänien = 17
         {15, 16, 17, 51},//Griechenland = 18
         {7, 20, 21, 37, 38, 64},//USA = 19
         {19, 32},//Kanada = 20
@@ -149,100 +149,65 @@ public class CountryLibrary
     // MON = 66 // RUS, CHI,
     // CHI = 67 // RUS, PAK, KAZ, TAD, AFG, KIR, IND, BUR, NEP, MON,
 
-    
-    public static int statsUpgradeCosts = 100; //Kosten für das Upgraden der Stats
 
-    
-    public static int[] countryPrice = new int[] //Bitte ausfüllen
-        {100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100};
 
-    
+    public static int industryUpgradeCost = 100; //Kosten für das Upgraden der Industrien
+
+    //Berechnet den Preis eines Landes nach der Formel BIP in USD / 1.000
+    public static int getCountryPrice(int countryID) {
+        int price = Math.round(countryData[countryID][2] / 1000);
+        return price;
+    }
+
+
+    //Speichert Informationen in folgender Reihenfolge: Fläche (in km²), Einwohnerzahl, BIP in Mio. USD
+    //Bei Ländergruppen: Summe
+    public static int[][] countryData = new int[][] {
+        {357022, 84552242, 4527009},//DE
+        {74657, 30640541, 1873073},//BENELUX
+        {43094, 5977412, 407092},//DEN
+        {312685, 38539201, 811736},//POL
+        {643801, 66548530, 3052712},//FRA
+        {78867, 10735859, 343208},//CZE
+        {125308, 18795915, 1412473},//SWI/AU/LI
+        {243610, 69138192, 3382115},//UK
+        {774097, 16183659, 1070225},//SCAN
+        {175117, 6091527, 162781},//BALT
+        {338145, 5617310, 295618},//FIN
+        {49035, 5506760, 132832},//SLOVA
+        {207600, 9056696, 71792},//BELA
+        {637401, 40895182, 194916},//UKR
+        {301340, 59342867, 2301603},//ITA
+        {258975, 18890828, 225621},//BALK
+        {93028, 9676135, 212464},//HUN
+        {238391, 19015088, 351074},//ROM
+        {157670, 13082778, 253044},//GRE
+        {9525067, 345426571, 27720725},//USA
+    };
+
+    //Beinhält die StatsMultiplier der Industrien, ohne Wirtschaft
+    //Werte (von 1-10) basieren auf dem Anteil des Sektors am BIP
 	public static int[][] statsMultiplier = new int[][] {
-        {1, 1, 1, 1, 1, 1, 1},//DE
-        {1, 1, 1, 1, 1, 1, 1},//BENELUX
-        {1, 1, 1, 1, 1, 1, 1},//DEN
-        {1, 1, 1, 1, 1, 1, 1},//POL
-        {1, 1, 1, 1, 1, 1, 1},//FRA
-        {1, 1, 1, 1, 1, 1, 1},//CZE
-        {1, 1, 1, 1, 1, 1, 1},//SWI/AU
-        {1, 1, 1, 1, 1, 1, 1},//UK
-        {1, 1, 1, 1, 1, 1, 1},//SCAN
-        {1, 1, 1, 1, 1, 1, 1},//BALT
-        {1, 1, 1, 1, 1, 1, 1},//FIN
-        {1, 1, 1, 1, 1, 1, 1},//SLOVA
-        {1, 1, 1, 1, 1, 1, 1},//UKR
-        {1, 1, 1, 1, 1, 1, 1},//SPA
-        {1, 1, 1, 1, 1, 1, 1},//ITA
-        {1, 1, 1, 1, 1, 1, 1},//SLO
-        {1, 1, 1, 1, 1, 1, 1},//HUN
-        {1, 1, 1, 1, 1, 1, 1},//IRE
-        {1, 1, 1, 1, 1, 1, 1},//ICE
-        {1, 1, 1, 1, 1, 1, 1},//USA
-        {1, 1, 1, 1, 1, 1, 1},//RUS
-        {1, 1, 1, 1, 1, 1, 1},//BEL
-        {1, 1, 1, 1, 1, 1, 1},//CAN
-        {1, 1, 1, 1, 1, 1, 1},//ROM
-        {1, 1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1},
-	};  //bitte Vervollständigen (werte von 1 bis 5 wären wahrscheinlich sinnvoll)!
+        {3, 1, 3, 2, 4, 1, 6},//DE
+        {1, 1, 1, 1, 1, 1, 1},//
+	};
 
-    
-    //Array, der die Namen der Länder beinhält
-    public static String[] countryNames = new String[] {"Deutschland", "BeNeLux", "Dänemark", "Polen", "Frankreich",
-        "Tschechien", "Österreich & Schweiz", "Vereinigtes Königreich", "Skandinavische Ländergruppe", "Baltikum", "Finnland",
-        "Slowakei", "Belarus", "Ukraine", "Italien", "Balkanländergruppe", "Ungarn", "Romänien", "Griechenland & Makedonien",
+    //Array, der die Namen der Länder beinhält. HOCHGRADIG SENSITIV! NICHTS ÄNDERN!
+    public static String[] countryNames = new String[] {"Deutschland", "BeNeLux", "Dänemark", "Polen", "Frankreich & Monaco",
+        "Tschechien", "Österreich, Liechtenstein & Schweiz", "Vereinigtes Königreich", "Skandinavien", "Baltikum", "Finnland",
+        "Slowakei", "Belarus", "Ukraine & Moldau", "Italien", "Balkan", "Ungarn", "Rumänien", "Griechenland & Nordmazedonien",
         "Vereinigte Staaten", "Kanada", "Mexiko", "Mittelamerikanische Ländergruppe", "Kolumbien", "Venezuela", "Brasilien", "Ecuador",
         "Peru", "Guyana", "Suriname", "Argentinien", "Chile", "Grönland", "Bolivien", "Paraguay", "Uruguay", "Island", "Irland", "Russland",
-        "Türkei", "Syrien", "Jordanien", "Israel & Palästina", "Beirut", "Saudi-Arabien", "Jemen", "Oman", "Spanien", "VAE & Katar",
-        "Irak", "Georgien, Armenien & Aserbaidschan", "Bulgarien", "Iran", "Pakistan", "Kasachstan", "Usbekistan", "Turkmenistan",
-        "Tadschikistan", "Afghanistan", "Kirgistan", "Indien", "Burma", "Bangladesch", "Nepal", "Kuba", "Sri Lanka", "Mongolei", "China"
+        "Türkei & Zypern", "Syrien", "Jordanien", "Israel & Palästina", "Beirut", "Saudi-Arabien", "Jemen", "Oman", "Iberische Halbinsel",
+        "VAE & Katar", "Irak", "Georgien, Armenien & Aserbaidschan", "Bulgarien", "Iran", "Pakistan", "Kasachstan", "Usbekistan", "Turkmenistan",
+        "Tadschikistan", "Afghanistan", "Kirgisistan", "Indien", "Burma", "Bangladesch", "Nepal", "Kuba & Karibik", "Sri Lanka", "Mongolei", "China"
     };
+
 
     //Wichtig!!!!! bitte beim compilen übernehmen
     public static String[] countryShortNames = new String[] {"DE", "BNL", "DEN", "POL", "FRA", "CZE", "SWI/AU", "UK", "SCAN", "BALT", "FIN", "SLOVA", "UKR", "SPA", "ITA", "BALK", "HUN", "ROM", "GRE/MAK", "USA", "CAN", "MEX", "MIDAM", "COL", "VEN", "BRA", "ECU", "PER", "GUY", "SUR", "ARG", "CHI", "GRO", "BOL", "PAR", "URU", "ICE", "IRE", "RUS", "TUR", "SYR", "JOR", "ISR/PAL", "BEI", "SAU", "YEM", "OMA", "SPA", "VAE/QAT", "IRA", "GEO/ARM/AZE", "BUL", "IRN", "PAK", "KAZ", "UZB", "TKM", "TAD", "AFG", "KIR", "IND", "BUR", "BAN", "NEP", "CUB", "SRI", "MON", "CHI"};
     
+    //Listet alle Industrietypen
     public static String[][] statNames = new String[][] {
         {"Bergbau", "Bb"},
         {"Landwirtschaft", "Lw"},
@@ -250,6 +215,7 @@ public class CountryLibrary
         {"Maschinenbau", "Mb"},
         {"Tourismus", "T"},
         {"Energie", "E"},
+        {"Dienstleistungen", "DL"},
         {"Wissenschaft", "W"}
     };
 }
