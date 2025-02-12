@@ -59,6 +59,10 @@ public class UI extends JFrame implements ActionListener {
     JButton[] buttons;
 
     Game game = new Game();
+
+
+    JButton mapweg, mapweg2;
+
     
     JTextField searchBar;
     JTable searchResultsTable;
@@ -137,6 +141,18 @@ public class UI extends JFrame implements ActionListener {
 
         mapPanel1 = new MapPanel(buttons);
         mapPanel1.setBounds(120, 5, 815, 425);
+
+        mapweg = new JButton("1");
+        mapweg.setBounds(10, 50, 60, 40);
+        mapweg.addActionListener(this);
+        mapweg.setVisible(true);//auch bei void achtionPerformed & beim frame.add() zeug & bei deklarationen
+
+        mapweg2 = new JButton("2");
+        mapweg2.setBounds(10, 100, 60, 40);
+        mapweg2.addActionListener(this);
+        mapweg2.setVisible(true);
+
+
 
         // Initialize tables for player stats
         p1StatsTable = new JTable();
@@ -241,6 +257,9 @@ public class UI extends JFrame implements ActionListener {
         UIupdate();
 
         
+        frame.add(mapweg);
+        frame.add(mapweg2);
+
         frame.add(pTurnField);
         frame.add(p1MoneyField);
         frame.add(p2MoneyField);
@@ -287,9 +306,19 @@ public class UI extends JFrame implements ActionListener {
             System.out.println("finish turn pressed");
             game.switchPlayer();
             showMainMenu();
-        } else if (e.getSource() == searchBar) {
+        } 
+        else if (e.getSource() == searchBar) {
             System.out.println("searchBar pressed");
-        } else {
+        } 
+        else if (e.getSource() == mapweg) {
+            System.out.println("mapweg pressed");
+            p1MapArea.setVisible(true);
+        } else if (e.getSource() == mapweg2) {
+            System.out.println("mapweg2 pressed");
+            p1MapArea.setVisible(false);
+        }
+        
+        else {
             if (subButtons1 != null) {
                 for (int i = 0; i < subButtons1.length; i++) {
                     if (e.getSource() == subButtons1[i]) {

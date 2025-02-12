@@ -75,7 +75,7 @@ class MapPanel extends JPanel implements ActionListener {
         mapButtons = new MapButton[CountryLibrary.countryNames.length];
         for (int i = 0; i < CountryLibrary.countryShortNames.length; i++) {
             if (i < countryMapLayout.length) {
-                mapButtons[i] = new MapButton(CountryLibrary.countryShortNames[i]);
+                mapButtons[i] = new MapButton(String.valueOf(i));
                 mapButtons[i].addActionListener(this);
                 mapButtons[i].setBounds(countryMapLayout[i][0], countryMapLayout[i][1], countryMapLayout[i][2], countryMapLayout[i][3]);
                 mapButtons[i].setFont(new Font(getFont().getName(), getFont().getStyle(), countryMapLayout[i][4]));
