@@ -1,12 +1,24 @@
 package com.geoproject.gui;
 
-import javax.swing.*;
-import java.awt.*;
-// import java.awt.event.FocusAdapter;
-// import java.awt.event.FocusEvent;
-import javax.swing.border.LineBorder;
-import java.awt.event.*;
+import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.geom.Area;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.UIManager;
+import javax.swing.border.LineBorder;
 
 import com.geoproject.libraries.CountryLibrary;
 
@@ -135,7 +147,7 @@ class MapPanel extends JPanel implements ActionListener {
     //maps sind 815x425
     //EVTL AUCH TEXTORIENTIERUNG ALS VARIABLE REINNEHMEN
     public static int[][] countryMapLayout = new int[][] {
-        {310,90,50,50,10},//DE 0
+        {310,90,50,50,10},//GER 0
         {280,90,30,25,10},//BNL 1
         {295,70,65,20,10},//DEN 2
         {360,90,65,30,10},//POL 3

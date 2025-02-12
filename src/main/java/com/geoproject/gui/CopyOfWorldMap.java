@@ -1,7 +1,10 @@
 package com.geoproject.gui;
 
-import java.awt.*;
-import javax.swing.*;
+import java.awt.Color;
+import java.awt.Graphics;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 public class CopyOfWorldMap extends JPanel {
 
@@ -12,7 +15,7 @@ public class CopyOfWorldMap extends JPanel {
 
         // Deutschland in der Mitte zeichnen
         g.drawRect(350, 250, 60, 90);
-        g.drawString("DE", 375, 295);
+        g.drawString("GER", 375, 295);
 
         // BeNeLux neben Deutschland zeichnen
         g.drawRect(300, 250, 30, 45);
