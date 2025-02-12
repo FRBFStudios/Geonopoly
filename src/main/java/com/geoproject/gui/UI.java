@@ -329,6 +329,8 @@ public class UI extends JFrame implements ActionListener {
                 for (int i = 0; i < subButtons1.length; i++) {
                     if (e.getSource() == subButtons1[i]) {
                         System.out.println("subButton1 pressed: " + i);
+                        game.currentPlayer.countryValues[i][0] = 1;
+                        updateSubPanel(1);
                         break;
                     }
                 }
@@ -357,6 +359,8 @@ public class UI extends JFrame implements ActionListener {
                         for (int j = 0; j < subSubButtons2[i].length; j++) {
                             if (e.getSource() == subSubButtons2[i][j]) {
                                 System.out.println("subSubButton2 pressed: " + i + ", " + j);
+                                game.currentPlayer.countryValues[i][j + 1]++;
+                                updateSubSubPanel(i, 2);
                                 break;
                             }
                         }
