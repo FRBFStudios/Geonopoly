@@ -187,24 +187,24 @@ class MapPanel extends JPanel implements ActionListener {
     //maps sind 815x425
     //EVTL AUCH TEXTORIENTIERUNG ALS VARIABLE REINNEHMEN
     public static int[][] countryMapLayout = new int[][] {
-        {310,90,50,50,10},//DE 0
-        {280,90,30,25,10},//BNL 1
-        {295,70,65,20,10},//DEN 2
-        {360,90,70,30,10},//POL 3
-        {255,115,55,65,10},//FRA 4
-        {360,120,30,20,10},//CZE 5
-        {310,140,80,20,10},//AU & SWI 6
-        {245,55,25,30,10},//UK 7
-        {335,5,55,65,10},//SCAN 8
-        {400,55,60,35,10},//BALT 9
-        {390,5,70,50,10},//FIN 10
-        {390,120,40,30,10},//SLOVA 11
-        {430,90,30,20,10},//BLR 12
-        {430,110,30,40,10},//UKR 13
-        {310,160,30,60,10},//ITA 14
-        {0,0,0,0,10},//
-        {0,0,0,0,10},//
-        {0,0,0,0,10},//
+        {310,90,50,50,10},//Deutschland  DE  0
+        {280,90,30,25,10},//BeNeLux  BNL  1
+        {295,70,65,20,10},//Dänemark  DEN  2
+        {360,90,60,30,10},//Polen  POL  3
+        {255,115,55,65,10},//Frankreich  FRA  4
+        {360,120,30,20,10},//Tschiechen  CZE  5
+        {310,140,80,20,10},//Österreich & Schweiz  AU & SWI  6
+        {245,65,35,50,10},//UK  UK  7
+        {335,5,55,65,10},//Skandinavien  SCAN  8
+        {400,55,60,35,10},//Baltikum  BALT  9
+        {390,5,70,50,10},//Finnland  FIN  10
+        {390,120,30,30,10},//Slovakai  SVK  11
+        {420,90,40,20,10},//Belarus  BLR  12
+        {420,110,40,40,10},//Ukraine  UKR  13
+        {310,160,30,60,10},//Italien  ITA  14
+        {340,160,50,30,10},//Balkan  BALK  15
+        {390,150,40,30,10},//Ungarn  HUN  16
+        {430,150,30,30,10},//Rumänien  RUM  17
         {0,0,0,0,10},//
         {0,0,0,0,10},//
         {0,0,0,0,10},//
