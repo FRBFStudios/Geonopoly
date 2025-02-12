@@ -310,12 +310,18 @@ public class UI extends JFrame implements ActionListener {
         else if (e.getSource() == searchBar) {
             System.out.println("searchBar pressed");
         } 
-        else if (e.getSource() == mapweg) {
+        else if (e.getSource() == mapweg) {//for tests
             System.out.println("mapweg pressed");
             p1MapArea.setVisible(true);
+            for (MapButton button : mapPanel1.mapButtons) {
+                button.setForeground(Color.RED);
+            }
         } else if (e.getSource() == mapweg2) {
             System.out.println("mapweg2 pressed");
             p1MapArea.setVisible(false);
+            for (MapButton button : mapPanel1.mapButtons) {
+                button.setForeground(Color.BLACK);
+            }
         }
         
         else {

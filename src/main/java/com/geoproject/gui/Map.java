@@ -93,12 +93,11 @@ class MapPanel extends JPanel implements ActionListener {
 
         add(hexButton);
 
-        /*addHoverListeners(button1, MainButtons[0]);
-        addHoverListeners(button2, MainButtons[0]);
-        addHoverListeners(button3, MainButtons[1]);
-        addHoverListeners(button4, MainButtons[1]);*/
+        /*addFocusListeners(button1, MainButtons[0]);
+        addFocusListeners(button2, MainButtons[0]);
+        addFocusListeners(button3, MainButtons[1]);
+        addFocusListeners(button4, MainButtons[1]);*/
     }
-
 
 
     private void createPolygon() {
@@ -158,7 +157,7 @@ class MapPanel extends JPanel implements ActionListener {
 
 
 
-    private void addHoverListeners(JButton button, JButton targetButton) {
+    private void addFocusListeners(JButton button, JButton targetButton) {
         button.addFocusListener(new FocusAdapter() {
             @Override
             public void focusGained(FocusEvent e) {
@@ -181,7 +180,6 @@ class MapPanel extends JPanel implements ActionListener {
             System.out.println("Hexagon pressed");
         }
     }
-
 
 
     //maps sind 815x425
