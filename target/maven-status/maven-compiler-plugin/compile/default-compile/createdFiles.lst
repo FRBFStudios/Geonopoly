@@ -6,6 +6,7 @@ com\geoproject\libraries\CountryLibrary.class
 com\geoproject\gui\HexButton$1.class
 com\geoproject\gui\UI$2.class
 com\geoproject\gui\MapPanel$3.class
+com\geoproject\gui\MapButton$2.class
 com\geoproject\gui\MapTest$2.class
 com\geoproject\gui\MapPanel$1.class
 com\geoproject\gui\CopyOfWorldMap.class

@@ -206,6 +206,71 @@ class MapPanel extends JPanel implements ActionListener {
         {390,175,50,40,10},//Griechenland & Nordmazedonien  GRE/NMK  18
         {0,0,0,0,10},//USA USA 19
         {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
+        {0,0,0,0,10},//
 
 
 
@@ -229,14 +294,27 @@ class MapButton extends JButton {
         setFont(new Font(getFont().getName(), getFont().getStyle(), 10));
         setBorder(new LineBorder(Color.BLACK, 2)); // Set a thicker border
         
-        // Add hover effect
         addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 setBorder(new LineBorder(Color.GREEN, 2)); // Change border color on hover
             }
 
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                setBorder(new LineBorder(Color.BLACK, 2)); // Revert border color when not hovering
+                if (!isFocusOwner()) {
+                    setBorder(new LineBorder(Color.BLACK, 2)); // Revert border color when not hovering and not focused
+                }
+            }
+        });
+
+        addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                setBorder(new LineBorder(Color.GREEN, 2));
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                setBorder(new LineBorder(Color.BLACK, 2));
             }
         });
     }
