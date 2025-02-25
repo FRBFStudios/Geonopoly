@@ -239,14 +239,15 @@ public class CountryLibrary
 
     //Beinhält die StatsMultiplier der Industrien, ohne Wirtschaft
     //Werte (von 1-10) basieren auf dem Anteil des Sektors am BIP
-	public static int[][] statsMultiplier = new int[][] {
-        {},//GER
-        {},//BNL
-        {},//DEN
-        {},//POL
-        {},//FRA
-        {},//CZE
-        {},//SWI/AU/LI
+    //Bergbau, Landwirtschaft, Warenproduktion, Tourismus, Energie
+    public static int[][] statsMultiplier = new int[][] {
+	{1, 3, 10, 7, 6},//GER
+	{2, 2, 6, 8, 7},//BNL
+        {2, 2, 5, 9, 7},//DEN
+        {7, 5, 7, 5, 9},//POL
+        {1, 2, 8, 10, 1},//FRA
+        {4, 10, 9, 5, 2},//CZE
+        {5, 1, 8, 10, 7},//SWI/AU/LI
         {},//UK
         {},//SCA
         {},//BLT
@@ -308,7 +309,7 @@ public class CountryLibrary
         {},//SRI
         {},//MON
         {},//CHI
-	};
+    };
 
     //Array, der die Namen der Länder beinhält. HOCHGRADIG SENSITIV! NICHTS ÄNDERN!
     public static String[] countryNames = new String[] {"Deutschland", "BeNeLux", "Dänemark", "Polen", "Frankreich & Monaco",
@@ -330,10 +331,8 @@ public class CountryLibrary
         {"Bergbau", "Bb"},
         {"Landwirtschaft", "Lw"},
         {"Warenproduktion", "Wp"},
-        {"Maschinenbau", "Mb"},
         {"Tourismus", "T"},
         {"Energie", "E"},
-        {"Dienstleistungen", "DL"},
         {"Wissenschaft", "W"}
     };
 }
