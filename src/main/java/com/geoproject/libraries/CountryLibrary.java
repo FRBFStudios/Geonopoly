@@ -78,7 +78,7 @@ public class CountryLibrary
         {38, 53, 54, 57, 58, 59, 60, 61, 63, 66},//China = 67
     };
 
-    // Borders mit country names, damit besser und übersichtlicher und schneller bei Mapdesign(anordnung ...)
+    // Borders mit country names, damit besser und übersichtlicher und schneller bei Map design (anordnung ...)
     // GER = 0 // BNL, DEN, FRA, CZE, SWI/AU/LI,
     // BNL = 1 // GER, FRA, UK,
     // DEN = 2 // GER, SCA, GRO,
@@ -94,7 +94,7 @@ public class CountryLibrary
     // BEL = 12 // POL, BLT, UKR, RUS,
     // UKR = 13 // POL, SLV, UKR, ROM, RUS, TUR,
     // ITA = 14 // FRA, SWI/AU/LI, ITA, IBE
-    // BLT = 15 // SWI/AU/LI, ITA, HUN, GRE/MAC,
+    // BLK = 15 // SWI/AU/LI, ITA, HUN, GRE/MAC,
     // HUN = 16 // SWI/AU/LI, SLV, UKR, BLT, ROM, GRE/MAC,
     // ROM = 17 // UKR, HUN, GRE/MAC, BUL,
     // GRE/MAC = 18 // BLT, HUN, ROM, BUL,
@@ -155,18 +155,42 @@ public class CountryLibrary
     //Berechnet den Preis eines Landes nach der Formel BIP in Mio. USD / 1.000
     public static int getCountryPrice(int countryID) {
         try {
-            int price = Math.round(countryData[countryID][2] / 1000);
-            return price;
+            return Math.round((float) countryData[countryID][2] / 1000);
         } catch (Exception e) {
-            // Handle the error gracefully, e.g., return a default value or log the error lol Copilot go brrr
+            // Handle the error gracefully, e.g., return a default value or log the error lol Copilot go brr
             return -1; // Default value indicating an error
         }
     }
 
+    public static int getCountryExpenses(int countryID)
+    {
+        return Math.round((float) countryData[countryID][1] / 100000);
+    }
+
+    // Diese Formeln müssen beim Balancing angepasst werden
+    public static int[] getCountryIndustryCaps (int countryID)
+    {
+        // Mining Cap: Flächen-Dependant + sekundär Einwohner-Dependant (Arbeitskräfte)
+        int miningCap = Math.round(((float) countryData[countryID][0] / 20000) + ((float) countryData[countryID][1] / 1000000));
+
+        // LW-Cap: Flächen-Dependant
+        int agricultureCap = Math.round((float) countryData[countryID][0] / 200000);
+
+        // Produktionscap: Einwohner-Dependant + sekundär Flächen-Dependant
+        int productionCap = Math.round(((float) countryData[countryID][1] / 200000) + ((float) countryData[countryID][0] / 1000000));
+
+        // Tourismuscap: Einwohner-Dependant
+        int tourismCap = Math.round(((float) countryData[countryID][1] / 200000) + ((float) countryData[countryID][0] / 1000000));
+
+        // Energiecap: Flächen-Dependant minus sekundär Einwohner, da die eigene Bevölkerung den Energieexport limitiert
+        int energyCap = Math.round(((float) countryData[countryID][0] / 200000) - ((float) countryData[countryID][1] / 1000000));
+
+        return new int[] {miningCap, agricultureCap, productionCap, tourismCap, energyCap};
+    }
 
     //Speichert Informationen in folgender Reihenfolge: Fläche (in km²), Einwohnerzahl, BIP in Mio. USD
     //Bei Ländergruppen: Summe
-    public static int[][] countryData = new int[][] {
+    public static int [][] countryData = new int[][] {
         {357022, 84552242, 4527009},//GER
         {74657, 30640541, 1873073},//BNL
         {43094, 5977412, 407092},//DEN
@@ -182,7 +206,7 @@ public class CountryLibrary
         {207600, 9056696, 71792},//BEL
         {637401, 40895182, 194916},//UKR
         {301340, 59342867, 2301603},//ITA
-        {258975, 18890828, 225621},//BLT
+        {258975, 18890828, 225621},//BLK
         {93028, 9676135, 212464},//HUN
         {238391, 19015088, 351074},//ROM
         {157670, 13082778, 253044},//GRE/MAC
@@ -238,11 +262,11 @@ public class CountryLibrary
     };
 
     //Beinhält die StatsMultiplier der Industrien, ohne Wirtschaft
-    //Werte (von 1-10) basieren auf dem Anteil des Sektors am BIP
+    //Werte (meistens von 1-10) basieren auf dem Anteil des Sektors am BIP
     //Bergbau, Landwirtschaft, Warenproduktion, Tourismus, Energie
     public static int[][] statsMultiplier = new int[][] {
-	{1, 3, 10, 7, 6},//GER
-	{2, 2, 6, 8, 7},//BNL
+	    {1, 3, 10, 7, 6},//GER
+	    {2, 2, 6, 8, 7},//BNL
         {2, 2, 5, 9, 7},//DEN
         {7, 5, 7, 5, 9},//POL
         {1, 2, 8, 10, 1},//FRA
@@ -250,17 +274,17 @@ public class CountryLibrary
         {5, 1, 8, 10, 7},//SWI/AU/LI
         {1, 7, 4, 7, 9},//UK
         {8, 10, 6, 8, 10},//SCA
-        {1, 1, 1, 1, 1},//BLT
-        {7, 1, 1, 1, 1},//FIN
-        {1, 1, 1, 1, 1},//SLV
-        {1, 1, 1, 1, 1},//BEL
-        {1, 1, 1, 1, 1},//UKR
-        {1, 1, 1, 1, 1},//ITA
-        {1, 1, 1, 1, 1},//BLT
-        {1, 1, 1, 1, 1},//HUN
-        {1, 1, 1, 1, 1},//ROM
-        {1, 1, 1, 1, 1},//GRE/MAC
-        {1, 1, 1, 1, 1},//USA
+        {7, 8, 5, 2, 5},//BLT
+        {7, 6, 5, 4, 1},//FIN
+        {3, 3, 9, 2, 8},//SLV
+        {2, 3, 2, 1, 3},//BEL
+        {8, 9, 5, 1, 7},//UKR
+        {6, 3, 2, 11, 8},//ITA
+        {7, 6, 5, 6, 1},//BLK
+        {2, 3, 8, 9, 8},//HUN
+        {1, 8, 8, 1, 7},//ROM
+        {1, 6, 6, 9, 1},//GRE/MAC
+        {1, 1, 1, 1, 1},//USA ----- STOP
         {1, 1, 1, 1, 1},//CAN
         {1, 1, 1, 1, 1},//MEX
         {1, 1, 1, 1, 1},//MID
@@ -279,7 +303,7 @@ public class CountryLibrary
         {1, 1, 1, 1, 1},//URU
         {1, 1, 1, 1, 1},//ICE
         {1, 1, 1, 1, 1},//IRE
-        {1, 1, 1, 1, 1},//RUS
+        {1, 1, 1, 1, 15},//RUS
         {1, 1, 1, 1, 1},//TUR
         {1, 1, 1, 1, 1},//SYR
         {1, 1, 1, 1, 1},//JOR
@@ -289,7 +313,7 @@ public class CountryLibrary
         {1, 1, 1, 1, 1},//YEM
         {1, 1, 1, 1, 1},//OMA
         {1, 1, 1, 1, 1},//IBE
-        {1, 1, 1, 1, 1},//UAE/QAT
+        {1, 1, 1, 1, 12},//UAE/QAT
         {1, 1, 1, 1, 1},//IRQ
         {1, 1, 1, 1, 1},//GEO/ARM/AZE
         {1, 1, 1, 1, 1},//BUL
@@ -308,7 +332,7 @@ public class CountryLibrary
         {1, 1, 1, 1, 1},//CUB
         {1, 1, 1, 1, 1},//SRI
         {1, 1, 1, 1, 1},//MON
-        {1, 1, 1, 1, 1},//CHI
+        {1, 1, 15, 1, 1},//CHI
     };
 
     //Array, der die Namen der Länder beinhält. HOCHGRADIG SENSITIV! NICHTS ÄNDERN!
@@ -325,7 +349,7 @@ public class CountryLibrary
 
     //Wichtig!!!!! bitte beim compilen übernehmen
     public static String[] countryShortNames = new String[] {"GER", "BNL", "DEN", "POL", "FRA", "CZE", "SWI/AU/LI", "UK", "SCA", "BLT", "FIN", "SLV", "UKR", "IBE", "ITA", "BLT", "HUN", "ROM", "GRE/MAC", "USA", "CAN", "MEX", "MID", "COL", "VEN", "BRA", "ECU", "PER", "GUY", "SUR", "ARG", "CHI", "GRO", "BOL", "PAR", "URU", "ICE", "IRE", "RUS", "TUR", "SYR", "JOR", "ISR/PAL", "LEB", "SAU", "YEM", "OMA", "IBE", "UAE/QAT", "IRQ", "GEO/ARM/AZE", "BUL", "IRN", "PAK", "KAZ", "UZB", "TKM", "TAD", "AFG", "KIR", "IND", "BUR", "BAN", "NEP", "CUB", "SRI", "MON", "CHI"};
-    
+
     //Listet alle Industrietypen
     public static String[][] statNames = new String[][] {
         {"Bergbau", "Bb"},
