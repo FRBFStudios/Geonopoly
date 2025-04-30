@@ -17,6 +17,8 @@ package com.geoproject.gui;
  *  - WICHTIG evtl ganz auf pfeile verzichten??? WICHTIG
  *  - evtl schriftgrößen von mapcountries anpassen
  *  - z. 534  statsMultiplier wenn alles fertig wieder hinzugefügt
+ *  - polygon updaten damit werte übergeben werden können
+ *  - manche connektions diskutieren
   //theo: 
    - borders fertig machen,
    - multiplikatoren für länder stats hizufügen
@@ -39,7 +41,7 @@ import com.geoproject.libraries.EventLibrary;
 public class UI extends JFrame implements ActionListener {
     JFrame frame;
     
-    JLabel p1MapArea, p2MapArea;
+    JLabel p1MapPic, p2MapPic;
     MapPanel mapPanel1, mapPanel2;
 
     JTextField pTurnField, p1MoneyField, p2MoneyField;
@@ -57,10 +59,16 @@ public class UI extends JFrame implements ActionListener {
     JButton[] buttons;
 
     Game game = new Game();
+
+
+    JButton mapweg, mapweg2;
+
     
     JTextField searchBar;
     JTable searchResultsTable;
     JScrollPane searchResultsScrollPanel;
+
+    boolean debug = false;
 
     //Konstruktor
     public UI() {
@@ -124,17 +132,49 @@ public class UI extends JFrame implements ActionListener {
         // p2DisplayCartegoryDropdown = new JComboBox<>();
         // p2DisplayCartegoryDropdown.setBounds(965, 270, 660, 30); 
 
-        p1MapArea = new JLabel(new ImageIcon("src/main/java/com/geoproject/gui/map070225.jpg"));
-        p1MapArea.setBounds(120, 5, 815, 425);
-        p1MapArea.setIcon(new ImageIcon(new ImageIcon("src/main/java/com/geoproject/gui/map070225.jpg").getImage().getScaledInstance(-1, p1MapArea.getHeight(), Image.SCALE_SMOOTH)));
+        if (debug) {
+        p1MapPic = new JLabel(new ImageIcon("src/main/java/com/geoproject/gui/map070225.jpg"));
+        p1MapPic.setBounds(120, 5, 815, 425);
+        p1MapPic.setIcon(new ImageIcon(new ImageIcon("src/main/java/com/geoproject/gui/map070225.jpg").getImage().getScaledInstance(-1, p1MapPic.getHeight(), Image.SCALE_SMOOTH)));
         
-        p2MapArea = new JLabel(new ImageIcon("src/main/java/com/geoproject/gui/map070225.jpg"));
-        p2MapArea.setBounds(965, 5, 815, 425);
-        p2MapArea.setIcon(new ImageIcon(new ImageIcon("src/main/java/com/geoproject/gui/map070225.jpg").getImage().getScaledInstance(-1, p2MapArea.getHeight(), Image.SCALE_SMOOTH)));
-
+        p2MapPic = new JLabel(new ImageIcon("src/main/java/com/geoproject/gui/map070225.jpg"));
+        p2MapPic.setBounds(965, 5, 815, 425);
+        p2MapPic.setIcon(new ImageIcon(new ImageIcon("src/main/java/com/geoproject/gui/map070225.jpg").getImage().getScaledInstance(-1, p2MapPic.getHeight(), Image.SCALE_SMOOTH)));
+        }
+        else {
+            p1MapPic = new JLabel();
+            p1MapPic.setBounds(120, 5, 815, 425);
+            p1MapPic.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+            
+            p2MapPic = new JLabel();
+            p2MapPic.setBounds(965, 5, 815, 425);
+            p2MapPic.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+        }
 
         mapPanel1 = new MapPanel(buttons);
         mapPanel1.setBounds(120, 5, 815, 425);
+        for (int i = 0; i < mapPanel1.mapButtons.length; i++) {
+            mapPanel1.mapButtons[i].addActionListener(this);
+        }
+
+        mapPanel2 = new MapPanel(buttons);
+        mapPanel2.setBounds(970, 5, 815, 425);
+        for (int i = 0; i < mapPanel2.mapButtons.length; i++) {
+            mapPanel2.mapButtons[i].addActionListener(this);
+        }
+
+        if (debug) {
+        mapweg = new JButton("1");
+        mapweg.setBounds(10, 50, 60, 40);
+        mapweg.addActionListener(this);
+        mapweg.setVisible(true);//auch bei void achtionPerformed & beim frame.add() zeug & bei deklarationen
+
+        mapweg2 = new JButton("2");
+        mapweg2.setBounds(10, 100, 60, 40);
+        mapweg2.addActionListener(this);
+        mapweg2.setVisible(true);
+        }
+
 
         // Initialize tables for player stats
         p1StatsTable = new JTable();
@@ -156,6 +196,7 @@ public class UI extends JFrame implements ActionListener {
         p2StatsScrollPane.getViewport().setBackground(Color.WHITE);
         
         Font buttonFont = new Font("Arial", Font.CENTER_BASELINE, 14);
+
         buyCountriesButton = new JButton("buy countries");
         buyCountriesButton.setBounds(660, 570, 180, 50);
         buyCountriesButton.setFont(buttonFont);
@@ -238,13 +279,18 @@ public class UI extends JFrame implements ActionListener {
         testValues();                                                                   //for tests
         UIupdate();
 
-        
+
         frame.add(pTurnField);
         frame.add(p1MoneyField);
         frame.add(p2MoneyField);
         frame.add(mapPanel1);
-        frame.add(p1MapArea);
-        frame.add(p2MapArea);
+        frame.add(mapPanel2);
+        frame.add(p1MapPic);
+        frame.add(p2MapPic);
+        if (debug) {
+            frame.add(mapweg);
+            frame.add(mapweg2);
+        }
         frame.add(p1StatsScrollPane);
         frame.add(p2StatsScrollPane);
         /*frame.add(p1StatsArea);
@@ -285,13 +331,36 @@ public class UI extends JFrame implements ActionListener {
             System.out.println("finish turn pressed");
             game.switchPlayer();
             showMainMenu();
-        } else if (e.getSource() == searchBar) {
+        } 
+        else if (e.getSource() == searchBar) {
             System.out.println("searchBar pressed");
-        } else {
+        } 
+
+
+        else if (e.getSource() == mapweg) {//for tests
+            System.out.println("mapweg pressed");
+            p1MapPic.setVisible(true);
+            for (MapButton button : mapPanel1.mapButtons) {
+                button.setForeground(Color.RED);
+            }
+        } else if (e.getSource() == mapweg2) {
+            System.out.println("mapweg2 pressed");
+            p1MapPic.setVisible(false);
+            for (MapButton button : mapPanel1.mapButtons) {
+                button.setForeground(Color.BLACK);
+            }
+        }
+        
+        else {
             if (subButtons1 != null) {
                 for (int i = 0; i < subButtons1.length; i++) {
                     if (e.getSource() == subButtons1[i]) {
                         System.out.println("subButton1 pressed: " + i);
+                        if(pleaseConfirm("you want to buy " + CountryLibrary.countryNames[i] + "?")) {
+                            game.currentPlayer.countryValues[i][0] = 1;
+                            //hier fehlt mechanik zum prüfen
+                            updateSubPanel(1);
+                        }
                         break;
                     }
                 }
@@ -320,6 +389,10 @@ public class UI extends JFrame implements ActionListener {
                         for (int j = 0; j < subSubButtons2[i].length; j++) {
                             if (e.getSource() == subSubButtons2[i][j]) {
                                 System.out.println("subSubButton2 pressed: " + i + ", " + j);
+                                if(pleaseConfirm("you want to upgrade " + CountryLibrary.countryNames[i] + " " + CountryLibrary.statNames[j][0] + "?")) {
+                                    game.currentPlayer.countryValues[i][j + 1]++;
+                                    updateSubSubPanel(i, 2);
+                                }
                                 break;
                             }
                         }
@@ -339,8 +412,57 @@ public class UI extends JFrame implements ActionListener {
                 }
             }
 
+
+            if (mapPanel1.mapButtons != null) {
+                for (int i = 0; i < mapPanel1.mapButtons.length; i++) {
+                    if (e.getSource() == mapPanel1.mapButtons[i]) {
+                        System.out.println("mapButton pressed: " + i);
+                        if (game.currentPlayerValue == 1) {
+                            buyCountriesButton.doClick(); // Simulate the buyCountriesButton being pressed
+                            subButtons1[i].doClick(); // Simulate the subButton1 being pressed
+                        } else {
+                            JOptionPane.showMessageDialog(frame, "It's not your turn!");
+                        }
+                        break;
+                    }
+                }
+            }
+            if (mapPanel2.mapButtons != null) {
+                for (int i = 0; i < mapPanel2.mapButtons.length; i++) {
+                    if (e.getSource() == mapPanel2.mapButtons[i]) {
+                        System.out.println("mapButton pressed: " + i);
+                        if (game.currentPlayerValue == 2) {
+                            buyCountriesButton.doClick(); // Simulate the buyCountriesButton being pressed
+                            subButtons1[i].doClick(); // Simulate the subButton1 being pressed
+                        } else {
+                            JOptionPane.showMessageDialog(frame, "It's not your turn!");
+                        }
+                        break;
+                    }
+                }
+            }
+
         }
         UIupdate();
+    }
+
+    private boolean pleaseConfirm(String text) {
+        int response = JOptionPane.showConfirmDialog(
+            frame,
+            "Do you want to " + text,
+            "Confirmation",
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.QUESTION_MESSAGE
+        );
+
+        if (response == JOptionPane.YES_OPTION) {
+            System.out.println("User selected Yes");
+            return true;
+        } else if (response == JOptionPane.NO_OPTION) {
+            System.out.println("User selected No");
+            return false;
+        }
+        return false; // Default case, should not happen
     }
 
     //zeigt ein aufgeräumtes Hauptmenü an (ohne Submenüs)
@@ -356,6 +478,8 @@ public class UI extends JFrame implements ActionListener {
 
     //Aktualisiert die GUI
     void UIupdate() {
+        game.p1.updateCountryInfos();
+        game.p2.updateCountryInfos();
         /*p1StatsArea.setText(game.p1.getLevels());
         p2StatsArea.setText(game.p2.getLevels()); */
         p1MoneyField.setText("Money P1: " + game.p1.playerMoney);
@@ -365,6 +489,9 @@ public class UI extends JFrame implements ActionListener {
         updateStatsTable(p1StatsTable, game.p1);
         updateStatsTable(p2StatsTable, game.p2);
         updateSearchResults();
+        mapPanel1.markCountries(game.p1.ownedCountries, game.p1.neighborCountries);
+        mapPanel2.markCountries(game.p2.ownedCountries, game.p2.neighborCountries);
+        
     }
 
     //NUR EIN TEST: Aktualisiert die TEST Dropdowns 
@@ -545,24 +672,25 @@ public class UI extends JFrame implements ActionListener {
         searchResultsTable.getColumnModel().getColumn(1).setPreferredWidth(150);
     }
 
+
     //Wir müssen das ASAP hier wegkriegen
     public void testValues() {
         game.currentPlayer.countryValues[0][0] = 1;
         game.currentPlayer.countryValues[1][0] = 1;
-        //game.currentPlayer.countryValues[2][0] = 1;
-        game.currentPlayer.countryValues[3][0] = 1;
-        game.currentPlayer.countryValues[1][2] = 4;
-        game.currentPlayer.countryValues[8][0] = 1;
+        game.currentPlayer.countryValues[2][0] = 1;
+        // game.currentPlayer.countryValues[3][0] = 1;
+        // game.currentPlayer.countryValues[1][2] = 4;
+        // game.currentPlayer.countryValues[8][0] = 1;
         //game.currentPlayer.countryValues[4][0] = 1;
-        game.currentPlayer.countryValues[5][0] = 1;
-        game.currentPlayer.countryValues[6][0] = 1;
-        game.currentPlayer.countryValues[7][0] = 1;
-        game.currentPlayer.countryValues[1][1] = 2;
-        game.currentPlayer.countryValues[2][1] = 3;
-        game.currentPlayer.countryValues[3][6] = 4;
-        game.currentPlayer.countryValues[4][2] = 5;
-        game.currentPlayer.countryValues[5][2] = 6;
-        game.currentPlayer.countryValues[6][3] = 7;
+        // game.currentPlayer.countryValues[5][0] = 1;
+        // game.currentPlayer.countryValues[6][0] = 1;
+        // game.currentPlayer.countryValues[7][0] = 1;
+        // game.currentPlayer.countryValues[1][1] = 2;
+        // game.currentPlayer.countryValues[2][1] = 3;
+        // game.currentPlayer.countryValues[3][6] = 4;
+        // game.currentPlayer.countryValues[4][2] = 5;
+        // game.currentPlayer.countryValues[5][2] = 6;
+        // game.currentPlayer.countryValues[6][3] = 7;
         game.currentPlayer.countryValues[7][7] = 8;
         game.currentPlayer.countryValues[1][1] = 12;
         game.currentPlayer.countryValues[2][2] = 13;
@@ -572,16 +700,16 @@ public class UI extends JFrame implements ActionListener {
         game.currentPlayer.countryValues[6][1] = 17;
         game.currentPlayer.countryValues[7][2] = 18;
         game.currentPlayer.countryValues[8][3] = 19;
-        game.currentPlayer.countryValues[9][0] = 1;
-        game.currentPlayer.countryValues[10][0] = 1;
-        game.currentPlayer.countryValues[12][0] = 1;
+        // game.currentPlayer.countryValues[9][0] = 1;
+        // game.currentPlayer.countryValues[10][0] = 1;
+        // game.currentPlayer.countryValues[12][0] = 1;
         game.currentPlayer.countryValues[13][5] = 6;
-        game.currentPlayer.countryValues[9][0] = 7;
-        game.currentPlayer.countryValues[8][0] = 1;
-        game.currentPlayer.countryValues[14][0] = 1;
-        game.currentPlayer.countryValues[15][0] = 1;
-        game.currentPlayer.countryValues[16][0] = 1;
-        game.currentPlayer.countryValues[17][0] = 1;
+        // game.currentPlayer.countryValues[9][0] = 7;
+        // game.currentPlayer.countryValues[8][0] = 1;
+        // game.currentPlayer.countryValues[14][0] = 1;
+        // game.currentPlayer.countryValues[15][0] = 1;
+        // game.currentPlayer.countryValues[16][0] = 1;
+        // game.currentPlayer.countryValues[17][0] = 1;
 
         game.currentPlayer.eventValues[0][0] = 5;
         game.currentPlayer.eventValues[1][0] = 1;

@@ -4,7 +4,7 @@
 4 = Polen
 5 = Frankreich
 6 = Tschechien
-7 = SWI/AU/LI
+7 = SWI/AU
 8 = UK
 9 = Skandinavien (NOR/SVE)
 10 = Baltikum
