@@ -11,7 +11,7 @@ import java.awt.geom.Area;
 import com.geoproject.libraries.CountryLibrary;
 import com.geoproject.gui.HexButton;
 
-public class Map extends JFrame {
+/*public class Map extends JFrame {
     JFrame frame;
     JPanel panel;
     JButton button1, button2, button3;
@@ -42,15 +42,15 @@ public class Map extends JFrame {
         frame.add(mapPanel);
         frame.setVisible(true);
     }
-}
+}*/
 //.
 //.
 //.
 //.
 //.
-class MapPanel extends JPanel implements ActionListener {
-    MapButton[] mapButtons;
-    MapButton hexButton;
+public class MapPanel extends JPanel implements ActionListener {
+    public MapButton[] mapButtons;
+    //MapButton hexButton;
 
     public MapPanel(JButton[] MainButtons) {
         /*setLayout(new GridBagLayout());
@@ -75,8 +75,8 @@ class MapPanel extends JPanel implements ActionListener {
         mapButtons = new MapButton[CountryLibrary.countryNames.length];
         for (int i = 0; i < CountryLibrary.countryShortNames.length; i++) {
             if (i < countryMapLayout.length) {
-                mapButtons[i] = new MapButton(String.valueOf(i));
-                mapButtons[i].addActionListener(this);
+                mapButtons[i] = new MapButton(CountryLibrary.countryShortNames[i]);
+                //mapButtons[i].addActionListener(this);
                 mapButtons[i].setBounds(countryMapLayout[i][0], countryMapLayout[i][1], countryMapLayout[i][2], countryMapLayout[i][3]);
                 mapButtons[i].setFont(new Font(getFont().getName(), getFont().getStyle(), countryMapLayout[i][4]));
                 add(mapButtons[i]);
@@ -89,9 +89,9 @@ class MapPanel extends JPanel implements ActionListener {
         // russiaPanel.setBounds(400, 5, 200, 100);
         // add(russiaPanel);
         
-        createPolygon();
+        //createPolygon();
 
-        add(hexButton);
+        //add(hexButton);
 
         /*addFocusListeners(button1, MainButtons[0]);
         addFocusListeners(button2, MainButtons[0]);
@@ -100,7 +100,7 @@ class MapPanel extends JPanel implements ActionListener {
     }
 
 
-    private void createPolygon() {
+    /*private void createPolygon() {
         // Add a hexagonal button
          hexButton = new MapButton("Hexagon") {
             Polygon hexagon = new Polygon();
@@ -152,7 +152,7 @@ class MapPanel extends JPanel implements ActionListener {
         });
 
         hexButton.addActionListener(this);
-    }
+    }*/
 
 
 
@@ -173,11 +173,34 @@ class MapPanel extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == mapButtons[0]) {
-            System.out.println("mapButtons 0 presses (should get removed)");
-        }
-        if (e.getSource() == hexButton) {
+        // if (e.getSource() == mapButtons[0]) {
+        //     System.out.println("mapButtons 0 presses (should get removed)");
+        // }
+        /*if (e.getSource() == hexButton) {
             System.out.println("Hexagon pressed");
+        }*/
+    }
+
+    public void markCountries(int[] ownedCountries, int[] neighborCountries) {
+        for (int i = 0; i < ownedCountries.length; i++) {
+            if (ownedCountries[i] > 0 && i < mapButtons.length) {
+                mapButtons[i].markButton(true, Color.GREEN);
+            } 
+            else if (i < mapButtons.length) {
+                mapButtons[i].markButton(false, null);
+            } 
+            else {
+                System.out.println("Error: Country index out of bounds: " + i);
+            }
+        }
+        for (int i = 0; i < neighborCountries.length; i++) {
+            if (neighborCountries[i] > 0 && i < mapButtons.length) {
+                mapButtons[i].markButton(true, Color.BLACK);
+            } 
+            //else if (i < mapButtons.length) {mapButtons[i].markButton(false, Color.BLACK);} 
+            else {
+                System.out.println("Error: Country index out of bounds: " + i);
+            }
         }
     }
 
@@ -271,37 +294,39 @@ class MapPanel extends JPanel implements ActionListener {
         {0,0,0,0,10},//
         {0,0,0,0,10},//
         {0,0,0,0,10},//
-
-
-
         //{400,5,200,100,10},// RUS 38
     };
 }
 //.
 //.
 //.
-//.
-//.
-//.
-//.
 class MapButton extends JButton {
+    boolean isMarked = false;
+    Color markedColor = Color.BLACK;
+    static Color defaultColor = Color.GRAY;
+    static Color hoverColor = Color.YELLOW;
+
     public MapButton(String text) {
         super(text);
         setFocusPainted(true);
         setBorderPainted(true);
         setContentAreaFilled(false);
-        setForeground(Color.RED); // Set text color to black
+        setForeground(Color.BLACK); // Set text color to black
         setFont(new Font(getFont().getName(), getFont().getStyle(), 10));
-        setBorder(new LineBorder(Color.BLACK, 2)); // Set a thicker border
+        setBorder(new LineBorder(defaultColor, 2)); // Set a thicker border
         
         addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                setBorder(new LineBorder(Color.GREEN, 2)); // Change border color on hover
+                    setBorder(new LineBorder(hoverColor, 2)); // Change border color on hover
             }
 
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 if (!isFocusOwner()) {
-                    setBorder(new LineBorder(Color.BLACK, 2)); // Revert border color when not hovering and not focused
+                    //if (isMarked) {
+                        setBorder(new LineBorder(markedColor, 2)); // Keep border color if marked
+                    //} else {
+                    //    setBorder(new LineBorder(Color.BLACK, 2)); // Revert border color to light blue when not hovering and not focused
+                    //}
                 }
             }
         });
@@ -309,14 +334,33 @@ class MapButton extends JButton {
         addFocusListener(new FocusAdapter() {
             @Override
             public void focusGained(FocusEvent e) {
-                setBorder(new LineBorder(Color.GREEN, 2));
+                    setBorder(new LineBorder(hoverColor, 2));
             }
 
             @Override
             public void focusLost(FocusEvent e) {
-                setBorder(new LineBorder(Color.BLACK, 2));
+                    //if (isMarked) {
+                        setBorder(new LineBorder(markedColor, 2)); // Keep border color if marked
+                    // } else {
+                    //     setBorder(new LineBorder(Color.BLACK, 2));
+                    // }
             }
         });
+    }
+
+
+
+    void markButton(boolean wahr, Color color) {
+        if (wahr) {
+            isMarked = true;
+            markedColor = color;
+            setBorder(new LineBorder(color, 2));
+        }
+        else {
+            isMarked = false;
+            markedColor = defaultColor;
+            setBorder(new LineBorder(defaultColor, 2));
+        }
     }
 }
 

@@ -7,6 +7,8 @@ public class Player {
     
     public int[][] countryValues = new int[68][9];
     public int[][] eventValues = new int[50][2]; //NUR BEISPIELHAFT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    public int[] neighborCountries = new int[countryValues.length];
+    public int[] ownedCountries = new int[countryValues.length];
     
     public Player(int defaultCountry) {
         countryValues[defaultCountry][0] = 1;
@@ -52,5 +54,22 @@ public class Player {
             }
         }
         return result.toString().trim();
+    }
+
+    public void updateCountryInfos() {
+        for (int i = 0; i < countryValues.length; i++) {
+            if (countryValues[i][0] == 1) { // Überprüfen, ob das Land dem Spieler gehört
+                ownedCountries[i] = 1; // Markiere Land als besessen
+                for (int neighbor : CountryLibrary.borders[i]) {
+                    neighborCountries[neighbor] = 1; // Markiere Nachbarland als benachbart
+                }
+
+            }
+        }
+        for (int i = 0; i < countryValues.length; i++) {
+            if (ownedCountries[i] == 1) {
+                neighborCountries[i] = 0; // Markiere Nachbarland als benachbart
+            }
+        }
     }
 }
