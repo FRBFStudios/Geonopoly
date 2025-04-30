@@ -1,6 +1,6 @@
 uwu owo :3c
 
-#Konzept und Regeln
+# Konzept und Regeln
 Am Anfang der Runde: Jeder kriegt ein (zunächst) festes Startland (P1 kriegt USA, P2 kriegt Russland) (später wählbar)
 Zugablauf:
 - evtl. Katastrophen
@@ -12,7 +12,7 @@ Zugablauf:
 - Events entwickeln
 - Events nutzen
 
-#Industrien
+# Industrien
 Jedes Land hat jede Industrie, aber unterschiedliche Effizienzfaktoren, die ändern, wie viel Geld/Level diese Industrie in diesem Land
 bei jedem Geldabwurf bringt
 Formel (grob): Basisertrag (1000€) * Effizienzfaktor * Level * Eventfaktor
@@ -28,12 +28,12 @@ Bei einseitiger Ausreizung bestimmter Industrien entstehen Katastrophen eventuel
 - Energie
 - *Wissenschaft und Innovation (bringt kein Geld, nur zufällige Events alle paar Geldabwürfe)*
 
-#Events
+# Events
 **2 Typen**
 - Verbesserungs-Events: Verbessern Sachen bei einem selbst, z. B. erhöhen Cap bei einer Industrie oder reduzieren Upgrade-Preise eines ganzen Lands permanent
 - Schaden-Events: Schaden dem Gegner
 
-#Klassennamen
+# Klassennamen
 - UI -> Greift auf Game zu
 - CountryBorderLibrary -> Welche Länder grenzen an welche?
 - CountryDataLibrary -> Beinhält fixe Informationen über Länder (Effizienzfaktor, etc.)
@@ -53,7 +53,7 @@ eventManagerButton
 backButton
 finishTurnButton
 
-#To Do
+# To Do
 **Fixes**
 Theodor: Keine
 Timo:
