@@ -23,7 +23,7 @@ package com.geoproject.gui;
  *  Theodor:
  *  - multiplikatoren für länder stats hizufügen
  */
-import java.util.logging.Logger;
+
 import com.geoproject.Game;
 import com.geoproject.LogHandler;
 import com.geoproject.Player;
@@ -39,6 +39,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.util.logging.Logger;
 
 //Klasse
 public class UI extends JFrame implements ActionListener {
@@ -429,6 +430,7 @@ public class UI extends JFrame implements ActionListener {
                     }
                 }
             }
+
             if (subButtons2 != null) {
                 for (int i = 0; i < subButtons2.length; i++) {
                     if (e.getSource() == subButtons2[i]) {
@@ -438,6 +440,7 @@ public class UI extends JFrame implements ActionListener {
                     }
                 }
             }
+
             if (subButtons3 != null) {
                 for (int i = 0; i < subButtons3.length; i++) {
                     if (e.getSource() == subButtons3[i]) {
@@ -447,6 +450,7 @@ public class UI extends JFrame implements ActionListener {
                     }
                 }
             }
+
             if (subSubButtons2 != null) {
                 for (int i = 0; i < subSubButtons2.length; i++) {
                     if (subSubButtons2[i] != null) {
@@ -464,6 +468,7 @@ public class UI extends JFrame implements ActionListener {
                     }
                 }
             }
+
             if (subSubButtons3 != null) {
                 for (int i = 0; i < subSubButtons3.length; i++) {
                     if (subSubButtons3[i] != null) {
@@ -477,34 +482,31 @@ public class UI extends JFrame implements ActionListener {
                 }
             }
 
-
             if (mapPanel1.mapButtons != null) {
                 for (int i = 0; i < mapPanel1.mapButtons.length; i++) {
                     if (e.getSource() == mapPanel1.mapButtons[i]) {
                         logger.info("Player 1 pressed mapButton: " + i);
-                        if (game.currentPlayerValue == 1) {
-                            buyCountriesButton.doClick(); // Simulate the buyCountriesButton being pressed
-                            subButtons1[i].doClick(); // Simulate the subButton1 being pressed
-                        } else {
+                        if (game.currentPlayerValue != 1) {
                             logger.info("Map access denied for Player 1: It's Player " + game.currentPlayerValue + "'s turn");
                             JOptionPane.showMessageDialog(frame, "It's not your turn!");
                         }
+                        buyCountriesButton.doClick(); // Simulate the buyCountriesButton being pressed
+                        subButtons1[i].doClick(); // Simulate the subButton1 being pressed
                         break;
                     }
                 }
             }
+
             if (mapPanel2.mapButtons != null) {
                 for (int i = 0; i < mapPanel2.mapButtons.length; i++) {
                     if (e.getSource() == mapPanel2.mapButtons[i]) {
                         logger.info("Player 2 pressed mapButton: " + i);
-                        if (game.currentPlayerValue == 2) {
-                            logger.info("");
-                            buyCountriesButton.doClick(); // Simulate the buyCountriesButton being pressed
-                            subButtons1[i].doClick(); // Simulate the subButton1 being pressed
-                        } else {
+                        if (game.currentPlayerValue != 2) {
                             logger.info("Map access denied for Player 2: It's Player " + game.currentPlayerValue + "'s turn");
                             JOptionPane.showMessageDialog(frame, "It's not your turn!");
                         }
+                        buyCountriesButton.doClick(); // Simulate the buyCountriesButton being pressed
+                        subButtons1[i].doClick(); // Simulate the subButton1 being pressed
                         break;
                     }
                 }
@@ -677,7 +679,7 @@ public class UI extends JFrame implements ActionListener {
             }
         } else if (MainButtonNumber == 3) {
             subSubButtons3[buttonPressed] = new JButton[EventLibrary.statNames.length + 2];
-            int k = 0;
+            int k;
             for (k = 0; k < EventLibrary.statNames.length; k++) {
                 subSubButtons3[buttonPressed][k] = new JButton(EventLibrary.statNames[k] + " = " + game.currentPlayer.eventValues[buttonPressed][k]);
                 subSubButtons3[buttonPressed][k].addActionListener(this);
