@@ -63,7 +63,7 @@ class LogFormatter extends Formatter {
         if (thrown != null) {
             StringWriter sw = new StringWriter();
             thrown.printStackTrace(new PrintWriter(sw));
-            logMessage += "\n" + sw.toString();
+            logMessage += "\n" + sw;
         }
         return logMessage + "\n";
     }
