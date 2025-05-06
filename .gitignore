@@ -3,6 +3,7 @@
 
 # Maven build directory
 /target/
+logs/
 
 # Logs and temporary files
 *.log
