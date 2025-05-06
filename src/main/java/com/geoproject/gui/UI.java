@@ -5,7 +5,7 @@ package com.geoproject.gui;
 //Version: 28/01/2025
 
 //Imports//EVENTS BLEIBEN DRAUßEN
-/*TO DO
+/* TO DO
  * - Oben mitte reworken
  * - aufteilung neu probieren, main buttons
  *  - droppdown, wo ein land auswählen und dann die werte angezeigt bekommt oder man es kaufen kann
@@ -18,35 +18,45 @@ package com.geoproject.gui;
  *  - evtl schriftgrößen von mapcountries anpassen
  *  - z. 534  statsMultiplier wenn alles fertig wieder hinzugefügt
  *  - polygon updaten damit werte übergeben werden können
- *  - manche connektions diskutieren
-  //theo: 
-   - borders fertig machen,
-   - multiplikatoren für länder stats hizufügen
-*/
-
-import java.awt.*;
-import java.awt.event.*;
+ *  - ALLES ÜBRIGE LOGGEN!
+ *
+ *  Theodor:
+ *  - multiplikatoren für länder stats hizufügen
+ */
+import java.util.logging.Logger;
+import com.geoproject.Game;
+import com.geoproject.LogHandler;
+import com.geoproject.Player;
+import com.geoproject.libraries.CountryLibrary;
+import com.geoproject.libraries.EventLibrary;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
-
-import com.geoproject.Game;
-import com.geoproject.Player;
-import com.geoproject.libraries.CountryLibrary;
-import com.geoproject.libraries.EventLibrary;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 //Klasse
 public class UI extends JFrame implements ActionListener {
+    // Connects the class to the logger, don't remove!
+    private static final Logger logger = LogHandler.getLogger();
+
     JFrame frame;
-    
+
     JLabel p1MapPic, p2MapPic;
     MapPanel mapPanel1, mapPanel2;
 
     JTextField pTurnField, p1MoneyField, p2MoneyField;
-    // JComboBox<String> p1DisplayCartegoryDropdown, p2DisplayCartegoryDropdown;
-    /* JTextArea p1StatsArea, p2StatsArea; */
+
+    /*
+    JComboBox<String> p1DisplayCategoryDropdown, p2DisplayCategoryDropdown;
+    JTextArea p1StatsArea, p2StatsArea;
+    */
+
     JTable p1StatsTable, p2StatsTable;
     JScrollPane p1StatsScrollPane, p2StatsScrollPane;
 
@@ -54,8 +64,12 @@ public class UI extends JFrame implements ActionListener {
     JPanel subPanel;
     JPanel subSubPanel;
     JButton finishTurnButton;
-    
-    JButton[] subButtons1, subButtons2, subSubButtons2[], subButtons3, subSubButtons3[];
+
+    JButton[] subButtons1;
+    JButton[] subButtons2;
+    JButton[][] subSubButtons2;
+    JButton[] subButtons3;
+    JButton[][] subSubButtons3;
     JButton[] buttons;
 
     Game game = new Game();
@@ -63,7 +77,7 @@ public class UI extends JFrame implements ActionListener {
 
     JButton mapweg, mapweg2;
 
-    
+
     JTextField searchBar;
     JTable searchResultsTable;
     JScrollPane searchResultsScrollPanel;
@@ -77,37 +91,46 @@ public class UI extends JFrame implements ActionListener {
 
     //Erstellt eine neue GUI
     private void createNewUI() {
-        //Optimieren und kommentieren!!!!!!!!
-        //oder zeile 99 scroll leayout nutzen
-        //benennung der buttons klären(allgemeines konzept)
-        //überhaupt schlau, die UI so zu machen, und nicht zb droppdown, wo ein land auswählen und dann die werte angezeigt bekommt oder man es kaufen kann
-        //über umsetzung von eventklasse?? (oder wie sonnst die unterschiedlichen actions speichern? oder einfach array dass für jede mgl sache ein obj. hat) sprechen
-        
-        
+        /*
+        Optimieren und kommentieren!!!!!!!!
+        oder zeile 99 scroll leayout nutzen
+        benennung der buttons klären(allgemeines konzept)
+        überhaupt schlau, die UI so zu machen, und nicht zb droppdown, wo ein land auswählen und dann die werte angezeigt bekommt oder man es kaufen kann
+        über umsetzung von eventklasse?? (oder wie sonnst die unterschiedlichen actions speichern? oder einfach array dass für jede mgl sache ein obj. hat) sprechen
+        */
+
+
         //Alle Elemente des Fensters werden initialisiert
-        
+
         //Fenster wird erstellt
+        logger.info("Creating new Geonopoly JFrame");
         frame = new JFrame("Geonopoly");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(null);
-        
+
         //Fenster wird automatisch auf Fullscreen gesetzt, Layout muss noch angepasst werden
         //Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-                        //BITTE SO LASSEN, sonnst verschwinden manche elemente
+
+        //BITTE SO LASSEN, sonst verschwinden manche elemente
         frame.setSize(1920, 1040);
         //frame.setLocationRelativeTo(null);
 
-                        //BITTE WEGLASSEN, worgt nur für porbleme wenn auf anderen monitoren geöffnet usw.
-        /*frame.addWindowListener(new WindowAdapter() {
+        //Erst mal weglassen, sorgt nur für probleme wenn auf anderen monitoren geöffnet usw.
+        /*
+        frame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowOpened(WindowEvent e) {frame.setExtendedState(JFrame.MAXIMIZED_BOTH);}
-        });*/
+        });
+        */
 
         //Zeigt den Spieler an, der am Zug ist
+        logger.info("Creating pTurnField");
         pTurnField = new JTextField("Player -'s turn");
         pTurnField.setBounds(10, 10, 100, 30);
         pTurnField.setEditable(false);
-        /*p1StatsArea = new JTextArea("Property (P1): -");
+
+        /*
+        p1StatsArea = new JTextArea("Property (P1): -");
         p1StatsArea.setBounds(10, 200, 945, 120);
         p1StatsArea.setEditable(false);
         p1StatsArea.setLineWrap(true);
@@ -116,47 +139,59 @@ public class UI extends JFrame implements ActionListener {
         p2StatsArea.setBounds(965, 200, 945, 120);
         p2StatsArea.setEditable(false);
         p2StatsArea.setLineWrap(true);
-        p2StatsArea.setWrapStyleWord(true); */
-        
+        p2StatsArea.setWrapStyleWord(true);
+        */
+
         //TextField für den Kontostand beider Spieler
+        logger.info("Creating p1MoneyField");
         p1MoneyField = new JTextField("Money P1: ----");
         p1MoneyField.setBounds(1790, 10, 110, 30);
         p1MoneyField.setEditable(false);
-        
+
+        logger.info("Creating p2MoneyField");
         p2MoneyField = new JTextField("Money P2: ----");
         p2MoneyField.setBounds(1790, 50, 110, 30);
         p2MoneyField.setEditable(false);
 
-        // p1DisplayCartegoryDropdown = new JComboBox<>();
-        // p1DisplayCartegoryDropdown.setBounds(120, 270, 660, 30); 
-        // p2DisplayCartegoryDropdown = new JComboBox<>();
-        // p2DisplayCartegoryDropdown.setBounds(965, 270, 660, 30); 
+        /*
+        p1DisplayCategoryDropdown = new JComboBox<>();
+        p1DisplayCategoryDropdown.setBounds(120, 270, 660, 30);
+        p2DisplayCategoryDropdown = new JComboBox<>();
+        p2DisplayCategoryDropdown.setBounds(965, 270, 660, 30);
+        */
 
         if (debug) {
-        p1MapPic = new JLabel(new ImageIcon("src/main/java/com/geoproject/gui/map070225.jpg"));
-        p1MapPic.setBounds(120, 5, 815, 425);
-        p1MapPic.setIcon(new ImageIcon(new ImageIcon("src/main/java/com/geoproject/gui/map070225.jpg").getImage().getScaledInstance(-1, p1MapPic.getHeight(), Image.SCALE_SMOOTH)));
-        
-        p2MapPic = new JLabel(new ImageIcon("src/main/java/com/geoproject/gui/map070225.jpg"));
-        p2MapPic.setBounds(965, 5, 815, 425);
-        p2MapPic.setIcon(new ImageIcon(new ImageIcon("src/main/java/com/geoproject/gui/map070225.jpg").getImage().getScaledInstance(-1, p2MapPic.getHeight(), Image.SCALE_SMOOTH)));
-        }
-        else {
+            logger.info("Debug mode: Active");
+
+            p1MapPic = new JLabel(new ImageIcon("src/main/java/com/geoproject/gui/map070225.jpg"));
+            p1MapPic.setBounds(120, 5, 815, 425);
+            p1MapPic.setIcon(new ImageIcon(new ImageIcon("src/main/java/com/geoproject/gui/map070225.jpg").getImage().getScaledInstance(-1, p1MapPic.getHeight(), Image.SCALE_SMOOTH)));
+
+            p2MapPic = new JLabel(new ImageIcon("src/main/java/com/geoproject/gui/map070225.jpg"));
+            p2MapPic.setBounds(965, 5, 815, 425);
+            p2MapPic.setIcon(new ImageIcon(new ImageIcon("src/main/java/com/geoproject/gui/map070225.jpg").getImage().getScaledInstance(-1, p2MapPic.getHeight(), Image.SCALE_SMOOTH)));
+        } else {
+            logger.info("Debug mode: Inactive");
+
+            logger.info("Creating p1MapPic");
             p1MapPic = new JLabel();
             p1MapPic.setBounds(120, 5, 815, 425);
             p1MapPic.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
-            
+
+            logger.info("Creating p2MapPic");
             p2MapPic = new JLabel();
             p2MapPic.setBounds(965, 5, 815, 425);
             p2MapPic.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
         }
 
+        logger.info("Creating mapPanel for Player 1");
         mapPanel1 = new MapPanel(buttons);
         mapPanel1.setBounds(120, 5, 815, 425);
         for (int i = 0; i < mapPanel1.mapButtons.length; i++) {
             mapPanel1.mapButtons[i].addActionListener(this);
         }
 
+        logger.info("Creating mapPanel for Player 2");
         mapPanel2 = new MapPanel(buttons);
         mapPanel2.setBounds(970, 5, 815, 425);
         for (int i = 0; i < mapPanel2.mapButtons.length; i++) {
@@ -164,19 +199,20 @@ public class UI extends JFrame implements ActionListener {
         }
 
         if (debug) {
-        mapweg = new JButton("1");
-        mapweg.setBounds(10, 50, 60, 40);
-        mapweg.addActionListener(this);
-        mapweg.setVisible(true);//auch bei void achtionPerformed & beim frame.add() zeug & bei deklarationen
+            mapweg = new JButton("1");
+            mapweg.setBounds(10, 50, 60, 40);
+            mapweg.addActionListener(this);
+            mapweg.setVisible(true);//auch bei void achtionPerformed & beim frame.add() zeug & bei deklarationen
 
-        mapweg2 = new JButton("2");
-        mapweg2.setBounds(10, 100, 60, 40);
-        mapweg2.addActionListener(this);
-        mapweg2.setVisible(true);
+            mapweg2 = new JButton("2");
+            mapweg2.setBounds(10, 100, 60, 40);
+            mapweg2.addActionListener(this);
+            mapweg2.setVisible(true);
         }
 
 
         // Initialize tables for player stats
+        logger.info("Creating and initializing p1StatsTable");
         p1StatsTable = new JTable();
         p1StatsTable.setShowGrid(false);
         p1StatsTable.setIntercellSpacing(new Dimension(0, 0));
@@ -185,7 +221,8 @@ public class UI extends JFrame implements ActionListener {
         p1StatsScrollPane = new JScrollPane(p1StatsTable);
         p1StatsScrollPane.setBounds(120, 435, 815, 120);
         p1StatsScrollPane.getViewport().setBackground(Color.WHITE);
-        
+
+        logger.info("Creating and initializing p2StatsTable");
         p2StatsTable = new JTable();
         p2StatsTable.setShowGrid(false);
         p2StatsTable.setIntercellSpacing(new Dimension(0, 0));
@@ -194,39 +231,50 @@ public class UI extends JFrame implements ActionListener {
         p2StatsScrollPane = new JScrollPane(p2StatsTable);
         p2StatsScrollPane.setBounds(965, 435, 815, 120);
         p2StatsScrollPane.getViewport().setBackground(Color.WHITE);
-        
+
+        logger.info("Setting button font");
         Font buttonFont = new Font("Arial", Font.CENTER_BASELINE, 14);
 
-        buyCountriesButton = new JButton("buy countries");
+        logger.info("Creating buyCountriesButton");
+        buyCountriesButton = new JButton("Buy countries");
         buyCountriesButton.setBounds(660, 570, 180, 50);
         buyCountriesButton.setFont(buttonFont);
 
-        upgradeButton = new JButton("upgrade economy");
-        upgradeButton.setBounds(860, 570, 180, 50); 
+        logger.info("Creating upgradeButton");
+        upgradeButton = new JButton("Upgrade country economies");
+        upgradeButton.setBounds(860, 570, 180, 50);
         upgradeButton.setFont(buttonFont);
-        
-        eventManagerButton = new JButton("manage events");
-        eventManagerButton.setBounds(1060, 570, 180, 50); 
+
+        logger.info("Creating eventManagerButton");
+        eventManagerButton = new JButton("Manage events");
+        eventManagerButton.setBounds(1060, 570, 180, 50);
         eventManagerButton.setFont(buttonFont);
-        
-        finishTurnButton = new JButton("finish turn");
-        finishTurnButton.setBounds(1600, 570, 100, 30); 
 
+        logger.info("Creating finishTurnButton");
+        finishTurnButton = new JButton("Finish turn");
+        finishTurnButton.setBounds(1600, 570, 100, 30);
 
+        logger.info("Creating subPanel");
         subPanel = new JPanel(new FlowLayout());
-        subPanel.setBounds(150, 630, 1620, 180); 
-        
-        subSubPanel = new JPanel(new FlowLayout());
-        subSubPanel.setBounds(260, 800, 1400, 50); 
+        subPanel.setBounds(150, 630, 1620, 180);
 
-        buttons = new JButton[] {buyCountriesButton, upgradeButton, eventManagerButton, finishTurnButton};
+        logger.info("Creating subSubPanel");
+        subSubPanel = new JPanel(new FlowLayout());
+        subSubPanel.setBounds(260, 800, 1400, 50);
+
+        logger.info("Creating buttons array");
+        buttons = new JButton[]{buyCountriesButton, upgradeButton, eventManagerButton, finishTurnButton};
 
         for (JButton button : buttons) {
+            logger.info("Adding action listener to " + button.getName());
             button.addActionListener(this);
+
+            logger.info("Enabling " + button.getName());
             button.setEnabled(true);
         }
 
         // Initialize search bar
+        logger.info("Creating searchBar");
         searchBar = new JTextField("Search...");
         searchBar.setBounds(/*(frame.getWidth() - 400)*/750, 965, 400, 30);
         searchBar.setForeground(Color.GRAY);
@@ -254,15 +302,18 @@ public class UI extends JFrame implements ActionListener {
             public void changedUpdate(DocumentEvent e) {
                 updateSearchResults();
             }
+
             public void removeUpdate(DocumentEvent e) {
                 updateSearchResults();
             }
+
             public void insertUpdate(DocumentEvent e) {
                 updateSearchResults();
             }
         });
 
         // Initialize search results table
+        logger.info("Creating searchResultsTable");
         searchResultsTable = new JTable();
         searchResultsTable.setShowGrid(false);
         searchResultsTable.setIntercellSpacing(new Dimension(0, 0));
@@ -279,7 +330,7 @@ public class UI extends JFrame implements ActionListener {
         testValues();                                                                   //for tests
         UIupdate();
 
-
+        logger.info("Adding elements to frame");
         frame.add(pTurnField);
         frame.add(p1MoneyField);
         frame.add(p2MoneyField);
@@ -287,16 +338,22 @@ public class UI extends JFrame implements ActionListener {
         frame.add(mapPanel2);
         frame.add(p1MapPic);
         frame.add(p2MapPic);
+
         if (debug) {
             frame.add(mapweg);
             frame.add(mapweg2);
         }
+
         frame.add(p1StatsScrollPane);
         frame.add(p2StatsScrollPane);
-        /*frame.add(p1StatsArea);
-        frame.add(p2StatsArea); */
-        // frame.add(p1DisplayCartegoryDropdown);
-        // frame.add(p2DisplayCartegoryDropdown);
+
+        /*
+        frame.add(p1StatsArea);
+        frame.add(p2StatsArea);
+        frame.add(p1DisplayCategoryDropdown);
+        frame.add(p2DisplayCategoryDropdown);
+        */
+
         frame.add(buyCountriesButton);
         frame.add(upgradeButton);
         frame.add(eventManagerButton);
@@ -312,66 +369,62 @@ public class UI extends JFrame implements ActionListener {
         subSubButtons3 = new JButton[EventLibrary.eventNames.length][];
     }
 
-    //methode zu ausführen von aktionen bei buttonklick
+    // Method is run at every button press
     @Override
     public void actionPerformed(ActionEvent e) {
+        logger.info("A button was pressed");
+
         if (e.getSource() == buyCountriesButton) {
+            logger.info("buyCountriesButton pressed");
             showMainMenu();
             updateSubPanel(1);
-            System.out.println("buycountries Button pressed");
         } else if (e.getSource() == upgradeButton) {
+            logger.info("upgradeButton pressed");
             showMainMenu();
             updateSubPanel(2);
-            System.out.println("upgrade Button pressed");
         } else if (e.getSource() == eventManagerButton) {
+            logger.info("eventManagerButton pressed");
             showMainMenu();
             updateSubPanel(3);
-            System.out.println("eventManager pressed");
         } else if (e.getSource() == finishTurnButton) {
-            System.out.println("finish turn pressed");
+            logger.info("finishTurnButton pressed, finishing turn...");
             game.finishTurn();
             showMainMenu();
-        } 
-        else if (e.getSource() == searchBar) {
-            System.out.println("searchBar pressed");
-        } 
-
-
-        else if (e.getSource() == mapweg) {//for tests
-            System.out.println("mapweg pressed");
+        } else if (e.getSource() == searchBar) {
+            logger.info("searchBar pressed");
+        } else if (e.getSource() == mapweg) {//for tests
+            logger.info("mapweg pressed");
             p1MapPic.setVisible(true);
             for (MapButton button : mapPanel1.mapButtons) {
                 button.setForeground(Color.RED);
             }
         } else if (e.getSource() == mapweg2) {
-            System.out.println("mapweg2 pressed");
+            logger.info("mapweg2 pressed");
             p1MapPic.setVisible(false);
             for (MapButton button : mapPanel1.mapButtons) {
                 button.setForeground(Color.BLACK);
             }
-        }
-        
-        else {
+        } else {
             if (subButtons1 != null) {
                 for (int i = 0; i < subButtons1.length; i++) {
                     if (e.getSource() == subButtons1[i]) {
                         System.out.println("subButton1 pressed: " + i);
                         if (game.currentPlayer.neighborCountries[i] != 1) {
-                            JOptionPane.showMessageDialog(frame, "not your neighbor!");
+                            logger.info("Player failed to buy countryID " + i + ": Not a neighbor");
+                            JOptionPane.showMessageDialog(frame, "You can't buy this country, it's not your neighbor!");
                             return;
                         }
                         if (!game.canAfford(CountryLibrary.getCountryPrice(i))) {
-                            JOptionPane.showMessageDialog(frame, "cant Afford!"); 
+                            logger.info("Player failed to buy countryID " + i + ": Can't afford");
+                            JOptionPane.showMessageDialog(frame, "You can't afford this country!");
                             return;
                         }
-                        if(pleaseConfirm("you want to buy " + CountryLibrary.countryNames[i] + "?")) {
+                        if (pleaseConfirm("Confirm purchase of " + CountryLibrary.countryNames[i] + "?")) {
                             game.currentPlayer.countryValues[i][0] = 1;
                             game.subtractMoney(CountryLibrary.getCountryPrice(i));
                             //hier fehlt mechanik zum prüfen
                             updateSubPanel(1);
                         }
-                        
-                        
                         break;
                     }
                 }
@@ -379,7 +432,7 @@ public class UI extends JFrame implements ActionListener {
             if (subButtons2 != null) {
                 for (int i = 0; i < subButtons2.length; i++) {
                     if (e.getSource() == subButtons2[i]) {
-                        System.out.println("subButton2 pressed: " + i);
+                        logger.info("subButton2 pressed: " + i);
                         updateSubSubPanel(i, 2);
                         break;
                     }
@@ -388,7 +441,7 @@ public class UI extends JFrame implements ActionListener {
             if (subButtons3 != null) {
                 for (int i = 0; i < subButtons3.length; i++) {
                     if (e.getSource() == subButtons3[i]) {
-                        System.out.println("subButton3 pressed: " + i);
+                        logger.info("subButton3 pressed: " + i);
                         updateSubSubPanel(i, 3);
                         break;
                     }
@@ -399,10 +452,10 @@ public class UI extends JFrame implements ActionListener {
                     if (subSubButtons2[i] != null) {
                         for (int j = 0; j < subSubButtons2[i].length; j++) {
                             if (e.getSource() == subSubButtons2[i][j]) {
-                                System.out.println("subSubButton2 pressed: " + i + ", " + j);
-                                if(pleaseConfirm("you want to upgrade " + CountryLibrary.countryNames[i] + " " + CountryLibrary.statNames[j][0] + "?")) {
+                                logger.info("subSubButton2 pressed: " + i + ", " + j);
+                                if (pleaseConfirm("Confirm upgrade of " + CountryLibrary.countryNames[i] + " - " + CountryLibrary.statNames[j][0] + "?")) {
                                     game.currentPlayer.countryValues[i][j + 1]++;
-        //game.subtractMoney(CountryLibrary.getCountryPrice(i));
+                                    //game.subtractMoney(CountryLibrary.getCountryPrice(i));
                                     updateSubSubPanel(i, 2);
                                 }
                                 break;
@@ -416,7 +469,7 @@ public class UI extends JFrame implements ActionListener {
                     if (subSubButtons3[i] != null) {
                         for (int j = 0; j < subSubButtons3[i].length; j++) {
                             if (e.getSource() == subSubButtons3[i][j]) {
-                                System.out.println("subSubButton3 pressed: " + i + ", " + j);
+                                logger.info("subSubButton3 pressed: " + i + ", " + j);
                                 break;
                             }
                         }
@@ -428,11 +481,12 @@ public class UI extends JFrame implements ActionListener {
             if (mapPanel1.mapButtons != null) {
                 for (int i = 0; i < mapPanel1.mapButtons.length; i++) {
                     if (e.getSource() == mapPanel1.mapButtons[i]) {
-                        System.out.println("mapButton pressed: " + i);
+                        logger.info("Player 1 pressed mapButton: " + i);
                         if (game.currentPlayerValue == 1) {
                             buyCountriesButton.doClick(); // Simulate the buyCountriesButton being pressed
                             subButtons1[i].doClick(); // Simulate the subButton1 being pressed
                         } else {
+                            logger.info("Map access denied for Player 1: It's Player " + game.currentPlayerValue + "'s turn");
                             JOptionPane.showMessageDialog(frame, "It's not your turn!");
                         }
                         break;
@@ -442,11 +496,13 @@ public class UI extends JFrame implements ActionListener {
             if (mapPanel2.mapButtons != null) {
                 for (int i = 0; i < mapPanel2.mapButtons.length; i++) {
                     if (e.getSource() == mapPanel2.mapButtons[i]) {
-                        System.out.println("mapButton pressed: " + i);
+                        logger.info("Player 2 pressed mapButton: " + i);
                         if (game.currentPlayerValue == 2) {
+                            logger.info("");
                             buyCountriesButton.doClick(); // Simulate the buyCountriesButton being pressed
                             subButtons1[i].doClick(); // Simulate the subButton1 being pressed
                         } else {
+                            logger.info("Map access denied for Player 2: It's Player " + game.currentPlayerValue + "'s turn");
                             JOptionPane.showMessageDialog(frame, "It's not your turn!");
                         }
                         break;
@@ -460,18 +516,18 @@ public class UI extends JFrame implements ActionListener {
 
     private boolean pleaseConfirm(String text) {
         int response = JOptionPane.showConfirmDialog(
-            frame,
-            "Do you want to " + text,
-            "Confirmation",
-            JOptionPane.YES_NO_OPTION,
-            JOptionPane.QUESTION_MESSAGE
+                frame,
+                text,
+                "Confirmation",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE
         );
 
         if (response == JOptionPane.YES_OPTION) {
-            System.out.println("User selected Yes");
+            logger.info("User selected Yes, returning true");
             return true;
         } else if (response == JOptionPane.NO_OPTION) {
-            System.out.println("User selected No");
+            logger.info("User selected No, returning false");
             return false;
         }
         return false; // Default case, should not happen
@@ -490,43 +546,65 @@ public class UI extends JFrame implements ActionListener {
 
     //Aktualisiert die GUI
     void UIupdate() {
+        logger.info("Updating UI...");
+
+        // Updates the country infos
+        logger.info("Updating Player 1 Country Infos");
         game.p1.updateCountryInfos();
+        logger.info("Updating Player 2 Country Infos");
         game.p2.updateCountryInfos();
-        /*p1StatsArea.setText(game.p1.getLevels());
-        p2StatsArea.setText(game.p2.getLevels()); */
+
+        /*
+        p1StatsArea.setText(game.p1.getLevels());
+        p2StatsArea.setText(game.p2.getLevels());
+        */
+
+        // Updates the money fields
+        logger.info("Updating Player 1 Money Field");
         p1MoneyField.setText("Money P1: " + game.p1.playerMoney);
+        logger.info("Updating Player 2 Money Field");
         p2MoneyField.setText("Money P2: " + game.p2.playerMoney);
         pTurnField.setText("Player " + game.currentPlayerValue + "'s turn");
+
         // updateCountryDropdowns();
+
+        logger.info("Updating Player 1 Stats Table");
         updateStatsTable(p1StatsTable, game.p1);
+        logger.info("Updating Player 2 Stats Table");
         updateStatsTable(p2StatsTable, game.p2);
+
         updateSearchResults();
+
+        logger.info("Updating Player 1 Country Marks");
         mapPanel1.markCountries(game.p1.ownedCountries, game.p1.neighborCountries);
+        logger.info("Updating Player 2 Country Marks");
         mapPanel2.markCountries(game.p2.ownedCountries, game.p2.neighborCountries);
-        
+
     }
 
-    //NUR EIN TEST: Aktualisiert die TEST Dropdowns 
-    // void updateCountryDropdowns() {
-    //     p1DisplayCartegoryDropdown.removeAllItems();
-    //     p2DisplayCartegoryDropdown.removeAllItems();
+    /*
+    NUR EIN TEST: Aktualisiert die TEST Dropdowns
+    void updateCountryDropdowns() {
+        p1DisplayCategoryDropdown.removeAllItems();
+        p2DisplayCategoryDropdown.removeAllItems();
 
-    //     for (int i = 0; i < game.p1.countryValues.length; i++) {
-    //         if (game.p1.countryValues[i][0] == 1) {
-    //             if (i < CountryLibrary.countryNames.length) {
-    //                 p1DisplayCartegoryDropdown.addItem(CountryLibrary.countryNames[i]);
-    //             } else {
-    //                 p1DisplayCartegoryDropdown.addItem("no countryname: " + i);
-    //             }
-    //         }
-    //     }
+        for (int i = 0; i < game.p1.countryValues.length; i++) {
+            if (game.p1.countryValues[i][0] == 1) {
+                if (i < CountryLibrary.countryNames.length) {
+                    p1DisplayCategoryDropdown.addItem(CountryLibrary.countryNames[i]);
+                } else {
+                    p1DisplayCategoryDropdown.addItem("no countryname: " + i);
+                }
+            }
+        }
 
-    //     for (int i = 0; i < game.p2.countryValues.length; i++) {
-    //         if (game.p2.countryValues[i][0] == 1) {
-    //             p2DisplayCartegoryDropdown.addItem(CountryLibrary.countryNames[i]);
-    //         }
-    //     }
-    // }
+        for (int i = 0; i < game.p2.countryValues.length; i++) {
+            if (game.p2.countryValues[i][0] == 1) {
+                p2DisplayCategoryDropdown.addItem(CountryLibrary.countryNames[i]);
+            }
+        }
+    }
+    */
 
     //zeigt die buttons für das subpanel an, je nachdem, welcher hauptbuttons gedrückt wurde, im array subbuttons1-3, um nachher zu wissen, welcher gedrückt wurde
     void updateSubPanel(int buttonPressed) {
@@ -539,12 +617,7 @@ public class UI extends JFrame implements ActionListener {
                     subButtons1[i] = new JButton(countryName);
                     subButtons1[i].addActionListener(this);
                     subPanel.add(subButtons1[i]);
-                    if (game.currentPlayer.countryValues[i][0] == 1) {
-                        subButtons1[i].setEnabled(false);
-                    
-                    } else {
-                        subButtons1[i].setEnabled(true);
-                    }
+                    subButtons1[i].setEnabled(game.currentPlayer.countryValues[i][0] != 1);
                 }
             }
             case 2 -> {
@@ -554,11 +627,7 @@ public class UI extends JFrame implements ActionListener {
                     subButtons2[i] = new JButton(countryName);
                     subButtons2[i].addActionListener(this);
                     subPanel.add(subButtons2[i]);
-                    if (game.currentPlayer.countryValues[i][0] == 1) {
-                        subButtons2[i].setEnabled(true);
-                    } else {
-                        subButtons2[i].setEnabled(false);
-                    }
+                    subButtons2[i].setEnabled(game.currentPlayer.countryValues[i][0] == 1);
                 }
             }
             case 3 -> {
@@ -576,9 +645,10 @@ public class UI extends JFrame implements ActionListener {
         }
         subPanel.revalidate();
         subPanel.repaint();
-        
+
         //Möchte ich mir für späteren anwendungsfall bitte merken 
-        /*case 2 -> {
+        /*
+        case 2 -> {
             int ownedCountriesCount = 0;
             for (int i = 0; i < game.currentPlayer.countryValues.length; i++) {
                 if (game.currentPlayer.countryValues[i][0] == 1) {
@@ -591,13 +661,14 @@ public class UI extends JFrame implements ActionListener {
                 subButtons[i] = new JButton(CountryLibrary.StatNames[i][0]);
                 subPanel.add(subButtons[i]);
             }
-        }*/
+        }
+        */
     }
 
     //zeigt die buttons für das subsubpanel an, je nachdem, welcher hauptbuttons gedrückt wurde, im array subsubbuttons2-3, um nachher zu wissen, welcher gedrückt wurde
     void updateSubSubPanel(int buttonPressed, int MainButtonNumber) {
         subSubPanel.removeAll();
-        if (MainButtonNumber == 2) {    
+        if (MainButtonNumber == 2) {
             subSubButtons2[buttonPressed] = new JButton[CountryLibrary.statNames.length];
             for (int i = 0; i < CountryLibrary.statNames.length; i++) {
                 subSubButtons2[buttonPressed][i] = new JButton(CountryLibrary.statNames[i][0] + " = " + game.currentPlayer.countryValues[buttonPressed][i + 1]);
@@ -649,6 +720,8 @@ public class UI extends JFrame implements ActionListener {
 
     //Aktualisiert die Suchergebnisse
     private void updateSearchResults() {
+        logger.info("Updating search results");
+
         String query = searchBar.getText().toLowerCase();
 
         String[] columnNames = new String[CountryLibrary.statNames.length + 2];
@@ -687,6 +760,8 @@ public class UI extends JFrame implements ActionListener {
 
     //Wir müssen das ASAP hier wegkriegen
     public void testValues() {
+        logger.info("Creating test values");
+
         game.currentPlayer.countryValues[0][0] = 1;
         game.currentPlayer.countryValues[1][0] = 1;
         game.currentPlayer.countryValues[2][0] = 1;
