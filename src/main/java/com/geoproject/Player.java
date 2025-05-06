@@ -7,7 +7,9 @@ public class Player {
     
     public int[][] countryValues = new int[68][9];
     public int[][] eventValues = new int[50][2]; //NUR BEISPIELHAFT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    
+
+    public int[] ownedCountries;
+
     public Player(int defaultCountry) {
         countryValues[defaultCountry][0] = 1;
     }
