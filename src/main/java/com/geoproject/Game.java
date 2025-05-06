@@ -21,19 +21,38 @@ public class Game {
         currentPlayer = p1;
         otherPlayer = p2;
     }
+
+    public void finishTurn ()
+    {
+        int roundProfit = 0;
+
+        // Iteriert durch alle Länder, die der derzeitige Spieler
+        for(int countryID : currentPlayer.ownedCountries)
+        {
+            for (int industryID = 0; industryID < 5; industryID++) {
+                // BIP * ((Stat Multiplier * Industrielevel) / 10)
+                roundProfit += CountryLibrary.countryData[countryID][2] * ((CountryLibrary.statsMultiplier[countryID][industryID] * currentPlayer.countryValues[countryID][industryID]) / 10);
+                roundProfit -= CountryLibrary.getCountryExpenses(countryID);
+            }
+        }
+        if (roundProfit <= 0)
+        {
+            roundProfit = 0;
+        }
+        currentPlayer.playerMoney += roundProfit;
+
+        switchPlayer();
+    }
     
-    public void switchPlayer() {
+    public void switchPlayer()
+    {
+        p1 = (currentPlayerValue == 1) ? currentPlayer : otherPlayer;
+        p2 = (currentPlayerValue == 2) ? currentPlayer : otherPlayer;
+
         currentPlayerValue = (currentPlayerValue == 1) ? 2 : 1;
+
         currentPlayer = (currentPlayerValue == 1) ? p1 : p2;
         otherPlayer = (currentPlayerValue == 1) ? p2 : p1;
-    }
-
-    //Methode, die checkt, ob ein Land vom derzeitigen Spieler kaufbar ist (UNFERTIG)
-    public boolean isBuyable(int activePlayer, int countryID) {
-        boolean isBuyable = true;
-        for (int country = 0; country < CountryLibrary.borders.length; country++) {
-        }
-        return isBuyable;
     }
 }
 
