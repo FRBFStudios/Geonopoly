@@ -1,6 +1,6 @@
 package com.geoproject;
 
-import com.geoproject.gui.*;
+import com.geoproject.gui.UI;
 import com.geoproject.libraries.CountryLibrary;
 
 import java.util.logging.Logger;
@@ -11,7 +11,10 @@ public class Geonopoly {
 
     public static void main(String[] args) {
         Player player = new Player(0);
-        if (CountryLibrary.countryNames.length != player.countryValues.length) {logger.severe("Error 1"); return;}
+        if (CountryLibrary.countryNames.length != player.countryValues.length) {
+            logger.severe("Error 1");
+            return;
+        }
 
         logger.info("Running Geonopoly");
         logger.info("Creating new UI object...");

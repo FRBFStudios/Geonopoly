@@ -1,7 +1,7 @@
 package com.geoproject;
 
 //Verknüpft Daten aus allen Klassen und liefert Updates an die GUI.
-import com.geoproject.LogHandler;
+
 import com.geoproject.libraries.CountryLibrary;
 
 import java.util.logging.Logger;
@@ -21,20 +21,18 @@ public class Game {
     public Player currentPlayer;
     public Player otherPlayer;
 
-    public Game(){
+    public Game() {
         currentPlayer = p1;
         otherPlayer = p2;
     }
 
-    public void finishTurn ()
-    {
+    public void finishTurn() {
 
         int roundProfit = 0;
 
         logger.info("Calculating round profits for player " + currentPlayerValue);
         // Iteriert durch alle Länder, die der derzeitige Spieler
-        for(int countryID : currentPlayer.ownedCountries)
-        {
+        for (int countryID : currentPlayer.ownedCountries) {
             for (int industryID = 0; industryID < 5; industryID++) {
                 // BIP * ((Stat Multiplier * Industrielevel) / 10)
                 logger.info("Calculating profit and expenses of countryID " + countryID + " on industryID " + industryID);
@@ -46,8 +44,7 @@ public class Game {
             }
         }
         logger.info("Total round profit calculated as " + roundProfit);
-        if (roundProfit <= 0)
-        {
+        if (roundProfit <= 0) {
             logger.info("Round profit set to 0 due to too high expenses");
             roundProfit = 0;
         }
@@ -58,16 +55,15 @@ public class Game {
         logger.info("Turn finished successfully.");
     }
 
-    public int getIndustryUpgradeCost(int countryID, int industryID){
+    public int getIndustryUpgradeCost(int countryID, int industryID) {
         logger.info("Calculating industryUpgradeCost for countryID " + countryID + " on industryID " + industryID);
 
         int industryUpgradeCost = 100 + (100 * currentPlayer.countryValues[countryID][industryID]);
         logger.info("Calculated " + industryUpgradeCost + "$, returning");
         return industryUpgradeCost;
     }
-    
-    public void switchPlayer()
-    {
+
+    public void switchPlayer() {
         logger.info("Switching player from " + currentPlayerValue);
         currentPlayerValue = (currentPlayerValue == 1) ? 2 : 1;
         logger.info("currentPlayerValue is now set to " + currentPlayerValue);

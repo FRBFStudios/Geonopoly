@@ -56,7 +56,6 @@ class LogFormatter extends Formatter {
         String timestamp = sdf.format(new Date(record.getMillis()));
 
 
-
         String logMessage = String.format("[%s] [%s] %s%n", timestamp, record.getLevel(), record.getMessage());
 
         Throwable thrown = record.getThrown();

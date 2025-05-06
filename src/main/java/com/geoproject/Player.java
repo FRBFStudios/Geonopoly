@@ -1,23 +1,22 @@
 package com.geoproject;
 
-import com.geoproject.libraries.*;
-import com.geoproject.LogHandler;
+import com.geoproject.libraries.CountryLibrary;
 
 import java.util.logging.Logger;
 
 public class Player {
     private static final Logger logger = LogHandler.getLogger();
     public int playerMoney = 100000;
-    
+
     public int[][] countryValues = new int[68][9];
     public int[][] eventValues = new int[50][2]; //NUR BEISPIELHAFT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     public int[] neighborCountries = new int[countryValues.length];
     public int[] ownedCountries = new int[countryValues.length];
-    
+
     public Player(int defaultCountry) {
         countryValues[defaultCountry][0] = 1;
     }
-    
+
     public String getPossession() {
         logger.info("Getting player possession");
 
