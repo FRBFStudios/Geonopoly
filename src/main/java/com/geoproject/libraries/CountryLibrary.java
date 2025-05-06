@@ -8,7 +8,7 @@ public class CountryLibrary
 {
     //nur von theo übernommen, nichts neues
     public static int[][] borders = new int[][] {
-        {1, 2, 4, 5, 6},//Deutschland = 0
+        {1, 2, 3, 4, 5, 6},//Deutschland = 0
         {0, 4, 7},//BeNeLux = 1
         {0, 8, 32},//Dänemark = 2
         {0, 5, 9, 11, 12, 13},//Polen = 3
