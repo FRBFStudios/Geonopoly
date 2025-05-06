@@ -8,7 +8,7 @@ import com.geoproject.libraries.CountryLibrary;
 //Version: 28/1/2025
 
 public class Game {
-    public int currentPlayerValue = 1;
+    public int currentPlayerValue = 10000;
 
     //P1 kriegt USA
     public Player p1 = new Player(19);
@@ -46,12 +46,18 @@ public class Game {
     
     public void switchPlayer()
     {
-
-
         currentPlayerValue = (currentPlayerValue == 1) ? 2 : 1;
 
         currentPlayer = (currentPlayerValue == 1) ? p1 : p2;
         otherPlayer = (currentPlayerValue == 1) ? p2 : p1;
+    }
+
+    public void subtractMoney(int amount) {
+        currentPlayer.playerMoney -= amount;
+    }
+
+    public boolean canAfford(int amount) {
+        return currentPlayer.playerMoney >= amount;
     }
 }
 

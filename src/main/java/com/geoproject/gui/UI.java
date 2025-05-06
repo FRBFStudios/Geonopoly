@@ -329,7 +329,7 @@ public class UI extends JFrame implements ActionListener {
             System.out.println("eventManager pressed");
         } else if (e.getSource() == finishTurnButton) {
             System.out.println("finish turn pressed");
-            game.switchPlayer();
+            game.finishTurn();
             showMainMenu();
         } 
         else if (e.getSource() == searchBar) {
@@ -356,11 +356,22 @@ public class UI extends JFrame implements ActionListener {
                 for (int i = 0; i < subButtons1.length; i++) {
                     if (e.getSource() == subButtons1[i]) {
                         System.out.println("subButton1 pressed: " + i);
+                        if (game.currentPlayer.neighborCountries[i] != 1) {
+                            JOptionPane.showMessageDialog(frame, "not your neighbor!");
+                            return;
+                        }
+                        if (!game.canAfford(CountryLibrary.getCountryPrice(i))) {
+                            JOptionPane.showMessageDialog(frame, "cant Afford!"); 
+                            return;
+                        }
                         if(pleaseConfirm("you want to buy " + CountryLibrary.countryNames[i] + "?")) {
                             game.currentPlayer.countryValues[i][0] = 1;
+                            game.subtractMoney(CountryLibrary.getCountryPrice(i));
                             //hier fehlt mechanik zum prüfen
                             updateSubPanel(1);
                         }
+                        
+                        
                         break;
                     }
                 }
@@ -391,6 +402,7 @@ public class UI extends JFrame implements ActionListener {
                                 System.out.println("subSubButton2 pressed: " + i + ", " + j);
                                 if(pleaseConfirm("you want to upgrade " + CountryLibrary.countryNames[i] + " " + CountryLibrary.statNames[j][0] + "?")) {
                                     game.currentPlayer.countryValues[i][j + 1]++;
+        //game.subtractMoney(CountryLibrary.getCountryPrice(i));
                                     updateSubSubPanel(i, 2);
                                 }
                                 break;

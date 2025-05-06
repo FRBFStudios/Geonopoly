@@ -3,7 +3,7 @@ package com.geoproject;
 import com.geoproject.libraries.*;
 
 public class Player {
-    public int playerMoney = 1000000;
+    public int playerMoney = 1;
     
     public int[][] countryValues = new int[68][9];
     public int[][] eventValues = new int[50][2]; //NUR BEISPIELHAFT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
