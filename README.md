@@ -61,3 +61,29 @@ Timo:
 **Features**
 - Länder kaufen
 - UI-Design
+
+
+
+
+ToDo
+-theo commit
+-timo: ui gewinnmethode verknüpfen
+-mergen (timo)
+
+
+-testen zusammen
+(-timo ui improven)
+
+
+events implementen
+
+
+
+
+
+
+
+
+
+
+
