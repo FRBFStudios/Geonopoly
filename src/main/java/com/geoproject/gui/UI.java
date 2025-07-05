@@ -24,6 +24,11 @@ package com.geoproject.gui;
  *  - multiplikatoren für länder stats hizufügen
  */
 
+ //todo: game: buystat()
+ // mappanel: clickedcountries show neighbors
+// mappanel: pfeile
+
+
 import com.geoproject.Game;
 import com.geoproject.LogHandler;
 import com.geoproject.Player;
@@ -83,7 +88,7 @@ public class UI extends JFrame implements ActionListener {
     JTable searchResultsTable;
     JScrollPane searchResultsScrollPanel;
 
-    boolean debug = false;
+    boolean debug = true;
 
     //Konstruktor
     public UI() {
@@ -200,13 +205,13 @@ public class UI extends JFrame implements ActionListener {
         }
 
         if (debug) {
-            mapweg = new JButton("1");
-            mapweg.setBounds(10, 50, 60, 40);
+            mapweg = new JButton("SHOW");
+            mapweg.setBounds(10, 50, 80, 40);
             mapweg.addActionListener(this);
             mapweg.setVisible(true);//auch bei void achtionPerformed & beim frame.add() zeug & bei deklarationen
 
-            mapweg2 = new JButton("2");
-            mapweg2.setBounds(10, 100, 60, 40);
+            mapweg2 = new JButton("HIDE");
+            mapweg2.setBounds(10, 100, 80, 40);
             mapweg2.addActionListener(this);
             mapweg2.setVisible(true);
         }
@@ -421,9 +426,10 @@ public class UI extends JFrame implements ActionListener {
                             return;
                         }
                         if (pleaseConfirm("Confirm purchase of " + CountryLibrary.countryNames[i] + "?")) {
-                            game.currentPlayer.countryValues[i][0] = 1;
-                            game.subtractMoney(CountryLibrary.getCountryPrice(i));
-                            //hier fehlt mechanik zum prüfen
+                            if (!game.buyCountry(i)) {
+                                logger.info("Player failed to buy countryID " + i + ": Already owned");
+                                JOptionPane.showMessageDialog(frame, "You couldn't buy " + CountryLibrary.countryNames[i]);
+                            }
                             updateSubPanel(1);
                         }
                         break;
@@ -490,8 +496,10 @@ public class UI extends JFrame implements ActionListener {
                             logger.info("Map access denied for Player 1: It's Player " + game.currentPlayerValue + "'s turn");
                             JOptionPane.showMessageDialog(frame, "It's not your turn!");
                         }
-                        buyCountriesButton.doClick(); // Simulate the buyCountriesButton being pressed
-                        subButtons1[i].doClick(); // Simulate the subButton1 being pressed
+                        else {
+                            buyCountriesButton.doClick(); // Simulate the buyCountriesButton being pressed
+                            subButtons1[i].doClick(); // Simulate the subButton1 being pressed
+                        }
                         break;
                     }
                 }
@@ -505,8 +513,10 @@ public class UI extends JFrame implements ActionListener {
                             logger.info("Map access denied for Player 2: It's Player " + game.currentPlayerValue + "'s turn");
                             JOptionPane.showMessageDialog(frame, "It's not your turn!");
                         }
-                        buyCountriesButton.doClick(); // Simulate the buyCountriesButton being pressed
-                        subButtons1[i].doClick(); // Simulate the subButton1 being pressed
+                        else {
+                            buyCountriesButton.doClick(); // Simulate the buyCountriesButton being pressed
+                            subButtons1[i].doClick(); // Simulate the subButton1 being pressed
+                        }
                         break;
                     }
                 }
@@ -549,12 +559,11 @@ public class UI extends JFrame implements ActionListener {
     //Aktualisiert die GUI
     void UIupdate() {
         logger.info("Updating UI...");
-
+        game.updateCountryInfos();
         // Updates the country infos
         logger.info("Updating Player 1 Country Infos");
-        game.p1.updateCountryInfos();
+
         logger.info("Updating Player 2 Country Infos");
-        game.p2.updateCountryInfos();
 
         /*
         p1StatsArea.setText(game.p1.getLevels());
@@ -578,9 +587,9 @@ public class UI extends JFrame implements ActionListener {
         updateSearchResults();
 
         logger.info("Updating Player 1 Country Marks");
-        mapPanel1.markCountries(game.p1.ownedCountries, game.p1.neighborCountries);
+        mapPanel1.markCountries(game.p1.ownedCountries, game.p1.actualNeighborCountries);
         logger.info("Updating Player 2 Country Marks");
-        mapPanel2.markCountries(game.p2.ownedCountries, game.p2.neighborCountries);
+        mapPanel2.markCountries(game.p2.ownedCountries, game.p2.actualNeighborCountries);
 
     }
 

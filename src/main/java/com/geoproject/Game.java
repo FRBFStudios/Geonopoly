@@ -20,6 +20,7 @@ public class Game {
     public Player p2 = new Player(4);
     public Player currentPlayer;
     public Player otherPlayer;
+    public int [] AllOwnedCountries = new int[p1.countryValues.length];
 
     public Game() {
         currentPlayer = p1;
@@ -32,15 +33,17 @@ public class Game {
 
         logger.info("Calculating round profits for player " + currentPlayerValue);
         // Iteriert durch alle Länder, die der derzeitige Spieler
-        for (int countryID : currentPlayer.ownedCountries) {
-            for (int industryID = 0; industryID < 5; industryID++) {
-                // BIP * ((Stat Multiplier * Industrielevel) / 10)
-                logger.info("Calculating profit and expenses of countryID " + countryID + " on industryID " + industryID);
-                int countryProfit = CountryLibrary.countryData[countryID][2] * ((CountryLibrary.statsMultiplier[countryID][industryID] * currentPlayer.countryValues[countryID][industryID]) / 10);
-                logger.info("Profit calculated as " + countryProfit + ", adding to roundProfit");
-                roundProfit += countryProfit;
+        for (int countryID = 0; countryID < currentPlayer.ownedCountries.length; countryID++) {
+            if (currentPlayer.ownedCountries[countryID] == 1) {
+                for (int industryID = 0; industryID < 5; industryID++) {
+                    // BIP * ((Stat Multiplier * Industrielevel) / 10)
+                    logger.info("Calculating profit and expenses of countryID " + countryID + " on industryID " + industryID);
+                    int countryProfit = CountryLibrary.countryData[countryID][2] * ((CountryLibrary.statsMultiplier[countryID][industryID] * currentPlayer.countryValues[countryID][industryID]) / 10);
+                    logger.info("Profit calculated as " + countryProfit + ", adding to roundProfit");
+                    roundProfit += countryProfit;
 
-                roundProfit -= CountryLibrary.getCountryExpenses(countryID);
+                    roundProfit -= CountryLibrary.getCountryExpenses(countryID);
+                }
             }
         }
         logger.info("Total round profit calculated as " + roundProfit);
@@ -84,7 +87,41 @@ public class Game {
         logger.info("Calculated " + canAfford + ", returning");
         return canAfford;
     }
+
+    public boolean buyCountry(int countryID) {
+        if (currentPlayer.neighborCountries[countryID] == 1 && AllOwnedCountries[countryID] == 0) {
+            subtractMoney(CountryLibrary.getCountryPrice(countryID));
+            currentPlayer.countryValues[countryID][0] = 1;
+            System.out.println("You bought " + CountryLibrary.countryNames[countryID] + " for " + CountryLibrary.getCountryPrice(countryID) + "$.");
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public void buyStat(int countryID, int statID) {
+        //Todo
+    }
+
+    public void updateCountryInfos() {
+        p1.updateCountryInfosPlayer(AllOwnedCountries);
+        p2.updateCountryInfosPlayer(AllOwnedCountries);
+
+        for (int i = 0; i < p1.ownedCountries.length; i++) {
+            if (p1.ownedCountries[i] == 1) {
+                AllOwnedCountries[i] = 1;
+            }
+            if (p2.ownedCountries[i] == 1) {
+                AllOwnedCountries[i] = 1;
+            }
+            if (p1.ownedCountries[i] == 0 && p2.ownedCountries[i] == 0) {
+                AllOwnedCountries[i] = 0;
+            }
+        }
+    }
 }
+
 
 
 
