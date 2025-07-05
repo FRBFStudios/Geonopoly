@@ -417,7 +417,7 @@ public class UI extends JFrame implements ActionListener {
                         System.out.println("subButton1 pressed: " + i);
                         if (game.currentPlayer.neighborCountries[i] != 1) {
                             logger.info("Player failed to buy countryID " + i + ": Not a neighbor");
-                            JOptionPane.showMessageDialog(frame, "You can't buy this country, it's not your neighbor!");
+                            JOptionPane.showMessageDialog(frame, "You can't buy " + CountryLibrary.countryNames[i] + ", it's not your neighbor!");
                             return;
                         }
                         if (!game.canAfford(CountryLibrary.getCountryPrice(i))) {
