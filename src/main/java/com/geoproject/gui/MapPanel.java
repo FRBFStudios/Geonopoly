@@ -75,7 +75,7 @@ public class MapPanel extends JPanel implements ActionListener {
         mapButtons = new MapButton[CountryLibrary.countryNames.length];
         for (int i = 0; i < CountryLibrary.countryShortNames.length; i++) {
             if (i < countryMapLayout.length) {
-                mapButtons[i] = new MapButton(CountryLibrary.countryShortNames[i]);
+                mapButtons[i] = new MapButton(CountryLibrary.getButtonCountryShortNames(i));
                 //mapButtons[i].addActionListener(this);
                 mapButtons[i].setBounds(countryMapLayout[i][0], countryMapLayout[i][1], countryMapLayout[i][2], countryMapLayout[i][3]);
                 mapButtons[i].setFont(new Font(getFont().getName(), getFont().getStyle(), countryMapLayout[i][4]));
@@ -226,10 +226,10 @@ public class MapPanel extends JPanel implements ActionListener {
         {340,160,50,30,10},//Balkan  BALK  15
         {390,150,40,25,10},//Ungarn  HUN  16
         {430,150,40,25,10},//Rumänien  RUM  17
-        {390,175,50,40,10},//Griechenland & Nordmazedonien  GRE/NMK  18
-        {50,100,100,50,10},//USA USA 19
-        {60,60,90,40,10},//Kanada CAN 20
-        {75,150,60,40,10},//Mexiko MEX 21
+        {390,175,50,50,10},//Griechenland & Nordmazedonien  GRE/NMK  18
+        {50,90,105,65,10},//USA USA 19
+        {60,40,90,50,10},//Kanada CAN 20
+        {75,155,55,35,10},//Mexiko MEX 21
         {85,190,35,20,10},//Mittelamerika MID 22
         {65,210,75,35,10},//Kolumbien COL 23
         {140,210,40,35,10},//Venezuela VEN 24
@@ -247,19 +247,19 @@ public class MapPanel extends JPanel implements ActionListener {
         {210,20,30,30,10},//Island ICE 36
         {215,70,30,25,10},//Irland = 37
         {480,5,170,145,10},//Russland RUS 38
-        {470,185,80,40,10},//Türkei TUR 39
-        {470,225,45,25,10},//Syrien SYR 40
-        {470,250,45,25,10},//Jordanien JOR 41
-        {440,240,35,60,10},//Israel und Palästina  42
-        {0,0,0,0,10},//43
-        {0,0,0,0,10},//44
-        {0,0,0,0,10},//45
-        {0,0,0,0,10},//46
-        {0,0,0,0,10},//47
-        {0,0,0,0,10},//48
-        {0,0,0,0,10},//49
-        {0,0,0,0,10},//50
-        {440,175,30,25,10},//Bulgarien BUL 51
+        {470,195,80,40,10},//Türkei TUR 39
+        {470,235,45,30,10},//Syrien SYR 40
+        {470,265,45,30,10},//Jordanien JOR 41
+        {435,255,35,40,10},//Israel und Palästina ISR/PAL 42
+        {435,235,35,20,10},//Libanon LEB 43
+        {470,295,80,55,10},//Saudi-Arabien SAU 44
+        {470,350,45,30,10},//Jemen YEM 45
+        {515,350,70,30,10},//Oman OMA 46
+        {450,400,40,40,10},//Iberische Halbinsel IBE 47 hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
+        {550,315,35,35,10},//VAE UAE/QAT 48
+        {515,235,35,60,10},//Irak IRQ 49
+        {510,150,40,45,10},//GeArAz GEO/ARM/AZE 50
+        {440,175,30,35,10},//Bulgarien BUL 51
 
         {0,0,0,0,10},//
         {0,0,0,0,10},//
