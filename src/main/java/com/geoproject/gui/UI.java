@@ -89,6 +89,7 @@ public class UI extends JFrame implements ActionListener {
     JScrollPane searchResultsScrollPanel;
 
     boolean debug = true;
+    boolean debug = false;
 
     //Konstruktor
     public UI() {
