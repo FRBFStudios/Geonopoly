@@ -35,6 +35,7 @@ public class Game {
         // Iteriert durch alle Länder, die der derzeitige Spieler
         for (int countryID = 0; countryID < currentPlayer.ownedCountries.length; countryID++) {
             if (currentPlayer.ownedCountries[countryID] == 1) {
+                for (int industryID = 0; industryID < CountryLibrary.statNames.length; industryID++) {
                     // BIP * ((Stat Multiplier * Industrielevel) / 10)
                     logger.info("Calculating profit and expenses of countryID " + countryID + " on industryID " + industryID);
                     int countryProfit = CountryLibrary.countryData[countryID][2] * ((CountryLibrary.statsMultiplier[countryID][industryID] * currentPlayer.countryValues[countryID][industryID]) / 10);
@@ -46,10 +47,6 @@ public class Game {
             }
         }
         logger.info("Total round profit calculated as " + roundProfit);
-        if (roundProfit <= 0) {
-            logger.info("Round profit set to 0 due to too high expenses");
-            roundProfit = 0;
-        }
 
         currentPlayer.playerMoney += roundProfit;
 
@@ -59,6 +56,7 @@ public class Game {
 
     public int getIndustryUpgradeCost(int countryID, int industryID) {
         logger.info("Calculating industryUpgradeCost for countryID " + countryID + " on industryID " + industryID);
+        int industryUpgradeCost = 200 + (100 * currentPlayer.countryValues[countryID][industryID]);
         logger.info("Calculated " + industryUpgradeCost + "$, returning");
         return industryUpgradeCost;
     }
@@ -73,6 +71,13 @@ public class Game {
     }
 
     public void subtractMoney(int amount) {
+        if (canAfford(amount)) {
+            logger.info("Subtracting " + amount + "$ from playerMoney.");
+            currentPlayer.playerMoney -= amount;
+            logger.info("Remaining playerMoney: " + currentPlayer.playerMoney);
+        } else {
+            return;
+        }
     }
 
     public boolean canAfford(int amount) {

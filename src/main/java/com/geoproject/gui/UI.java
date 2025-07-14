@@ -27,6 +27,7 @@ package com.geoproject.gui;
  //todo: game: buystat()
  // mappanel: clickedcountries show neighbors
 // mappanel: pfeile
+// übersicht ob country lukrativ (z.b. grün vs rot)
 
 
 import com.geoproject.Game;
@@ -88,7 +89,6 @@ public class UI extends JFrame implements ActionListener {
     JTable searchResultsTable;
     JScrollPane searchResultsScrollPanel;
 
-    boolean debug = true;
     boolean debug = false;
 
     //Konstruktor
