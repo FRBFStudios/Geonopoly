@@ -261,6 +261,7 @@ public class MapPanel extends JPanel implements ActionListener {
         {510,150,40,45,10},//GeArAz GEO/ARM/AZE 50
         {440,175,30,35,10},//Bulgarien BUL 51
 
+        {0,0,0,0,10},//Iran = 52
         {0,0,0,0,10},//
         {0,0,0,0,10},//
         {0,0,0,0,10},//
