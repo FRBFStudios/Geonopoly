@@ -283,7 +283,6 @@ public class MapPanel extends JPanel implements ActionListener {
         {0,0,0,0,10},//
         {0,0,0,0,10},//
         {0,0,0,0,10},//
-        {0,0,0,0,10},//
         //{400,5,200,100,10},// RUS 38
     };
 }
