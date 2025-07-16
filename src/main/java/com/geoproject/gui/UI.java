@@ -89,7 +89,7 @@ public class UI extends JFrame implements ActionListener {
     JTable searchResultsTable;
     JScrollPane searchResultsScrollPanel;
 
-    boolean debug = false;
+    boolean debug = true;
 
     //Konstruktor
     public UI() {
@@ -374,6 +374,8 @@ public class UI extends JFrame implements ActionListener {
         frame.setVisible(true);
         subSubButtons2 = new JButton[CountryLibrary.countryNames.length][];
         subSubButtons3 = new JButton[EventLibrary.eventNames.length][];
+
+        if (debug) {p2MapPic.setVisible(false);}
     }
 
     // Method is run at every button press
@@ -401,13 +403,13 @@ public class UI extends JFrame implements ActionListener {
             logger.info("searchBar pressed");
         } else if (e.getSource() == mapweg) {//for tests
             logger.info("mapweg pressed");
-            p1MapPic.setVisible(true);
+            mapPanel1.setVisible(true);
             for (MapButton button : mapPanel1.mapButtons) {
-                button.setForeground(Color.RED);
+                button.setForeground(Color.BLACK);
             }
         } else if (e.getSource() == mapweg2) {
             logger.info("mapweg2 pressed");
-            p1MapPic.setVisible(false);
+            mapPanel1.setVisible(false);
             for (MapButton button : mapPanel1.mapButtons) {
                 button.setForeground(Color.BLACK);
             }

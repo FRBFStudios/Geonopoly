@@ -246,7 +246,7 @@ public class MapPanel extends JPanel implements ActionListener {
         {155,305,30,30,10},//Uruguay URU 35
         {210,20,30,30,10},//Island ICE 36
         {215,70,30,25,10},//Irland = 37
-        {480,5,170,145,10},//Russland RUS 38
+        {480,5,170,130,10},//Russland RUS 38
         {470,195,80,40,10},//Türkei TUR 39
         {470,235,45,30,10},//Syrien SYR 40
         {470,265,45,30,10},//Jordanien JOR 41
@@ -258,14 +258,14 @@ public class MapPanel extends JPanel implements ActionListener {
         {450,400,40,40,10},//Iberische Halbinsel IBE 47 hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
         {550,315,35,35,10},//VAE UAE/QAT 48
         {515,235,35,60,10},//Irak IRQ 49
-        {510,150,40,45,10},//GeArAz GEO/ARM/AZE 50
+        {510,135,40,60,10},//GeArAz GEO/ARM/AZE 50
         {440,175,30,35,10},//Bulgarien BUL 51
 
-        {0,0,0,0,10},//Iran = 52
-        {0,0,0,0,10},//
-        {0,0,0,0,10},//
-        {0,0,0,0,10},//
-        {0,0,0,0,10},//
+        {550,185,55,80,10},//Iran IRN 52
+        {605,200,50,30,10},//Pakistan PAK 53
+        {575,135,90,20,10},//Kasachstan KAZ 54
+        {605,155,30,25,10},//Usbekistan UZB 55
+        {575,155,30,30,10},//Turkmenistan = 56
         {0,0,0,0,10},//
         {0,0,0,0,10},//
         {0,0,0,0,10},//
