@@ -41,6 +41,7 @@ import com.geoproject.libraries.CountryLibrary;
 import com.geoproject.libraries.EventLibrary;
 
 import javax.swing.*;
+import javax.swing.event.ChangeListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;

@@ -51,6 +51,17 @@ import com.geoproject.gui.HexButton;
 public class MapPanel extends JPanel implements ActionListener {
     public MapButton[] mapButtons;
     //MapButton hexButton;
+    // Werte für die Linie
+    private int lineX1 = 100;
+    private int lineY1 = 100;
+    private int lineX2 = 100;
+    private int lineY2 = 100;
+
+    // Slider für die Linie
+    private JSlider sliderX1;
+    private JSlider sliderY1;
+    private JSlider sliderX2;
+    private JSlider sliderY2;
 
     public MapPanel(JButton[] MainButtons) {
         /*setLayout(new GridBagLayout());
@@ -83,8 +94,26 @@ public class MapPanel extends JPanel implements ActionListener {
             }
         }
 
+        // Slider 
+        sliderX1 = new JSlider(5, 810, 100);
+        sliderY1 = new JSlider(5, 290, 100);
+        sliderX2 = new JSlider(5, 810, 100);
+        sliderY2 = new JSlider(5, 290, 100);
+        sliderX1.setBounds(100,400,100,20);
+        sliderY1.setBounds(210,400,100,20);
+        sliderX2.setBounds(320,400,100,20);
+        sliderY2.setBounds(430,400,100,20);
+        
+        add(sliderX1);
+        add(sliderY1);
+        add(sliderX2);
+        add(sliderY2);
 
-
+        // Listener für Slider
+        sliderX1.addChangeListener(e -> { lineX1 = sliderX1.getValue(); repaint(); output();});
+        sliderY1.addChangeListener(e -> { lineY1 = sliderY1.getValue(); repaint(); output();});
+        sliderX2.addChangeListener(e -> { lineX2 = sliderX2.getValue(); repaint(); output();});
+        sliderY2.addChangeListener(e -> { lineY2 = sliderY2.getValue(); repaint(); output();});
         // RussiaPanel russiaPanel = new RussiaPanel();
         // russiaPanel.setBounds(400, 5, 200, 100);
         // add(russiaPanel);
@@ -97,6 +126,22 @@ public class MapPanel extends JPanel implements ActionListener {
         addFocusListeners(button2, MainButtons[0]);
         addFocusListeners(button3, MainButtons[1]);
         addFocusListeners(button4, MainButtons[1]);*/
+    }
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.setStroke(new BasicStroke(2));
+        g2d.setColor(Color.GRAY);
+        g2d.drawLine(155, 120, 245, 100);
+
+        g2d.setStroke(new BasicStroke(2));
+        g2d.setColor(Color.GRAY);
+        g2d.drawLine(lineX1, lineY1, lineX2, lineY2);
+    }
+
+    private void output(){
+        System.out.println(lineX1 + " " + lineY1 + " " + lineX2 + " " + lineY2);
     }
 
 
@@ -182,9 +227,12 @@ public class MapPanel extends JPanel implements ActionListener {
     }
 
     public void markCountries(int[] ownedCountries, int[] neighborCountries) {
+        for (int i = 0; i < mapButtons.length; i++) {
+            mapButtons[i].markButton(false, null);
+        }
         for (int i = 0; i < ownedCountries.length; i++) {
             if (ownedCountries[i] > 0 && i < mapButtons.length) {
-                mapButtons[i].markButton(true, Color.GREEN);
+                mapButtons[i].markButton(true, Color.BLUE);
             } 
             else if (i < mapButtons.length) {
                 mapButtons[i].markButton(false, null);
@@ -195,13 +243,14 @@ public class MapPanel extends JPanel implements ActionListener {
         }
         for (int i = 0; i < neighborCountries.length; i++) {
             if (neighborCountries[i] > 0 && i < mapButtons.length) {
-                mapButtons[i].markButton(true, Color.BLACK);
+                mapButtons[i].markButton(true, Color.GREEN);
             } 
             //else if (i < mapButtons.length) {mapButtons[i].markButton(false, Color.BLACK);} 
             else {
                 System.out.println("Error: Country index out of bounds: " + i);
             }
         }
+           
     }
 
 
@@ -212,7 +261,7 @@ public class MapPanel extends JPanel implements ActionListener {
         {280,90,30,25,10},//BeNeLux  BNL  1
         {295,70,65,20,10},//Dänemark  DEN  2
         {360,90,60,30,10},//Polen  POL  3
-        {255,115,55,65,10},//Frankreich  FRA  4
+        {265,115,45,65,10},//Frankreich  FRA  4
         {360,120,30,20,10},//Tschiechen  CZE  5
         {310,140,80,20,10},//Österreich & Schweiz  AU & SWI  6
         {245,65,35,50,10},//UK UK  7
@@ -245,7 +294,7 @@ public class MapPanel extends JPanel implements ActionListener {
         {125,305,30,30,10},//Paraguay PAR 34
         {155,305,30,30,10},//Uruguay URU 35
         {210,20,30,30,10},//Island ICE 36
-        {215,70,30,25,10},//Irland IRE 37
+        {210,70,25,25,10},//Irland IRE 37
         {480,5,220,130,10},//Russland RUS 38
         {470,195,80,40,10},//Türkei TUR 39
         {470,235,45,30,10},//Syrien SYR 40
@@ -255,7 +304,7 @@ public class MapPanel extends JPanel implements ActionListener {
         {470,295,80,55,10},//Saudi-Arabien SAU 44
         {470,350,45,30,10},//Jemen YEM 45
         {515,350,70,30,10},//Oman OMA 46
-        {330,320,40,40,10},//Iberische Halbinsel IBE 47 hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
+        {250,180,60,45,10},//Iberische Halbinsel IBE 47 hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
         {550,315,35,35,10},//VAE UAE/QAT 48
         {515,235,35,60,10},//Irak IRQ 49
         {510,135,40,60,10},//GeArAz GEO/ARM/AZE 50
@@ -353,9 +402,6 @@ class MapButton extends JButton {
         }
     }
 }
-
-
-
 
 
 
