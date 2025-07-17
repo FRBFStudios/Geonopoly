@@ -35,7 +35,7 @@ public class Game {
         // Iteriert durch alle Länder, die der derzeitige Spieler
         for (int countryID = 0; countryID < currentPlayer.ownedCountries.length; countryID++) {
             if (currentPlayer.ownedCountries[countryID] == 1) {
-                for (int industryID = 0; industryID < CountryLibrary.statNames.length; industryID++) {
+                for (int industryID = 0; (industryID < CountryLibrary.statNames.length - 1); industryID++) {
                     // BIP * ((Stat Multiplier * Industrielevel) / 10)
                     logger.info("Calculating profit and expenses of countryID " + countryID + " on industryID " + industryID);
                     int countryProfit = CountryLibrary.countryData[countryID][2] * ((CountryLibrary.statsMultiplier[countryID][industryID] * currentPlayer.countryValues[countryID][industryID]) / 10);

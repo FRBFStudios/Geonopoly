@@ -89,7 +89,7 @@ public class UI extends JFrame implements ActionListener {
     JTable searchResultsTable;
     JScrollPane searchResultsScrollPanel;
 
-    boolean debug = true;
+    boolean debug = false;
 
     //Konstruktor
     public UI() {
@@ -334,7 +334,7 @@ public class UI extends JFrame implements ActionListener {
         subPanel.removeAll();
         subSubPanel.removeAll();
 
-        testValues();                                                                   //for tests
+        //testValues();                                                                   //for tests
         UIupdate();
 
         logger.info("Adding elements to frame");

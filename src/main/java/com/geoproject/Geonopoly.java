@@ -6,7 +6,7 @@ import com.geoproject.libraries.CountryLibrary;
 import java.util.logging.Logger;
 
 //This class runs everything.
-public class Geonopoly {
+public class  Geonopoly {
     private static final Logger logger = LogHandler.getLogger();
 
     public static void main(String[] args) {
