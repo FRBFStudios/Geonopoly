@@ -99,10 +99,10 @@ public class MapPanel extends JPanel implements ActionListener {
         sliderY1 = new JSlider(5, 290, 100);
         sliderX2 = new JSlider(5, 810, 100);
         sliderY2 = new JSlider(5, 290, 100);
-        sliderX1.setBounds(100,400,100,20);
-        sliderY1.setBounds(210,400,100,20);
-        sliderX2.setBounds(320,400,100,20);
-        sliderY2.setBounds(430,400,100,20);
+        sliderX1.setBounds(0,400,200,20);
+        sliderY1.setBounds(200,400,200,20);
+        sliderX2.setBounds(400,400,200,20);
+        sliderY2.setBounds(600,400,200,20);
         
         add(sliderX1);
         add(sliderY1);
@@ -133,10 +133,22 @@ public class MapPanel extends JPanel implements ActionListener {
         Graphics2D g2d = (Graphics2D) g;
         g2d.setStroke(new BasicStroke(2));
         g2d.setColor(Color.GRAY);
-        g2d.drawLine(155, 120, 245, 100);
+        g2d.drawLine(155, 120, 260, 95);//UK USA
 
-        g2d.setStroke(new BasicStroke(2));
-        g2d.setColor(Color.GRAY);
+        g2d.drawLine(230, 80, 245, 80);//UK IRE
+
+        g2d.drawLine(265, 95, 270, 115);//UK FRA
+
+        g2d.drawLine(275, 80, 285, 90);//UK BNL
+
+        g2d.drawLine(145, 155, 150, 165);//CUB USA
+
+        g2d.drawLine(130, 175, 145, 175);//CUB MEX
+
+        g2d.drawLine(160, 190, 160, 210);//CUB VEN
+
+        g2d.drawLine(160, 190, 160, 210);//ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+
         g2d.drawLine(lineX1, lineY1, lineX2, lineY2);
     }
 
@@ -264,7 +276,7 @@ public class MapPanel extends JPanel implements ActionListener {
         {265,115,45,65,10},//Frankreich  FRA  4
         {360,120,30,20,10},//Tschiechen  CZE  5
         {310,140,80,20,10},//Österreich & Schweiz  AU & SWI  6
-        {245,65,35,50,10},//UK UK  7
+        {245,65,30,30,10},//UK UK  7
         {335,5,55,65,10},//Skandinavien  SCAN  8
         {400,55,80,35,10},//Baltikum  BALT  9
         {390,5,90,50,10},//Finnland  FIN  10
@@ -294,7 +306,7 @@ public class MapPanel extends JPanel implements ActionListener {
         {125,305,30,30,10},//Paraguay PAR 34
         {155,305,30,30,10},//Uruguay URU 35
         {210,20,30,30,10},//Island ICE 36
-        {210,70,25,25,10},//Irland IRE 37
+        {205,65,25,25,10},//Irland IRE 37
         {480,5,220,130,10},//Russland RUS 38
         {470,195,80,40,10},//Türkei TUR 39
         {470,235,45,30,10},//Syrien SYR 40
@@ -304,7 +316,7 @@ public class MapPanel extends JPanel implements ActionListener {
         {470,295,80,55,10},//Saudi-Arabien SAU 44
         {470,350,45,30,10},//Jemen YEM 45
         {515,350,70,30,10},//Oman OMA 46
-        {250,180,60,45,10},//Iberische Halbinsel IBE 47 hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
+        {250,180,60,45,10},//Iberische Halbinsel IBE 47
         {550,315,35,35,10},//VAE UAE/QAT 48
         {515,235,35,60,10},//Irak IRQ 49
         {510,135,40,60,10},//GeArAz GEO/ARM/AZE 50
@@ -322,7 +334,7 @@ public class MapPanel extends JPanel implements ActionListener {
         {720,220,25,35,10},//Myanmar BUR 61
         {720,255,25,25,10},//Bangladesch BAN 62
         {695,220,25,20,10},//Nepal NEP 63
-        {140,165,30,25,10},//Kuba CUB 64
+        {145,165,30,25,10},//Kuba CUB 64
         {650,300,25,20,10},//Sri Lanka SRI 65
         {700,110,35,25,10},//Mongolei MON 66
         {675,135,70,85,10},//China CHI 67
