@@ -88,20 +88,40 @@ public class Game {
         return canAfford;
     }
 
-    public boolean buyCountry(int countryID) {
-        if (currentPlayer.neighborCountries[countryID] == 1 && AllOwnedCountries[countryID] == 0) {
-            if (subtractMoney(CountryLibrary.getCountryPrice(countryID))) {
-                currentPlayer.countryValues[countryID][0] = 1;
-                System.out.println("You bought " + CountryLibrary.countryNames[countryID] + " for " + CountryLibrary.getCountryPrice(countryID) + "$.");
-                return true;
-            } else {return false;}
-        }
-        else {
-            return false;
+    public String buyCountry(int countryID) {
+        if (currentPlayer.neighborCountries[countryID] == 1) {
+            if (AllOwnedCountries[countryID] == 0) {
+                if (subtractMoney(CountryLibrary.getCountryPrice(countryID))) {
+                    currentPlayer.countryValues[countryID][0] = 1;
+                    // System.out.println("You bought " + CountryLibrary.countryNames[countryID] + " for " + CountryLibrary.getCountryPrice(countryID) + "$.");
+                    return "OK";
+                } else {
+                    return "coudn't afford country";
+                }
+            } else {
+                return "Country already owned and not available for purchase";
+            }
+        } else {
+            return "NOT neighbor country";
         }
     }
 
-    public void buyStat(int countryID, int statID) {
+    public String buyStat(int countryID, int statID) {
+        if (currentPlayer.ownedCountries[countryID] == 1) {
+            if (currentPlayer.countryValues[countryID][statID + 1] < CountryLibrary.getCountryIndustryCaps(countryID)[statID]) {
+                if (subtractMoney(getIndustryUpgradeCost(countryID, statID))) {
+                    currentPlayer.countryValues[countryID][statID + 1]++;
+                    // System.out.println("You upgraded " + CountryLibrary.statNames[statID] + " in " + CountryLibrary.countryNames[countryID] + " for " + upgradeCost + "$.");
+                    return "OK";
+                } else {
+                    return "coudn't afford upgrade";
+                }
+            } else {
+                return "Stat already at max level";
+            }
+        } else {
+            return "NOT owned country";
+        }
         //Todo
     }
 

@@ -28,6 +28,10 @@ package com.geoproject.gui;
  // mappanel: clickedcountries show neighbors
 // mappanel: pfeile
 // übersicht ob country lukrativ (z.b. grün vs rot)
+//kosten und ertrag von stats
+//map für stat upgrades nutzen
+//sobald countryValues[... immer "+ 1"
+//NEGATIVE INDUSTRYCAPS!!!!!!!
 
 
 import com.geoproject.Game;
@@ -418,22 +422,31 @@ public class UI extends JFrame implements ActionListener {
                 for (int i = 0; i < subButtons1.length; i++) {
                     if (e.getSource() == subButtons1[i]) {
                         System.out.println("subButton1 pressed: " + i);
-                        if (game.currentPlayer.neighborCountries[i] != 1) {
-                            logger.info("Player failed to buy countryID " + i + ": Not a neighbor");
-                            JOptionPane.showMessageDialog(frame, "You can't buy " + CountryLibrary.countryNames[i] + ", it's not your neighbor!");
-                            return;
-                        }
-                        if (!game.canAfford(CountryLibrary.getCountryPrice(i))) {
-                            logger.info("Player failed to buy countryID " + i + ": Can't afford");
-                            JOptionPane.showMessageDialog(frame, "You can't afford this country!");
-                            return;
-                        }
+                        logger.info("subButton1 pressed: " + i);
+                        // if (game.currentPlayer.neighborCountries[i] != 1) {
+                        //     logger.info("Player failed to buy countryID " + i + ": Not a neighbor");
+                        //     JOptionPane.showMessageDialog(frame, "You can't buy " + CountryLibrary.countryNames[i] + ", it's not your neighbor!");
+                        //     return;
+                        // }
+                        // if (!game.canAfford(CountryLibrary.getCountryPrice(i))) {
+                        //     logger.info("Player failed to buy countryID " + i + ": Can't afford");
+                        //     JOptionPane.showMessageDialog(frame, "You can't afford this country!");
+                        //     return;
+                        // }
                         if (pleaseConfirm("Confirm purchase of " + CountryLibrary.countryNames[i] + "?")) {
-                            if (!game.buyCountry(i)) {
-                                logger.info("Player failed to buy countryID " + i + ": Already owned");
-                                JOptionPane.showMessageDialog(frame, "You couldn't buy " + CountryLibrary.countryNames[i]);
+                            String result = game.buyCountry(i);
+                            if (result.equals("OK")) {
+                                logger.info("Player " + game.currentPlayerValue + " successfully bought " + CountryLibrary.countryNames[i] + " for " + CountryLibrary.getCountryPrice(i) + "$");
+                                JOptionPane.showMessageDialog(frame, "You bought " + CountryLibrary.countryNames[i] + " for " + CountryLibrary.getCountryPrice(i) + "$");
+                            }
+                            else {
+                                logger.info("Player " + game.currentPlayerValue + " failed to buy  " + CountryLibrary.countryNames[i] + ": " + result);
+                                JOptionPane.showMessageDialog(frame, "You couldn't buy " + CountryLibrary.countryNames[i] + ": " + result); 
                             }
                             updateSubPanel(1);
+                        }
+                        else {
+                            logger.info("Player " + game.currentPlayerValue + " cancelled purchase of " + CountryLibrary.countryNames[i]);
                         }
                         break;
                     }
@@ -465,11 +478,34 @@ public class UI extends JFrame implements ActionListener {
                     if (subSubButtons2[i] != null) {
                         for (int j = 0; j < subSubButtons2[i].length; j++) {
                             if (e.getSource() == subSubButtons2[i][j]) {
+                                System.out.println("subSubButton2 pressed: " + i + ", " + j);
                                 logger.info("subSubButton2 pressed: " + i + ", " + j);
                                 if (pleaseConfirm("Confirm upgrade of " + CountryLibrary.countryNames[i] + " - " + CountryLibrary.statNames[j][0] + "?")) {
-                                    game.currentPlayer.countryValues[i][j + 1]++;
-                                    //game.subtractMoney(CountryLibrary.getCountryPrice(i));
-                                    updateSubSubPanel(i, 2);
+                                    String result = game.buyStat(i,j);
+                                    if (result.equals("OK")) {
+                                        logger.info("Player " + game.currentPlayerValue + " successfully upgraded " + CountryLibrary.countryNames[i] + " - " + CountryLibrary.statNames[j][0] + " for " + game.getIndustryUpgradeCost(i, j) + "$ to level" + game.currentPlayer.countryValues[i][j + 1]);
+                                        JOptionPane.showMessageDialog(frame, "You upgraded " + CountryLibrary.countryNames[i] + " - " + CountryLibrary.statNames[j][0] + " for " + game.getIndustryUpgradeCost(i, j) + "$ to level " + game.currentPlayer.countryValues[i][j + 1]);
+                                        
+                                        
+                                        // for (int k = 0; k < CountryLibrary.countryNames.length; k++) {
+                                        //     System.out.print("Country: " + CountryLibrary.countryNames[k] + " - ");
+                                        //     for (int l = 0; l < CountryLibrary.statNames.length-1; l++) {
+                                        //         System.out.print(CountryLibrary.statNames[l][0] + ": ");
+                                        //         System.out.print(CountryLibrary.getCountryIndustryCaps(k)[l] + ", ");
+                                        //     }
+                                        //     System.out.println(" ");
+                                        // }
+                                    
+                                    
+                                    }
+                                    else {
+                                        logger.info("Player " + game.currentPlayerValue + " failed to upgrade " + CountryLibrary.countryNames[i] + " - " + CountryLibrary.statNames[j][0] + ": " + result);
+                                        JOptionPane.showMessageDialog(frame, "You couldn't upgrade " + CountryLibrary.countryNames[i] + " - " + CountryLibrary.statNames[j][0] + ": " + result);
+                                    }
+                                    updateSubSubPanel(i, 2); 
+                                }
+                                else {
+                                    logger.info("Player " + game.currentPlayerValue + " cancelled upgrade of " + CountryLibrary.countryNames[i] + " - " + CountryLibrary.statNames[j][0]);
                                 }
                                 break;
                             }
