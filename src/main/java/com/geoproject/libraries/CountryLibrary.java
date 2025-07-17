@@ -312,13 +312,12 @@ public class CountryLibrary {
         else {
             String shortName = countryShortNames[countryID];
 
-            for (int i = 0; i < countryShortNamesBreak.length; i++) {
-                if (countryID == countryShortNamesBreak[i]) {
+            for (int j : countryShortNamesBreak) {
+                if (countryID == j) {
                     if (shortName.contains("/")) {
                         shortName = "<html>" + shortName.replace("/", "/<br>") + "</html>";
                         return shortName;
-                    }
-                    else {
+                    } else {
                         return "XXX";
                     }
                 }
@@ -367,6 +366,26 @@ public class CountryLibrary {
 
         // Energiecap: Flächen-Dependant minus sekundär Einwohner, da die eigene Bevölkerung den Energieexport limitiert
         int energyCap = Math.round(((float) countryData[countryID][0] / 200000) - ((float) countryData[countryID][1] / 1000000));
+
+        if (miningCap < 10) {
+            miningCap = 10;
+        }
+
+        if (agricultureCap < 10) {
+            agricultureCap = 10;
+        }
+
+        if (productionCap < 10) {
+            productionCap = 10;
+        }
+
+        if (tourismCap < 10) {
+            tourismCap = 10;
+        }
+
+        if (energyCap < 10) {
+            energyCap = 10;
+        }
 
         return new int[]{miningCap, agricultureCap, productionCap, tourismCap, energyCap};
     }
