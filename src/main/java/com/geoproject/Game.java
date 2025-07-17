@@ -70,13 +70,14 @@ public class Game {
         otherPlayer = (currentPlayerValue == 1) ? p2 : p1;
     }
 
-    public void subtractMoney(int amount) {
+    public boolean subtractMoney(int amount) {
         if (canAfford(amount)) {
             logger.info("Subtracting " + amount + "$ from playerMoney.");
             currentPlayer.playerMoney -= amount;
             logger.info("Remaining playerMoney: " + currentPlayer.playerMoney);
+            return true;
         } else {
-            return;
+            return false;
         }
     }
 
@@ -89,10 +90,11 @@ public class Game {
 
     public boolean buyCountry(int countryID) {
         if (currentPlayer.neighborCountries[countryID] == 1 && AllOwnedCountries[countryID] == 0) {
-            subtractMoney(CountryLibrary.getCountryPrice(countryID));
-            currentPlayer.countryValues[countryID][0] = 1;
-            System.out.println("You bought " + CountryLibrary.countryNames[countryID] + " for " + CountryLibrary.getCountryPrice(countryID) + "$.");
-            return true;
+            if (subtractMoney(CountryLibrary.getCountryPrice(countryID))) {
+                currentPlayer.countryValues[countryID][0] = 1;
+                System.out.println("You bought " + CountryLibrary.countryNames[countryID] + " for " + CountryLibrary.getCountryPrice(countryID) + "$.");
+                return true;
+            } else {return false;}
         }
         else {
             return false;
