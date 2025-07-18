@@ -63,7 +63,9 @@ public class MapPanel extends JPanel implements ActionListener {
     private JSlider sliderX2;
     private JSlider sliderY2;
 
-    public MapPanel(JButton[] MainButtons) {
+    private boolean debug;
+
+    public MapPanel(JButton[] MainButtons, boolean debug) {
         /*setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.BOTH;
@@ -80,6 +82,8 @@ public class MapPanel extends JPanel implements ActionListener {
         }
         MapButton test = new MapButton("test");
         add(test);*/
+
+        this.debug = debug;
         setLayout(null);
         setOpaque(false);
 
@@ -94,26 +98,28 @@ public class MapPanel extends JPanel implements ActionListener {
             }
         }
 
-        // Slider 
-        sliderX1 = new JSlider(5, 810, 100);
-        sliderY1 = new JSlider(5, 290, 100);
-        sliderX2 = new JSlider(5, 810, 100);
-        sliderY2 = new JSlider(5, 290, 100);
-        sliderX1.setBounds(0,400,200,20);
-        sliderY1.setBounds(200,400,200,20);
-        sliderX2.setBounds(400,400,200,20);
-        sliderY2.setBounds(600,400,200,20);
-        
-        add(sliderX1);
-        add(sliderY1);
-        add(sliderX2);
-        add(sliderY2);
+        if (debug) {
+            // Slider 
+            sliderX1 = new JSlider(5, 810, 100);
+            sliderY1 = new JSlider(5, 400, 100);
+            sliderX2 = new JSlider(5, 810, 100);
+            sliderY2 = new JSlider(5, 400, 100);
+            sliderX1.setBounds(0,400,200,20);
+            sliderY1.setBounds(200,400,200,20);
+            sliderX2.setBounds(400,400,200,20);
+            sliderY2.setBounds(600,400,200,20);
+            
+            add(sliderX1);
+            add(sliderY1);
+            add(sliderX2);
+            add(sliderY2);
 
-        // Listener für Slider
-        sliderX1.addChangeListener(e -> { lineX1 = sliderX1.getValue(); repaint(); output();});
-        sliderY1.addChangeListener(e -> { lineY1 = sliderY1.getValue(); repaint(); output();});
-        sliderX2.addChangeListener(e -> { lineX2 = sliderX2.getValue(); repaint(); output();});
-        sliderY2.addChangeListener(e -> { lineY2 = sliderY2.getValue(); repaint(); output();});
+            // Listener für Slider
+            sliderX1.addChangeListener(e -> { lineX1 = sliderX1.getValue(); repaint(); output();});
+            sliderY1.addChangeListener(e -> { lineY1 = sliderY1.getValue(); repaint(); output();});
+            sliderX2.addChangeListener(e -> { lineX2 = sliderX2.getValue(); repaint(); output();});
+            sliderY2.addChangeListener(e -> { lineY2 = sliderY2.getValue(); repaint(); output();});
+        }
         // RussiaPanel russiaPanel = new RussiaPanel();
         // russiaPanel.setBounds(400, 5, 200, 100);
         // add(russiaPanel);
@@ -134,22 +140,38 @@ public class MapPanel extends JPanel implements ActionListener {
         g2d.setStroke(new BasicStroke(2));
         g2d.setColor(Color.GRAY);
         g2d.drawLine(155, 120, 260, 95); //UK USA
-
         g2d.drawLine(230, 80, 245, 80);  //UK IRE
-
         g2d.drawLine(265, 95, 270, 115); //UK FRA
-
         g2d.drawLine(275, 80, 285, 90);  //UK BNL
+        g2d.drawLine(145, 155, 150, 160);//CUB USA
+        g2d.drawLine(130, 175, 140, 175);//CUB MEX
+        g2d.drawLine(160, 185, 160, 210);//CUB VEN
+        g2d.drawLine(250, 200, 120, 200);//IBE MID
+        g2d.drawLine(255, 65, 240, 40);  //UK ICE
+        g2d.drawLine(210, 30, 190, 25);  //ICE GRO
+        g2d.drawLine(125, 40, 160, 20);  //GRO CAN
+        g2d.drawLine(250, 200, 130, 190);//IBE MEX
+        g2d.drawLine(345, 70, 355, 60);  //SCA DEN
+        g2d.drawLine(440, 55, 445, 65);  //BLT FIN
+        g2d.drawLine(500, 135, 495, 195);//TUR RUS
+        g2d.drawLine(480, 150, 490, 195);//TUR UKR
+        g2d.drawLine(440, 220, 470, 222);//TUR GRE/MAC
+        g2d.drawLine(550, 160, 575, 165);//GEO/ARM/AZE TKM
+        g2d.drawLine(690, 295, 690, 300);//SRI IND
 
-        g2d.drawLine(145, 155, 150, 165);//CUB USA
+        g2d.setStroke(new BasicStroke(2));
+        g2d.setFont(new Font("1", this.getFont().getStyle(), 9));
+        g2d.drawString("(RUS)", 2, 125); // Text "USA" im Rechteck
+        g2d.drawString("(USA)", 775, 70); // Text "USA" im Rechteck
 
-        g2d.drawLine(130, 175, 145, 175);//CUB MEX
+        g2d.setColor(Color.LIGHT_GRAY);
+        g2d.drawRect(760, 40, 60, 50);
+        g2d.drawLine(760, 60, 700, 60);//RUS (USA)
 
-        g2d.drawLine(160, 190, 160, 210);//CUB VEN
+        g2d.drawRect(0, 105, 35, 35);
+        g2d.drawLine(35, 120, 50, 120);//USA (RUS)
 
-        g2d.drawLine(160, 190, 160, 210);//ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
-
-        g2d.drawLine(lineX1, lineY1, lineX2, lineY2);
+        if (debug) {g2d.drawLine(lineX1, lineY1, lineX2, lineY2);}
     }
 
     private void output(){
@@ -277,9 +299,9 @@ public class MapPanel extends JPanel implements ActionListener {
         {360,120,30,20,10},//Tschiechen  CZE  5
         {310,140,80,20,10},//Österreich & Schweiz  AU & SWI  6
         {245,65,30,30,10},//UK UK  7
-        {335,5,55,65,10},//Skandinavien  SCAN  8
-        {400,55,80,35,10},//Baltikum  BALT  9
-        {390,5,90,50,10},//Finnland  FIN  10
+        {350,5,50,55,10},//Skandinavien  SCAN  8
+        {410,65,70,25,10},//Baltikum  BALT  9
+        {400,5,80,50,10},//Finnland  FIN  10
         {390,120,30,30,10},//Slovakai  SVK  11
         {420,90,60,20,10},//Belarus  BLR  12
         {420,110,60,40,10},//Ukraine  UKR  13
@@ -330,14 +352,14 @@ public class MapPanel extends JPanel implements ActionListener {
         {645,170,30,15,10},//Tadschikistan TAD 57
         {605,185,70,25,10},//Afghanistan AFG 58
         {645,155,30,15,10},//Kirgisistan KIR 59
-        {635,240,85,55,10},//Indien IND 60
-        {720,220,25,35,10},//Myanmar BUR 61
-        {720,255,25,25,10},//Bangladesch BAN 62
-        {695,220,25,20,10},//Nepal NEP 63
-        {145,165,30,25,10},//Kuba CUB 64
-        {650,300,25,20,10},//Sri Lanka SRI 65
+        {655,240,55,55,10},//Indien IND 60
+        {710,220,25,35,10},//Myanmar BUR 61
+        {710,255,25,25,10},//Bangladesch BAN 62
+        {685,220,25,20,10},//Nepal NEP 63
+        {140,160,30,25,10},//Kuba CUB 64
+        {680,300,25,20,10},//Sri Lanka SRI 65
         {700,110,35,25,10},//Mongolei MON 66
-        {675,135,70,85,10},//China CHI 67
+        {675,135,60,85,10},//China CHI 67
         {0,0,0,0,10},//
         {0,0,0,0,10},//
         {0,0,0,0,10},//

@@ -197,14 +197,14 @@ public class UI extends JFrame implements ActionListener {
         }
 
         logger.info("Creating mapPanel for Player 1");
-        mapPanel1 = new MapPanel(buttons);
+        mapPanel1 = new MapPanel(buttons, debug);
         mapPanel1.setBounds(120, 5, 815, 425);
         for (int i = 0; i < mapPanel1.mapButtons.length; i++) {
             mapPanel1.mapButtons[i].addActionListener(this);
         }
 
         logger.info("Creating mapPanel for Player 2");
-        mapPanel2 = new MapPanel(buttons);
+        mapPanel2 = new MapPanel(buttons, debug);
         mapPanel2.setBounds(970, 5, 815, 425);
         for (int i = 0; i < mapPanel2.mapButtons.length; i++) {
             mapPanel2.mapButtons[i].addActionListener(this);
@@ -488,14 +488,14 @@ public class UI extends JFrame implements ActionListener {
                                         JOptionPane.showMessageDialog(frame, "You upgraded " + CountryLibrary.countryNames[i] + " - " + CountryLibrary.statNames[j][0] + " for " + game.getIndustryUpgradeCost(i, j) + "$ to level " + game.currentPlayer.countryValues[i][j + 1]);
                                         
                                         
-                                        // for (int k = 0; k < CountryLibrary.countryNames.length; k++) {
-                                        //     System.out.print("Country: " + CountryLibrary.countryNames[k] + " - ");
-                                        //     for (int l = 0; l < CountryLibrary.statNames.length-1; l++) {
-                                        //         System.out.print(CountryLibrary.statNames[l][0] + ": ");
-                                        //         System.out.print(CountryLibrary.getCountryIndustryCaps(k)[l] + ", ");
-                                        //     }
-                                        //     System.out.println(" ");
-                                        // }
+                                        for (int k = 0; k < CountryLibrary.countryNames.length; k++) {
+                                            System.out.print("Country: " + CountryLibrary.countryNames[k] + " - ");
+                                            for (int l = 0; l < CountryLibrary.statNames.length-1; l++) {
+                                                System.out.print(CountryLibrary.statNames[l][0] + ": ");
+                                                System.out.print(CountryLibrary.getCountryIndustryCaps(k)[l] + ", ");
+                                            }
+                                            System.out.println(" ");
+                                        }
                                     
                                     
                                     }
