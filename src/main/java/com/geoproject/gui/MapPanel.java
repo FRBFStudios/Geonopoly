@@ -115,10 +115,10 @@ public class MapPanel extends JPanel implements ActionListener {
             add(sliderY2);
 
             // Listener für Slider
-            sliderX1.addChangeListener(e -> { lineX1 = sliderX1.getValue(); repaint(); output();});
-            sliderY1.addChangeListener(e -> { lineY1 = sliderY1.getValue(); repaint(); output();});
-            sliderX2.addChangeListener(e -> { lineX2 = sliderX2.getValue(); repaint(); output();});
-            sliderY2.addChangeListener(e -> { lineY2 = sliderY2.getValue(); repaint(); output();});
+            sliderX1.addChangeListener(e -> {lineX1 = sliderX1.getValue(); repaint(); output();});
+            sliderY1.addChangeListener(e -> {lineY1 = sliderY1.getValue(); repaint(); output();});
+            sliderX2.addChangeListener(e -> {lineX2 = sliderX2.getValue(); repaint(); output();});
+            sliderY2.addChangeListener(e -> {lineY2 = sliderY2.getValue(); repaint(); output();});
         }
         // RussiaPanel russiaPanel = new RussiaPanel();
         // russiaPanel.setBounds(400, 5, 200, 100);
@@ -234,6 +234,16 @@ public class MapPanel extends JPanel implements ActionListener {
     }*/
 
 
+    //  btn.addMouseListener(new java.awt.event.MouseAdapter() {
+    //                     @Override
+    //                     public void mouseEntered(java.awt.event.MouseEvent evt) {
+    //                         btn.setBackground(new Color(255, 255, 150)); // light yellow
+    //                     }
+    //                     @Override
+    //                     public void mouseExited(java.awt.event.MouseEvent evt) {
+    //                         btn.setBackground(UIManager.getColor("Button.background"));
+    //                     }
+    //                 });
 
 
     private void addFocusListeners(JButton button, JButton targetButton) {
@@ -265,26 +275,26 @@ public class MapPanel extends JPanel implements ActionListener {
             mapButtons[i].markButton(false, null);
         }
         for (int i = 0; i < ownedCountries.length; i++) {
-            if (ownedCountries[i] > 0 && i < mapButtons.length) {
+            if (ownedCountries[i] > 0) {
                 mapButtons[i].markButton(true, Color.BLUE);
-            } 
+            }
             else if (i < mapButtons.length) {
                 mapButtons[i].markButton(false, null);
             } 
             else {
-                System.out.println("Error: Country index out of bounds: " + i);
+                //System.out.println("Error: Country index out of bounds: " + i);
             }
         }
         for (int i = 0; i < neighborCountries.length; i++) {
-            if (neighborCountries[i] > 0 && i < mapButtons.length) {
+            if (neighborCountries[i] > 0) {
                 mapButtons[i].markButton(true, Color.GREEN);
             } 
+            else if (i < mapButtons.length) {}
             //else if (i < mapButtons.length) {mapButtons[i].markButton(false, Color.BLACK);} 
             else {
-                System.out.println("Error: Country index out of bounds: " + i);
+                //System.out.println("Error: Country index out of bounds: " + i);
             }
         }
-           
     }
 
 
@@ -392,7 +402,6 @@ class MapButton extends JButton {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                     setBorder(new LineBorder(hoverColor, 2)); // Change border color on hover
             }
-
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 if (!isFocusOwner()) {
                     //if (isMarked) {
