@@ -95,8 +95,35 @@ public class MapPanel extends JPanel implements ActionListener {
                 mapButtons[i].setBounds(countryMapLayout[i][0], countryMapLayout[i][1], countryMapLayout[i][2], countryMapLayout[i][3]);
                 mapButtons[i].setFont(new Font(getFont().getName(), getFont().getStyle(), countryMapLayout[i][4]));
                 add(mapButtons[i]);
+
+                final int index = i;
+                final int[][] borders = CountryLibrary.borders;
+                mapButtons[index].addMouseListener(new java.awt.event.MouseAdapter() {
+                    public void mouseEntered(java.awt.event.MouseEvent evt) {
+                        // Highlight all border countries of the hovered country
+                        for (int j = 0; j < borders[index].length; j++) {
+                            int borderCountry = borders[index][j];
+                            if (borderCountry >= 0 && borderCountry < mapButtons.length) {
+                                mapButtons[borderCountry].setBorder(new LineBorder(Color.green, 2));
+                            }
+                        }
+                        mapButtons[index].setBorder(new LineBorder(Color.green, 2)); // Highlight self
+                    }
+                    public void mouseExited(java.awt.event.MouseEvent evt) {
+                        // // Entmarkiere alle border countries und sich selbst
+                        // for (int j = 0; j < borders[index].length; j++) {
+                        //     int borderCountry = borders[index][j];
+                        //     if (borderCountry >= 0 && borderCountry < mapButtons.length) {
+                        //         mapButtons[borderCountry].setBorder(new LineBorder(MapButton.defaultColor, 1));
+                        //     }
+                        // }
+                        // mapButtons[index].setBorder(new LineBorder(MapButton.defaultColor, 1)); // Reset self
+                    }
+                });
             }
         }
+
+        
 
         if (debug) {
             // Slider 
@@ -295,6 +322,7 @@ public class MapPanel extends JPanel implements ActionListener {
                 //System.out.println("Error: Country index out of bounds: " + i);
             }
         }
+
     }
 
 
