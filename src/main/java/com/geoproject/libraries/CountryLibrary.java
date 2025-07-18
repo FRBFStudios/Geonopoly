@@ -347,7 +347,7 @@ public class CountryLibrary {
     }
 
     public static int getCountryExpenses(int countryID) {
-        return Math.round((float) countryData[countryID][1] / 500000);
+        return Math.round((float) countryData[countryID][1] / 1000000);
     }
 
     /* Diese Formeln müssen beim Balancing angepasst werden
