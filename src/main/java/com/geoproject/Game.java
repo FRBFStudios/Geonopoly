@@ -38,7 +38,7 @@ public class Game {
                 for (int industryID = 0; (industryID < CountryLibrary.statNames.length - 1); industryID++) {
                     // BIP * ((Stat Multiplier * Industrielevel) / 10)
                     logger.info("Calculating profit and expenses of countryID " + countryID + " on industryID " + industryID);
-                    int countryProfit = CountryLibrary.countryData[countryID][2] * ((CountryLibrary.statsMultiplier[countryID][industryID] * currentPlayer.countryValues[countryID][industryID]) / 10);
+                    int countryProfit = (CountryLibrary.countryData[countryID][2] / 10) * ((CountryLibrary.statsMultiplier[countryID][industryID] * currentPlayer.countryValues[countryID][industryID]) / 10);
                     logger.info("Profit calculated as " + countryProfit + ", adding to roundProfit");
                     roundProfit += countryProfit;
 
@@ -108,7 +108,6 @@ public class Game {
 
     public String buyStat(int countryID, int statID) {
         if (currentPlayer.ownedCountries[countryID] == 1) {
-            if (currentPlayer.countryValues[countryID][statID + 1] < CountryLibrary.getCountryIndustryCaps(countryID)[statID]) {
                 if (subtractMoney(getIndustryUpgradeCost(countryID, statID))) {
                     currentPlayer.countryValues[countryID][statID + 1]++;
                     // System.out.println("You upgraded " + CountryLibrary.statNames[statID] + " in " + CountryLibrary.countryNames[countryID] + " for " + upgradeCost + "$.");
@@ -116,9 +115,6 @@ public class Game {
                 } else {
                     return "coudn't afford upgrade";
                 }
-            } else {
-                return "Stat already at max level";
-            }
         } else {
             return "NOT owned country";
         }
