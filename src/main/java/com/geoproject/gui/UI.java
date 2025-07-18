@@ -24,14 +24,12 @@ package com.geoproject.gui;
  *  - multiplikatoren für länder stats hizufügen
  */
 
- //todo: game: buystat()
  // mappanel: clickedcountries show neighbors
 // mappanel: pfeile
 // übersicht ob country lukrativ (z.b. grün vs rot)
 //kosten und ertrag von stats
 //map für stat upgrades nutzen
 //sobald countryValues[... immer "+ 1"
-//NEGATIVE INDUSTRYCAPS!!!!!!!
 
 
 import com.geoproject.Game;
@@ -201,6 +199,7 @@ public class UI extends JFrame implements ActionListener {
         mapPanel1.setBounds(120, 5, 815, 425);
         for (int i = 0; i < mapPanel1.mapButtons.length; i++) {
             mapPanel1.mapButtons[i].addActionListener(this);
+            //mapPanel1.mapButtons[i].add
         }
 
         logger.info("Creating mapPanel for Player 2");
@@ -488,14 +487,14 @@ public class UI extends JFrame implements ActionListener {
                                         JOptionPane.showMessageDialog(frame, "You upgraded " + CountryLibrary.countryNames[i] + " - " + CountryLibrary.statNames[j][0] + " for " + game.getIndustryUpgradeCost(i, j) + "$ to level " + game.currentPlayer.countryValues[i][j + 1]);
                                         
                                         
-                                        // for (int k = 0; k < CountryLibrary.countryNames.length; k++) {
-                                        //     System.out.print("Country: " + CountryLibrary.countryNames[k] + " - ");
-                                        //     for (int l = 0; l < CountryLibrary.statNames.length-1; l++) {
-                                        //         System.out.print(CountryLibrary.statNames[l][0] + ": ");
-                                        //         System.out.print(CountryLibrary.getCountryIndustryCaps(k)[l] + ", ");
-                                        //     }
-                                        //     System.out.println(" ");
-                                        // }
+                                        for (int k = 0; k < CountryLibrary.countryNames.length; k++) {
+                                            System.out.print("Country: " + CountryLibrary.countryNames[k] + " - ");
+                                            for (int l = 0; l < CountryLibrary.statNames.length-1; l++) {
+                                                System.out.print(CountryLibrary.statNames[l][0] + ": ");
+                                                System.out.print(CountryLibrary.getCountryIndustryCaps(k)[l] + ", ");
+                                            }
+                                            System.out.println(" ");
+                                        }
                                     
                                     
                                     }
