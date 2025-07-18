@@ -133,13 +133,13 @@ public class MapPanel extends JPanel implements ActionListener {
         Graphics2D g2d = (Graphics2D) g;
         g2d.setStroke(new BasicStroke(2));
         g2d.setColor(Color.GRAY);
-        g2d.drawLine(155, 120, 260, 95);//UK USA
+        g2d.drawLine(155, 120, 260, 95); //UK USA
 
-        g2d.drawLine(230, 80, 245, 80);//UK IRE
+        g2d.drawLine(230, 80, 245, 80);  //UK IRE
 
-        g2d.drawLine(265, 95, 270, 115);//UK FRA
+        g2d.drawLine(265, 95, 270, 115); //UK FRA
 
-        g2d.drawLine(275, 80, 285, 90);//UK BNL
+        g2d.drawLine(275, 80, 285, 90);  //UK BNL
 
         g2d.drawLine(145, 155, 150, 165);//CUB USA
 
