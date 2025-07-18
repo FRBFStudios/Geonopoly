@@ -347,46 +347,54 @@ public class CountryLibrary {
     }
 
     public static int getCountryExpenses(int countryID) {
-        return Math.round((float) countryData[countryID][1] / 100000);
+        return Math.round((float) countryData[countryID][1] / 500000);
     }
 
-    // Diese Formeln müssen beim Balancing angepasst werden
+    /* Diese Formeln müssen beim Balancing angepasst werden
     public static int[] getCountryIndustryCaps(int countryID) {
         // Mining Cap: Flächen-Dependant + sekundär Einwohner-Dependant (Arbeitskräfte)
-        int miningCap = Math.round(((float) countryData[countryID][0] / 20000) + ((float) countryData[countryID][1] / 1000000));
+        int miningCap = Math.round(((float) countryData[countryID][0] / 50000) + ((float) countryData[countryID][1] / 100000000));
 
         // LW-Cap: Flächen-Dependant
-        int agricultureCap = Math.round((float) countryData[countryID][0] / 200000);
+        int agricultureCap = Math.round((float) countryData[countryID][0] / 50000);
 
         // Produktionscap: Einwohner-Dependant + sekundär Flächen-Dependant
-        int productionCap = Math.round(((float) countryData[countryID][1] / 200000) + ((float) countryData[countryID][0] / 1000000));
+        int productionCap = Math.round(((float) countryData[countryID][1] / 1000000) + ((float) countryData[countryID][0] / 50000));
 
         // Tourismuscap: Einwohner-Dependant
-        int tourismCap = Math.round(((float) countryData[countryID][1] / 200000) + ((float) countryData[countryID][0] / 1000000));
+        int tourismCap = Math.round(((float) countryData[countryID][1] / 1000000));
 
         // Energiecap: Flächen-Dependant minus sekundär Einwohner, da die eigene Bevölkerung den Energieexport limitiert
-        int energyCap = Math.round(((float) countryData[countryID][0] / 200000) - ((float) countryData[countryID][1] / 1000000));
+        int energyCap = Math.round(((float) countryData[countryID][0] / 50000) - ((float) countryData[countryID][1] / 10000000));
 
-        if (miningCap < 10) {
-            miningCap = 10;
+        if (miningCap < 1) {
+            miningCap = 1;
+        } else if (miningCap > 50) {
+            miningCap = 50 + Math.round((float) (miningCap - 50) / 4);
         }
 
-        if (agricultureCap < 10) {
-            agricultureCap = 10;
+        if (agricultureCap < 1) {
+            agricultureCap = 1;
+        } else if (agricultureCap > 50) {
+            agricultureCap = 50 + Math.round((float) (agricultureCap - 50) / 4);
         }
 
-        if (productionCap < 10) {
-            productionCap = 10;
+        if (productionCap < 1) {
+            productionCap = 1;
+        } else if (productionCap > 50) {
+            productionCap = 50 + Math.round((float) (productionCap - 50) / 20);
         }
 
-        if (tourismCap < 10) {
-            tourismCap = 10;
+        if (tourismCap < 1) {
+            tourismCap = 1;
+        } else if (tourismCap > 50) {
+            tourismCap = 50 + Math.round((float) (tourismCap - 50) / 20);
         }
 
-        if (energyCap < 10) {
-            energyCap = 10;
+        if (energyCap < 1) {
+            energyCap = 1;
+        } else if (energyCap > 50) {
+            energyCap = 50 + Math.round((float) (energyCap - 50) / 4);
         }
-
         return new int[]{miningCap, agricultureCap, productionCap, tourismCap, energyCap};
-    }
-}
+    }*/}
