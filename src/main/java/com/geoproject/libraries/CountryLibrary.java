@@ -11,7 +11,7 @@ public class CountryLibrary {
             {0, 4, 7},//BeNeLux = 1
             {0, 8, 32},//Dänemark = 2
             {0, 5, 9, 11, 12, 13},//Polen = 3
-            {0, 1, 6, 7, 14, 25, 29, 47},//Frankreich = 4
+            {0, 1, 6, 7, 14, 47},//Frankreich = 4
             {0, 3, 6, 11},//Tschechien = 5
             {0, 4, 5, 11, 14, 15, 16},//SwiAuLi
             {1, 4, 19, 36, 37},//UK = 7
@@ -32,11 +32,11 @@ public class CountryLibrary {
             {21, 23, 47},//Mittelamerika = 22
             {22, 24, 25, 26, 27},//Kolumbien = 23
             {23, 25, 28, 64},//Venezuela = 24
-            {4, 23, 24, 27, 28, 29, 30, 33, 34, 35, 47},//Brasilien = 25
+            {23, 24, 27, 28, 29, 30, 33, 34, 35, 47},//Brasilien = 25
             {23, 27},//Ecuador = 26
             {23, 25, 26, 33, 31},//Peru = 27
             {24, 25, 29},//Guyana = 28
-            {4, 25, 28},//Suriname = 29
+            {25, 28},//Suriname = 29
             {31, 33, 34, 35},//Argentinien = 30
             {27, 30, 33},//Chile = 31
             {2, 20, 36},//Grönland = 32

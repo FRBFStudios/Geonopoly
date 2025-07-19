@@ -818,7 +818,7 @@ public class UI extends JFrame implements ActionListener {
         // game.currentPlayer.countryValues[3][0] = 1;
         // game.currentPlayer.countryValues[1][2] = 4;
         // game.currentPlayer.countryValues[8][0] = 1;
-        //game.currentPlayer.countryValues[4][0] = 1;
+        // game.currentPlayer.countryValues[4][0] = 1;
         // game.currentPlayer.countryValues[5][0] = 1;
         // game.currentPlayer.countryValues[6][0] = 1;
         // game.currentPlayer.countryValues[7][0] = 1;

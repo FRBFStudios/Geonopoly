@@ -185,6 +185,8 @@ public class MapPanel extends JPanel implements ActionListener {
         g2d.drawLine(440, 220, 470, 222);//TUR GRE/MAC
         g2d.drawLine(550, 160, 575, 165);//GEO/ARM/AZE TKM
         g2d.drawLine(690, 295, 690, 300);//SRI IND
+        g2d.drawLine(240, 265, 280, 225);//IBE BRA
+
 
         g2d.setStroke(new BasicStroke(2));
         g2d.setFont(new Font("1", this.getFont().getStyle(), 9));
