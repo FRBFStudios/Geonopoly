@@ -180,7 +180,7 @@ public class MapPanel extends JPanel implements ActionListener {
         g2d.drawLine(250, 200, 130, 190);//IBE MEX
         g2d.drawLine(345, 70, 355, 60);  //SCA DEN
         g2d.drawLine(440, 55, 445, 65);  //BLT FIN
-        g2d.drawLine(500, 135, 495, 195);//TUR RUS
+        //g2d.drawLine(500, 135, 495, 195);//TUR RUS
         g2d.drawLine(480, 150, 490, 195);//TUR UKR
         g2d.drawLine(440, 220, 470, 222);//TUR GRE/MAC
         g2d.drawLine(550, 160, 575, 165);//GEO/ARM/AZE TKM
@@ -399,7 +399,7 @@ public class MapPanel extends JPanel implements ActionListener {
         {140,160,30,25,10},//Kuba CUB 64
         {680,300,25,20,10},//Sri Lanka SRI 65
         {700,110,35,25,10},//Mongolei MON 66
-        {675,135,60,85,10},//China CHI 67
+        {675,135,60,85,10},//China CHN 67
         {0,0,0,0,10},//
         {0,0,0,0,10},//
         {0,0,0,0,10},//

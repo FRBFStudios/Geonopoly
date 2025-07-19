@@ -45,8 +45,8 @@ public class CountryLibrary {
             {25, 30},//Uruguay = 35
             {7, 32, 37},//Island = 36
             {7, 36},//Irland = 37
-            {9, 10, 12, 13, 19, 39, 50, 54, 66, 67},//Russland = 38
-            {13, 18, 38, 40, 49, 50, 51, 52},//Türkei = 39
+            {9, 10, 12, 13, 19, 50, 54, 66, 67},//Russland = 38
+            {13, 18, 40, 49, 50, 51, 52},//Türkei = 39
             {39, 41, 42, 43, 49},//Syrien = 40
             {40, 42, 44, 49},//Jordanien = 41
             {40, 41, 43},//Israel und Palästina = 42
@@ -79,7 +79,7 @@ public class CountryLibrary {
     //Speichert Informationen in folgender Reihenfolge: Fläche (in km²), Einwohnerzahl, BIP in Mio. USD
     //Bei Ländergruppen: Summe
     public static int[][] countryData = new int[][]{
-            {357022, 84552242, 4527009},//GER
+            {357022, 84552242, 2000000},//GER  //Manulanpassung
             {74657, 30640541, 1873073},//BNL
             {43094, 5977412, 407092},//DEN
             {312685, 38539201, 811736},//POL
@@ -98,7 +98,7 @@ public class CountryLibrary {
             {93028, 9676135, 212464},//HUN
             {238391, 19015088, 351074},//ROM
             {157670, 13082778, 253044},//GRE/MAC
-            {9525067, 345426571, 27720725},//USA
+            {9525067, 345426571, 3000000},//USA //Manulanpassung
             {9984670, 39742430, 2142471},//CAN
             {1964375, 130861007, 1788821},//MEX
             {521876, 52548954, 363484},//MID
@@ -117,7 +117,7 @@ public class CountryLibrary {
             {176215, 3386588, 77241},//URU
             {103000, 393396, 31325},//ICE
             {70273, 5262009, 551554},//IRE
-            {17098242, 144820423, 2009959},//RUS
+            {17098242, 144820423, 2500000},//RUS //Manulanpassung
             {783562, 87473805, 1129974},//TUR
             {187437, 24174628, 8980},//SYR
             {89342, 11552876, 50885},//JOR
@@ -146,7 +146,7 @@ public class CountryLibrary {
             {110860, 10979783, 104055},//CUB
             {65610, 23103565, 74239},//SRI
             {1564116, 3475540, 20315},//MON
-            {9596960, 1419321278, 17758046},//CHI
+            {9596960, 1419321278, 1700000},//CHN //Manulanpassung
     };
     //Beinhält die StatsMultiplier der Industrien, ohne Wirtschaft
     //Werte (meistens von 1-10) basieren auf dem Anteil des Sektors am BIP
@@ -219,7 +219,7 @@ public class CountryLibrary {
             {5, 7, 4, 9, 5},//CUB
             {3, 9, 5, 9, 4},//SRI
             {12, 5, 3, 5, 7},//MON
-            {10, 8, 15, 7, 12},//CHI
+            {10, 8, 15, 7, 12},//CHN
     };
     //Array, der die Namen der Länder beinhält. HOCHGRADIG SENSITIV! NICHTS ÄNDERN!
     public static String[] countryNames = new String[]{"Deutschland", "BeNeLux", "Dänemark", "Polen", "Frankreich & Monaco",
@@ -271,7 +271,7 @@ public class CountryLibrary {
     // URU = 35 // BRA, ARG,
     // ICE = 36 // UK, GRO, IRE,
     // IRE = 37 // UK, USA, ICE,
-    // RUS = 38 // SCA, BLT, FIN, UKR, USA, TUR, GEO/ARM/AZE, KAZ, MON, CHI,
+    // RUS = 38 // SCA, BLT, FIN, UKR, USA, TUR, GEO/ARM/AZE, KAZ, MON, CHN,
     // TUR = 39 // UKR, GRE/MAC, RUS, SYR, IRQ, GEO/ARM/AZE, BUL, IRN,
     // SYR = 40 // TUR, JOR, ISR/PAL, LEB, IRQ,
     // JOR = 41 // SYR, ISR/PAL, SAU, IRQ,
@@ -286,23 +286,23 @@ public class CountryLibrary {
     // GEO/ARM/AZE = 50 // RUS, TUR, IRN, GEO/ARM/AZE, TKM,
     // BUL = 51 // ROM, GRE/MAC, TUR,
     // IRN = 52 // TUR, SAU, UAE/QAT, IRQ, GEO/ARM/AZE, PAK, TKM, AFG,
-    // PAK = 53 // IRN, TKM, AFG, IND, CHI,
-    // KAZ = 54 // RUS, GEO/ARM/AZE, UZB, TKM, KIR, CHI,
+    // PAK = 53 // IRN, TKM, AFG, IND, CHN,
+    // KAZ = 54 // RUS, GEO/ARM/AZE, UZB, TKM, KIR, CHN
     // UZB = 55 // KAZ, TKM, TAD, AFG, KIR,
     // TKM = 56 // GEO/ARM/AZE, IRN, KAZ, UZB, AFG,
-    // TAD = 57 // UZB, AFG, KIR, CHI,
-    // AFG = 58 // IRN, PAK, UZB, TKM, TAD, CHI,
-    // KIR = 59 // KAZ, UZB, TAD, CHI,
-    // IND = 60 // PAK, MYA, NEP, BAN, SRI, CHI,
-    // MYA = 61 // IND, NEP, BAN, CHI,
+    // TAD = 57 // UZB, AFG, KIR, CHN,
+    // AFG = 58 // IRN, PAK, UZB, TKM, TAD, CHN,
+    // KIR = 59 // KAZ, UZB, TAD, CHN,
+    // IND = 60 // PAK, MYA, NEP, BAN, SRI, CHN,
+    // MYA = 61 // IND, NEP, BAN, CHN,
     // BAN = 62 // IND, BUR,
-    // NEP = 63 // IND, MYA, CHI,
+    // NEP = 63 // IND, MYA, CHN,
     // CUB = 64 // USA, MEX, VEN,
     // SRI = 65 // IND,
-    // MON = 66 // RUS, CHI,
-    // CHI = 67 // RUS, PAK, KAZ, TAD, AFG, KIR, IND, MYA, NEP, MON,
+    // MON = 66 // RUS, CHN,
+    // CHN = 67 // RUS, PAK, KAZ, TAD, AFG, KIR, IND, MYA, NEP, MON,
 
-    public static String[] countryShortNames = new String[]{"GER", "BNL", "DEN", "POL", "FRA", "CZE", "SWI/AU/LI", "UK", "SCA", "BLT", "FIN", "SLV", "IBE", "UKR", "ITA", "BLK", "HUN", "ROM", "GRE/MAC", "USA", "CAN", "MEX", "MID", "COL", "VEN", "BRA", "ECU", "PER", "GUY", "SUR", "ARG", "CHI", "GRO", "BOL", "PAR", "URU", "ICE", "IRE", "RUS", "TUR", "SYR", "JOR", "ISR/PAL", "LEB", "SAU", "YEM", "OMA", "IBE", "UAE/QAT", "IRQ", "GEO/ARM/AZE", "BUL", "IRN", "PAK", "KAZ", "UZB", "TKM", "TAD", "AFG", "KIR", "IND", "BUR", "BAN", "NEP", "CUB", "SRI", "MON", "CHI"};
+    public static String[] countryShortNames = new String[]{"GER", "BNL", "DEN", "POL", "FRA", "CZE", "SWI/AU/LI", "UK", "SCA", "BLT", "FIN", "SLV", "IBE", "UKR", "ITA", "BLK", "HUN", "ROM", "GRE/MAC", "USA", "CAN", "MEX", "MID", "COL", "VEN", "BRA", "ECU", "PER", "GUY", "SUR", "ARG", "CHI", "GRO", "BOL", "PAR", "URU", "ICE", "IRE", "RUS", "TUR", "SYR", "JOR", "ISR/PAL", "LEB", "SAU", "YEM", "OMA", "IBE", "UAE/QAT", "IRQ", "GEO/ARM/AZE", "BUL", "IRN", "PAK", "KAZ", "UZB", "TKM", "TAD", "AFG", "KIR", "IND", "BUR", "BAN", "NEP", "CUB", "SRI", "MON", "CHN"};
     
     public static int[] countryShortNamesBreak = new int[]{42, 18, 48, 50};
 
