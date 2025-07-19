@@ -15,9 +15,9 @@ public class Game {
     public int currentPlayerValue = 1;
 
     //P1 kriegt USA
-    public Player p1 = new Player(0);
+    public Player p1 = new Player(19);
     //P2 kriegt Russland
-    public Player p2 = new Player(4);
+    public Player p2 = new Player(38);
     public Player currentPlayer;
     public Player otherPlayer;
     public int [] AllOwnedCountries = new int[p1.countryValues.length];
