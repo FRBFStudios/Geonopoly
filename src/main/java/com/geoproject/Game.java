@@ -38,7 +38,7 @@ public class Game {
                 for (int industryID = 0; (industryID < CountryLibrary.statNames.length - 1); industryID++) {
                     // BIP * ((Stat Multiplier * Industrielevel) / 10)
                     logger.info("Calculating profit and expenses of countryID " + countryID + " on industryID " + industryID);
-                    int countryProfit = (CountryLibrary.countryData[countryID][2] / 5000) * ((CountryLibrary.statsMultiplier[countryID][industryID] * currentPlayer.countryValues[countryID][industryID]) / 10);
+                    int countryProfit = (CountryLibrary.countryData[countryID][2] / 5000) * ((CountryLibrary.statsMultiplier[countryID][industryID] * currentPlayer.countryValues[countryID][industryID+1]) / 10);
                     logger.info("Profit calculated as " + countryProfit + ", adding to roundProfit");
                     roundProfit += countryProfit;
 
@@ -56,7 +56,7 @@ public class Game {
 
     public int getIndustryUpgradeCost(int countryID, int industryID) {
         logger.info("Calculating industryUpgradeCost for countryID " + countryID + " on industryID " + industryID);
-        int industryUpgradeCost = 200 + (100 * currentPlayer.countryValues[countryID][industryID]);
+        int industryUpgradeCost = 200 + (100 * currentPlayer.countryValues[countryID][industryID+1]);
         logger.info("Calculated " + industryUpgradeCost + "$, returning");
         return industryUpgradeCost;
     }
