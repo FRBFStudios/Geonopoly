@@ -380,6 +380,7 @@ public class UI extends JFrame implements ActionListener {
         subSubButtons3 = new JButton[EventLibrary.eventNames.length][];
 
         if (debug) {p2MapPic.setVisible(false);}
+        UIupdate();
     }
 
     // Method is run at every button press
