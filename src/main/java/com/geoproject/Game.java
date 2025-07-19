@@ -15,7 +15,7 @@ public class Game {
     public int currentPlayerValue = 1;
 
     //P1 kriegt USA
-    public Player p1 = new Player(19);
+    public Player p1 = new Player(15);
     //P2 kriegt Russland
     public Player p2 = new Player(38);
     public Player currentPlayer;
@@ -56,7 +56,7 @@ public class Game {
 
     public int getIndustryUpgradeCost(int countryID, int industryID) {
         logger.info("Calculating industryUpgradeCost for countryID " + countryID + " on industryID " + industryID);
-        int industryUpgradeCost = 100 + (100 * (currentPlayer.countryValues[countryID][industryID+1]-1));
+        int industryUpgradeCost = 100 + (100 * (currentPlayer.countryValues[countryID][industryID+1]));
         logger.info("Calculated " + industryUpgradeCost + "$, returning");
         return industryUpgradeCost;
     }

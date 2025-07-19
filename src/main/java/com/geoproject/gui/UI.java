@@ -394,33 +394,83 @@ public class UI extends JFrame implements ActionListener {
             logger.info("buyCountriesButton pressed");
             showMainMenu();
             updateSubPanel(1);
-        } else if (e.getSource() == upgradeButton) {
+        } 
+        else if (e.getSource() == upgradeButton) {
             logger.info("upgradeButton pressed");
             showMainMenu();
             updateSubPanel(2);
-        } else if (e.getSource() == eventManagerButton) {
+        } 
+        else if (e.getSource() == eventManagerButton) {
             logger.info("eventManagerButton pressed");
             showMainMenu();
             updateSubPanel(3);
-        } else if (e.getSource() == finishTurnButton) {
+        } 
+        else if (e.getSource() == finishTurnButton) {
             logger.info("finishTurnButton pressed, finishing turn...");
             game.finishTurn();
+            UIupdate();
+            if (game.p1.playerMoney < 0) {
+                logger.info("Player 1 has no money left, GAME OVER.");
+                System.out.println("Player 1 has no money left, GAME OVER.");
+                if(pleaseConfirm("Player 1 has no money left, GAME OVER. Close?")) {
+                    logger.info("User confirmed to close the game.");
+                    System.out.println("User confirmed to close the game.");
+                    System.exit(0);
+                } else {
+                    logger.info("User cancelled closing the game.");
+                    System.out.println("User cancelled closing the game.");
+                    for (JButton button : buttons) {
+                        button.setEnabled(false);
+                    }
+                    for (MapButton button : mapPanel1.mapButtons) {
+                        button.setEnabled(false);
+                    }
+                    for (MapButton button : mapPanel2.mapButtons) {
+                        button.setEnabled(false);
+                    }
+                }
+            } 
+            else if (game.p2.playerMoney < 0) {
+                logger.info("Player 2 has no money left, GAME OVER.");
+                System.out.println("Player 2 has no money left, GAME OVER.");
+                if(pleaseConfirm("Player 1 has no money left, GAME OVER. Close?")) {
+                    logger.info("User confirmed to close the game.");
+                    System.out.println("User confirmed to close the game.");
+                    System.exit(0);
+                } else {
+                    logger.info("User cancelled closing the game.");
+                    System.out.println("User cancelled closing the game.");
+                    for (JButton button : buttons) {
+                        button.setEnabled(false);
+                    }
+                    for (MapButton button : mapPanel1.mapButtons) {
+                        button.setEnabled(false);
+                    }
+                    for (MapButton button : mapPanel2.mapButtons) {
+                        button.setEnabled(false);
+                    }
+                }
+            }
             showMainMenu();
-        } else if (e.getSource() == searchBar) {
+        } 
+        else if (e.getSource() == searchBar) {
             logger.info("searchBar pressed");
-        } else if (e.getSource() == mapweg) {//for tests
+        } 
+        else if (e.getSource() == mapweg) {//for tests
             logger.info("mapweg pressed");
             mapPanel1.setVisible(true);
             for (MapButton button : mapPanel1.mapButtons) {
                 button.setForeground(Color.BLACK);
             }
-        } else if (e.getSource() == mapweg2) {
+        } 
+        else if (e.getSource() == mapweg2) {
             logger.info("mapweg2 pressed");
             mapPanel1.setVisible(false);
             for (MapButton button : mapPanel1.mapButtons) {
                 button.setForeground(Color.BLACK);
             }
-        } else {
+        } 
+        else {
             if (subButtons1 != null) {
                 for (int i = 0; i < subButtons1.length; i++) {
                     if (e.getSource() == subButtons1[i]) {
@@ -436,7 +486,7 @@ public class UI extends JFrame implements ActionListener {
                         //     JOptionPane.showMessageDialog(frame, "You can't afford this country!");
                         //     return;
                         // }
-                        if (pleaseConfirm("Confirm purchase of " + CountryLibrary.countryNames[i] + "?")) {
+                        if (pleaseConfirm("Confirm purchase of " + CountryLibrary.countryNames[i] + " for " + CountryLibrary.getCountryPrice(i) + "$?")) {
                             String result = game.buyCountry(i);
                             if (result.equals("OK")) {
                                 logger.info("Player " + game.currentPlayerValue + " successfully bought " + CountryLibrary.countryNames[i] + " for " + CountryLibrary.getCountryPrice(i) + "$");
@@ -483,11 +533,11 @@ public class UI extends JFrame implements ActionListener {
                             if (e.getSource() == subSubButtons2[i][j]) {
                                 System.out.println("subSubButton2 pressed: " + i + ", " + j);
                                 logger.info("subSubButton2 pressed: " + i + ", " + j);
-                                if (pleaseConfirm("Confirm upgrade of " + CountryLibrary.countryNames[i] + " - " + CountryLibrary.statNames[j][0] + "?")) {
+                                if (pleaseConfirm("Confirm upgrade of " + CountryLibrary.countryNames[i] + " - " + CountryLibrary.statNames[j][0] + " for " + game.getIndustryUpgradeCost(i, j) + "$?")) {
                                     String result = game.buyStat(i,j);
                                     if (result.equals("OK")) {
-                                        logger.info("Player " + game.currentPlayerValue + " successfully upgraded " + CountryLibrary.countryNames[i] + " - " + CountryLibrary.statNames[j][0] + " for " + game.getIndustryUpgradeCost(i, j) + "$ to level" + game.currentPlayer.countryValues[i][j + 1]);
-                                        JOptionPane.showMessageDialog(frame, "You upgraded " + CountryLibrary.countryNames[i] + " - " + CountryLibrary.statNames[j][0] + " for " + game.getIndustryUpgradeCost(i, j) + "$ to level " + game.currentPlayer.countryValues[i][j + 1]);
+                                        logger.info("Player " + game.currentPlayerValue + " successfully upgraded " + CountryLibrary.countryNames[i] + " - " + CountryLibrary.statNames[j][0] + " to level" + game.currentPlayer.countryValues[i][j + 1]);
+                                        JOptionPane.showMessageDialog(frame, "You upgraded " + CountryLibrary.countryNames[i] + " - " + CountryLibrary.statNames[j][0] + " to level " + game.currentPlayer.countryValues[i][j + 1]);
                                         
                                         
                                         // for (int k = 0; k < CountryLibrary.countryNames.length; k++) {
