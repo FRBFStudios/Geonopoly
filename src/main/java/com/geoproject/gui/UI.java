@@ -31,6 +31,8 @@ package com.geoproject.gui;
 //map für stat upgrades nutzen
 //sobald countryValues[... immer "+ 1"
 
+//WENN EVENTS DAZU, NACH "//if adding events," SUCHEN
+
 
 import com.geoproject.Game;
 import com.geoproject.LogHandler;
@@ -545,8 +547,6 @@ public class UI extends JFrame implements ActionListener {
                             updateSubPanel(2); // Show upgrade options
                             subButtons2[i].doClick(); // Simulate the subButton2 being pressed
                         }
-                        
-                        
                         break;
                     }
                 }
@@ -637,7 +637,7 @@ public class UI extends JFrame implements ActionListener {
         mapPanel1.markCountries(game.p1.ownedCountries, game.p1.actualNeighborCountries);
         logger.info("Updating Player 2 Country Marks");
         mapPanel2.markCountries(game.p2.ownedCountries, game.p2.actualNeighborCountries);
-        eventManagerButton.setEnabled(false);
+        eventManagerButton.setEnabled(false);//if adding events, auskommentieren
     }
 
     /*
@@ -727,8 +727,8 @@ public class UI extends JFrame implements ActionListener {
     void updateSubSubPanel(int buttonPressed, int MainButtonNumber) {
         subSubPanel.removeAll();
         if (MainButtonNumber == 2) {
-            subSubButtons2[buttonPressed] = new JButton[CountryLibrary.statNames.length-1];
-            for (int i = 0; i < CountryLibrary.statNames.length-1; i++) {
+            subSubButtons2[buttonPressed] = new JButton[CountryLibrary.statNames.length-1];//if adding events, -1 weg
+            for (int i = 0; i < CountryLibrary.statNames.length-1; i++) {//if adding events, -1 weg
                 subSubButtons2[buttonPressed][i] = new JButton(CountryLibrary.statNames[i][0] + " = " + game.currentPlayer.countryValues[buttonPressed][i + 1]);
                 subSubButtons2[buttonPressed][i].addActionListener(this);
                 subSubPanel.add(subSubButtons2[buttonPressed][i]);
@@ -803,12 +803,12 @@ public class UI extends JFrame implements ActionListener {
             }
         }
 
-        for (int i = 0; i < EventLibrary.eventNames.length; i++) {
-            String eventName = EventLibrary.eventNames[i];
-            if (eventName.toLowerCase().contains(query)) {
-                model.addRow(new Object[]{eventName});
-            }
-        }
+        // for (int i = 0; i < EventLibrary.eventNames.length; i++) {//if adding events, auskommentieren
+        //     String eventName = EventLibrary.eventNames[i];
+        //     if (eventName.toLowerCase().contains(query)) {
+        //         model.addRow(new Object[]{eventName});
+        //     }
+        // }
 
         searchResultsTable.setModel(model);
         searchResultsTable.getColumnModel().getColumn(0).setPreferredWidth(300);
