@@ -6,7 +6,7 @@ import java.util.logging.Logger;
 
 public class Player {
     private static final Logger logger = LogHandler.getLogger();
-    public int playerMoney = 1000000;
+    public int playerMoney = 1000;
 
     public int[][] countryValues = new int[CountryLibrary.countryShortNames.length][9];
     public int[][] eventValues = new int[50][2]; //NUR BEISPIELHAFT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

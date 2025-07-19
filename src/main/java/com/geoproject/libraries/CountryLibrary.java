@@ -15,7 +15,7 @@ public class CountryLibrary {
             {0, 3, 6, 11},//Tschechien = 5
             {0, 4, 5, 11, 14, 15, 16},//SwiAuLi
             {1, 4, 19, 36, 37},//UK = 7
-            {2, 10, 38},//Skandinavien = 8
+            {2, 10},//Skandinavien = 8
             {3, 10, 12, 38},//Baltikum = 9
             {8, 9, 38},//Finnland = 10
             {3, 5, 6, 13, 16},//Slowakei = 11
@@ -26,13 +26,13 @@ public class CountryLibrary {
             {6, 11, 13, 15, 17, 18},//Ungarn = 16
             {13, 16, 18, 51},//Rumänien = 17
             {15, 16, 17, 51},//Griechenland = 18
-            {7, 20, 21, 37, 38, 64},//USA = 19
+            {7, 20, 21, 38, 64},//USA = 19
             {19, 32},//Kanada = 20
             {19, 22, 47, 64},//Mexiko = 21
             {21, 23, 47},//Mittelamerika = 22
             {22, 24, 25, 26, 27},//Kolumbien = 23
             {23, 25, 28, 64},//Venezuela = 24
-            {23, 24, 27, 28, 29, 30, 33, 34, 35, 47},//Brasilien = 25
+            {23, 24, 27, 28, 29, 33, 34, 35, 47},//Brasilien = 25
             {23, 27},//Ecuador = 26
             {23, 25, 26, 33, 31},//Peru = 27
             {24, 25, 29},//Guyana = 28
@@ -44,22 +44,22 @@ public class CountryLibrary {
             {25, 30, 33},//Paraguay = 34
             {25, 30},//Uruguay = 35
             {7, 32, 37},//Island = 36
-            {7, 19, 36},//Irland = 37
-            {8, 9, 10, 12, 13, 19, 39, 50, 54, 66, 67},//Russland = 38
+            {7, 36},//Irland = 37
+            {9, 10, 12, 13, 19, 39, 50, 54, 66, 67},//Russland = 38
             {13, 18, 38, 40, 49, 50, 51, 52},//Türkei = 39
             {39, 41, 42, 43, 49},//Syrien = 40
             {40, 42, 44, 49},//Jordanien = 41
             {40, 41, 43},//Israel und Palästina = 42
             {40, 42},//Libanon = 43
-            {41, 45, 46, 48, 52},//Saudi-Arabien = 44
+            {41, 45, 46, 48},//Saudi-Arabien = 44
             {44, 46},//Jemen = 45
             {44, 45, 48},//Oman = 46
             {4, 14, 21, 22, 25},//Iberische Halbinsel = 47
-            {44, 46, 52},//VAE = 48
+            {44, 46},//VAE = 48
             {39, 40, 41, 44, 52},//Irak = 49
             {38, 39, 52, 54, 56},//GeArAz = 50
             {17, 18, 39},//Bulgarien = 51
-            {39, 44, 48, 49, 50, 53, 56, 58},//Iran = 52
+            {39, 49, 50, 53, 56, 58},//Iran = 52
             {52, 56, 58, 60, 67},//Pakistan = 53
             {38, 50, 55, 56, 59, 67},//Kasachstan = 54
             {54, 56, 57, 58, 59},//Usbekistan = 55
@@ -301,6 +301,7 @@ public class CountryLibrary {
     // SRI = 65 // IND,
     // MON = 66 // RUS, CHI,
     // CHI = 67 // RUS, PAK, KAZ, TAD, AFG, KIR, IND, MYA, NEP, MON,
+
     public static String[] countryShortNames = new String[]{"GER", "BNL", "DEN", "POL", "FRA", "CZE", "SWI/AU/LI", "UK", "SCA", "BLT", "FIN", "SLV", "IBE", "UKR", "ITA", "BLK", "HUN", "ROM", "GRE/MAC", "USA", "CAN", "MEX", "MID", "COL", "VEN", "BRA", "ECU", "PER", "GUY", "SUR", "ARG", "CHI", "GRO", "BOL", "PAR", "URU", "ICE", "IRE", "RUS", "TUR", "SYR", "JOR", "ISR/PAL", "LEB", "SAU", "YEM", "OMA", "IBE", "UAE/QAT", "IRQ", "GEO/ARM/AZE", "BUL", "IRN", "PAK", "KAZ", "UZB", "TKM", "TAD", "AFG", "KIR", "IND", "BUR", "BAN", "NEP", "CUB", "SRI", "MON", "CHI"};
     
     public static int[] countryShortNamesBreak = new int[]{42, 18, 48, 50};

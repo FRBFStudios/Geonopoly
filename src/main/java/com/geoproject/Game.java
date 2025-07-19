@@ -56,7 +56,7 @@ public class Game {
 
     public int getIndustryUpgradeCost(int countryID, int industryID) {
         logger.info("Calculating industryUpgradeCost for countryID " + countryID + " on industryID " + industryID);
-        int industryUpgradeCost = 200 + (100 * currentPlayer.countryValues[countryID][industryID+1]);
+        int industryUpgradeCost = 100 + (100 * (currentPlayer.countryValues[countryID][industryID+1]-1));
         logger.info("Calculated " + industryUpgradeCost + "$, returning");
         return industryUpgradeCost;
     }
