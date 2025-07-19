@@ -536,10 +536,17 @@ public class UI extends JFrame implements ActionListener {
                             logger.info("Map access denied for Player 1: It's Player " + game.currentPlayerValue + "'s turn");
                             JOptionPane.showMessageDialog(frame, "It's not your turn!");
                         }
-                        else {
+                        else if (game.currentPlayer.countryValues[i][0] != 1) {
                             buyCountriesButton.doClick(); // Simulate the buyCountriesButton being pressed
                             subButtons1[i].doClick(); // Simulate the subButton1 being pressed
                         }
+                        else if (game.currentPlayer.countryValues[i][0] == 1) {
+                            logger.info("Player 1 clicked on owned country: " + CountryLibrary.countryNames[i]);
+                            updateSubPanel(2); // Show upgrade options
+                            subButtons2[i].doClick(); // Simulate the subButton2 being pressed
+                        }
+                        
+                        
                         break;
                     }
                 }
@@ -630,7 +637,7 @@ public class UI extends JFrame implements ActionListener {
         mapPanel1.markCountries(game.p1.ownedCountries, game.p1.actualNeighborCountries);
         logger.info("Updating Player 2 Country Marks");
         mapPanel2.markCountries(game.p2.ownedCountries, game.p2.actualNeighborCountries);
-
+        eventManagerButton.setEnabled(false);
     }
 
     /*
@@ -720,8 +727,8 @@ public class UI extends JFrame implements ActionListener {
     void updateSubSubPanel(int buttonPressed, int MainButtonNumber) {
         subSubPanel.removeAll();
         if (MainButtonNumber == 2) {
-            subSubButtons2[buttonPressed] = new JButton[CountryLibrary.statNames.length];
-            for (int i = 0; i < CountryLibrary.statNames.length; i++) {
+            subSubButtons2[buttonPressed] = new JButton[CountryLibrary.statNames.length-1];
+            for (int i = 0; i < CountryLibrary.statNames.length-1; i++) {
                 subSubButtons2[buttonPressed][i] = new JButton(CountryLibrary.statNames[i][0] + " = " + game.currentPlayer.countryValues[buttonPressed][i + 1]);
                 subSubButtons2[buttonPressed][i].addActionListener(this);
                 subSubPanel.add(subSubButtons2[buttonPressed][i]);
