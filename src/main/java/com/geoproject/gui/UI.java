@@ -1,12 +1,15 @@
 package com.geoproject.gui;
 
-//GUI-Klasse.
-//Authors: Theodor, Timo
-//Version: 28/01/2025
+// Note to @TP-xx:
+// Translate these To Dos and remove the ones that are done
+// Remove everything that is commented out that you won't add back in
+// Remove most comments, make the code readable enough that as little as possible are needed
+// Split up functions so every function is as specialized as possible & rename them so every function name describes EVERYTHING it does
+// Get rid of all the unused classes and other things that cause warnings when pushing (there are also a lot in MapPanel)
 
-//Imports//EVENTS BLEIBEN DRAUßEN
+//Imports / EVENTS BLEIBEN DRAUßEN
 /* TO DO
- * - Oben mitte reworken
+ * - oben mitte reworken
  * - aufteilung neu probieren, main buttons
  *  - droppdown, wo ein land auswählen und dann die werte angezeigt bekommt oder man es kaufen kann
  *  - so machen, dass auf map.java zugegriffen wird, statt nacher alles zu kopieren
@@ -16,22 +19,19 @@ package com.geoproject.gui;
  *  - pfeile in map hinzufügen (auf "(hier)" achten)
  *  - WICHTIG evtl ganz auf pfeile verzichten??? WICHTIG
  *  - evtl schriftgrößen von mapcountries anpassen
- *  - z. 534  statsMultiplier wenn alles fertig wieder hinzugefügt
+ *  - z. 534  industryProfitMultipliers wenn alles fertig wieder hinzugefügt
  *  - polygon updaten damit werte übergeben werden können
- *  - ALLES ÜBRIGE LOGGEN!
  *
- *  Theodor:
- *  - multiplikatoren für länder stats hizufügen
  */
 
- // mappanel: clickedcountries show neighbors
+// mappanel: clickedcountries show neighbors
 // mappanel: pfeile
 // übersicht ob country lukrativ (z.b. grün vs rot)
 //kosten und ertrag von stats
 //map für stat upgrades nutzen
-//sobald countryValues[... immer "+ 1"
+// sobald countryValues[... immer "+ 1"
 
-//WENN EVENTS DAZU, NACH "//if adding events," SUCHEN
+// ONCE EVENTS ARE ADDED, SEARCH FOR "//if adding events,"
 
 
 import com.geoproject.Game;
@@ -532,17 +532,17 @@ public class UI extends JFrame implements ActionListener {
                             if (e.getSource() == subSubButtons2[i][j]) {
                                 System.out.println("subSubButton2 pressed: " + i + ", " + j);
                                 logger.info("subSubButton2 pressed: " + i + ", " + j);
-                                if (pleaseConfirm("Confirm upgrade of " + CountryLibrary.countryNames[i] + " - " + CountryLibrary.statNames[j][0] + " for " + game.getIndustryUpgradeCost(i, j) + "$?")) {
-                                    String result = game.tryBuyingIndustryAndReturnStatus(i,j);
+                                if (pleaseConfirm("Confirm upgrade of " + CountryLibrary.countryNames[i] + " - " + CountryLibrary.industryNames[j][0] + " for " + game.getIndustryUpgradeCost(i, j) + "$?")) {
+                                    String result = game.tryUpgradingIndustryAndReturnStatus(i,j);
                                     if (result.equals("OK")) {
-                                        logger.info("Player " + game.currentPlayerValue + " successfully upgraded " + CountryLibrary.countryNames[i] + " - " + CountryLibrary.statNames[j][0] + " to level" + game.currentPlayer.countryValues[i][j + 1]);
-                                        JOptionPane.showMessageDialog(frame, "You upgraded " + CountryLibrary.countryNames[i] + " - " + CountryLibrary.statNames[j][0] + " to level " + game.currentPlayer.countryValues[i][j + 1]);
+                                        logger.info("Player " + game.currentPlayerValue + " successfully upgraded " + CountryLibrary.countryNames[i] + " - " + CountryLibrary.industryNames[j][0] + " to level" + game.currentPlayer.countryValues[i][j + 1]);
+                                        JOptionPane.showMessageDialog(frame, "You upgraded " + CountryLibrary.countryNames[i] + " - " + CountryLibrary.industryNames[j][0] + " to level " + game.currentPlayer.countryValues[i][j + 1]);
                                         
                                         
                                         // for (int k = 0; k < CountryLibrary.countryNames.length; k++) {
                                         //     System.out.print("Country: " + CountryLibrary.countryNames[k] + " - ");
-                                        //     for (int l = 0; l < CountryLibrary.statNames.length-1; l++) {
-                                        //         System.out.print(CountryLibrary.statNames[l][0] + ": ");
+                                        //     for (int l = 0; l < CountryLibrary.industryNames.length-1; l++) {
+                                        //         System.out.print(CountryLibrary.industryNames[l][0] + ": ");
                                         //         System.out.print(CountryLibrary.getCountryIndustryCaps(k)[l] + ", ");
                                         //     }
                                         //     System.out.println(" ");
@@ -551,13 +551,13 @@ public class UI extends JFrame implements ActionListener {
                                     
                                     }
                                     else {
-                                        logger.info("Player " + game.currentPlayerValue + " failed to upgrade " + CountryLibrary.countryNames[i] + " - " + CountryLibrary.statNames[j][0] + ": " + result);
-                                        JOptionPane.showMessageDialog(frame, "You couldn't upgrade " + CountryLibrary.countryNames[i] + " - " + CountryLibrary.statNames[j][0] + ": " + result);
+                                        logger.info("Player " + game.currentPlayerValue + " failed to upgrade " + CountryLibrary.countryNames[i] + " - " + CountryLibrary.industryNames[j][0] + ": " + result);
+                                        JOptionPane.showMessageDialog(frame, "You couldn't upgrade " + CountryLibrary.countryNames[i] + " - " + CountryLibrary.industryNames[j][0] + ": " + result);
                                     }
                                     updateSubSubPanel(i, 2); 
                                 }
                                 else {
-                                    logger.info("Player " + game.currentPlayerValue + " cancelled upgrade of " + CountryLibrary.countryNames[i] + " - " + CountryLibrary.statNames[j][0]);
+                                    logger.info("Player " + game.currentPlayerValue + " cancelled upgrade of " + CountryLibrary.countryNames[i] + " - " + CountryLibrary.industryNames[j][0]);
                                 }
                                 break;
                             }
@@ -776,9 +776,9 @@ public class UI extends JFrame implements ActionListener {
     void updateSubSubPanel(int buttonPressed, int MainButtonNumber) {
         subSubPanel.removeAll();
         if (MainButtonNumber == 2) {
-            subSubButtons2[buttonPressed] = new JButton[CountryLibrary.statNames.length-1];//if adding events, -1 weg
-            for (int i = 0; i < CountryLibrary.statNames.length-1; i++) {//if adding events, -1 weg
-                subSubButtons2[buttonPressed][i] = new JButton(CountryLibrary.statNames[i][0] + " = " + game.currentPlayer.countryValues[buttonPressed][i + 1]);
+            subSubButtons2[buttonPressed] = new JButton[CountryLibrary.industryNames.length-1];//if adding events, -1 weg
+            for (int i = 0; i < CountryLibrary.industryNames.length-1; i++) {//if adding events, -1 weg
+                subSubButtons2[buttonPressed][i] = new JButton(CountryLibrary.industryNames[i][0] + " = " + game.currentPlayer.countryValues[buttonPressed][i + 1]);
                 subSubButtons2[buttonPressed][i].addActionListener(this);
                 subSubPanel.add(subSubButtons2[buttonPressed][i]);
             }
@@ -804,10 +804,10 @@ public class UI extends JFrame implements ActionListener {
 
     //Aktualisiert die Stats-Tabelle(früher p1StatsArea)
     void updateStatsTable(JTable table, Player player) {
-        String[] columnNames = new String[CountryLibrary.statNames.length + 1];
+        String[] columnNames = new String[CountryLibrary.industryNames.length + 1];
         columnNames[0] = "Country";
-        for (int i = 0; i < CountryLibrary.statNames.length; i++) {
-            columnNames[i + 1] = CountryLibrary.statNames[i][1];
+        for (int i = 0; i < CountryLibrary.industryNames.length; i++) {
+            columnNames[i + 1] = CountryLibrary.industryNames[i][1];
         }
 
         DefaultTableModel model = new DefaultTableModel(0, columnNames.length);
@@ -816,7 +816,7 @@ public class UI extends JFrame implements ActionListener {
                 Object[] row = new Object[columnNames.length];
                 row[0] = (i < CountryLibrary.countryNames.length) ? CountryLibrary.countryNames[i] : "no countryname: " + i;
                 for (int j = 1; j < row.length; j++) {
-                    row[j] = CountryLibrary.statNames[j - 1][1] + ": " + player.countryValues[i][j];
+                    row[j] = CountryLibrary.industryNames[j - 1][1] + ": " + player.countryValues[i][j];
                 }
                 model.addRow(row);
             }
@@ -831,11 +831,11 @@ public class UI extends JFrame implements ActionListener {
 
         String query = searchBar.getText().toLowerCase();
 
-        String[] columnNames = new String[CountryLibrary.statNames.length + 2];
+        String[] columnNames = new String[CountryLibrary.industryNames.length + 2];
         columnNames[0] = "Country";
         columnNames[1] = "Price";
-        for (int i = 0; i < CountryLibrary.statNames.length; i++) {
-            columnNames[i + 2] = CountryLibrary.statNames[i][1];
+        for (int i = 0; i < CountryLibrary.industryNames.length; i++) {
+            columnNames[i + 2] = CountryLibrary.industryNames[i][1];
         }
         DefaultTableModel model = new DefaultTableModel(columnNames, 0);
 
@@ -846,7 +846,7 @@ public class UI extends JFrame implements ActionListener {
                 row[0] = countryName;
                 row[1] = "Price: " + CountryLibrary.getCountryPrice(i);
                 for (int j = 2; j < row.length; j++) {
-                    row[j] = CountryLibrary.statNames[j - 2][1] + ": " /*+ CountryLibrary.statsMultiplier[i][j - 2]*/;
+                    row[j] = CountryLibrary.industryNames[j - 2][1] + ": " /*+ CountryLibrary.industryProfitMultipliers[i][j - 2]*/;
                 }
                 model.addRow(row);
             }
@@ -862,72 +862,5 @@ public class UI extends JFrame implements ActionListener {
         searchResultsTable.setModel(model);
         searchResultsTable.getColumnModel().getColumn(0).setPreferredWidth(300);
         searchResultsTable.getColumnModel().getColumn(1).setPreferredWidth(150);
-    }
-
-
-    //Wir müssen das ASAP hier wegkriegen
-    public void testValues() {
-        logger.info("Creating test values");
-
-        game.currentPlayer.countryValues[0][0] = 1;
-        game.currentPlayer.countryValues[1][0] = 1;
-        game.currentPlayer.countryValues[2][0] = 1;
-        // game.currentPlayer.countryValues[3][0] = 1;
-        // game.currentPlayer.countryValues[1][2] = 4;
-        // game.currentPlayer.countryValues[8][0] = 1;
-        // game.currentPlayer.countryValues[4][0] = 1;
-        // game.currentPlayer.countryValues[5][0] = 1;
-        // game.currentPlayer.countryValues[6][0] = 1;
-        // game.currentPlayer.countryValues[7][0] = 1;
-        // game.currentPlayer.countryValues[1][1] = 2;
-        // game.currentPlayer.countryValues[2][1] = 3;
-        // game.currentPlayer.countryValues[3][6] = 4;
-        // game.currentPlayer.countryValues[4][2] = 5;
-        // game.currentPlayer.countryValues[5][2] = 6;
-        // game.currentPlayer.countryValues[6][3] = 7;
-        game.currentPlayer.countryValues[7][7] = 8;
-        game.currentPlayer.countryValues[1][1] = 12;
-        game.currentPlayer.countryValues[2][2] = 13;
-        game.currentPlayer.countryValues[3][3] = 14;
-        game.currentPlayer.countryValues[4][4] = 15;
-        game.currentPlayer.countryValues[5][5] = 16;
-        game.currentPlayer.countryValues[6][1] = 17;
-        game.currentPlayer.countryValues[7][2] = 18;
-        game.currentPlayer.countryValues[8][3] = 19;
-        // game.currentPlayer.countryValues[9][0] = 1;
-        // game.currentPlayer.countryValues[10][0] = 1;
-        // game.currentPlayer.countryValues[12][0] = 1;
-        game.currentPlayer.countryValues[13][5] = 6;
-        // game.currentPlayer.countryValues[9][0] = 7;
-        // game.currentPlayer.countryValues[8][0] = 1;
-        // game.currentPlayer.countryValues[14][0] = 1;
-        // game.currentPlayer.countryValues[15][0] = 1;
-        // game.currentPlayer.countryValues[16][0] = 1;
-        // game.currentPlayer.countryValues[17][0] = 1;
-
-        game.currentPlayer.eventValues[0][0] = 5;
-        game.currentPlayer.eventValues[1][0] = 1;
-        //game.currentPlayer.eventValues[2][0] = 1;
-        game.currentPlayer.eventValues[3][0] = 1;
-        game.currentPlayer.eventValues[1][1] = 4;
-        game.currentPlayer.eventValues[8][0] = 1;
-        //game.currentPlayer.eventValues[4][0] = 1;
-        game.currentPlayer.eventValues[5][0] = 1;
-        game.currentPlayer.eventValues[6][0] = 1;
-        game.currentPlayer.eventValues[7][0] = 1;
-        game.currentPlayer.eventValues[1][1] = 2;
-        game.currentPlayer.eventValues[2][1] = 3;
-        game.currentPlayer.eventValues[3][1] = 4;
-        game.currentPlayer.eventValues[4][1] = 5;
-        game.currentPlayer.eventValues[5][1] = 6;
-        game.currentPlayer.eventValues[6][1] = 7;
-        game.currentPlayer.eventValues[7][1] = 8;
-        game.currentPlayer.eventValues[1][1] = 12;
-        game.currentPlayer.eventValues[2][1] = 13;
-        game.currentPlayer.eventValues[3][0] = 14;
-        game.currentPlayer.eventValues[4][0] = 15;
-        game.currentPlayer.eventValues[5][0] = 16;
-        game.currentPlayer.eventValues[6][1] = 17;
-        game.currentPlayer.eventValues[7][1] = 18;
     }
 }

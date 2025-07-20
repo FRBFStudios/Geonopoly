@@ -1,6 +1,9 @@
 package com.geoproject.libraries;
 
 public class CountryLibrary {
+    public static final int AREA = 0;
+    public static final int POPULATION = 1;
+    public static final int GDP = 2;
 
     public static final int GER = 0;
     public static final int BNL = 1;
@@ -34,7 +37,7 @@ public class CountryLibrary {
     public static final int SUR = 29;
     public static final int ARG = 30;
     public static final int CHI = 31;
-    public static final int GRO = 32;
+    public static final int GRN = 32;
     public static final int BOL = 33;
     public static final int PAR = 34;
     public static final int URU = 35;
@@ -61,7 +64,7 @@ public class CountryLibrary {
     public static final int TKM = 56;
     public static final int TAJ = 57;
     public static final int AFG = 58;
-    public static final int KIR = 59;
+    public static final int KYR = 59;
     public static final int IND = 60;
     public static final int MYA = 61;
     public static final int BAN = 62;
@@ -71,115 +74,81 @@ public class CountryLibrary {
     public static final int MON = 66;
     public static final int CHN = 67;
 
-    // Borders mit country names, damit besser und übersichtlicher und schneller bei Map design (anordnung ...)
-    // GER = 0 // BNL, DEN, FRA, CZE, SWI/AU/LI,
-    // BNL = 1 // GER, FRA, UK,
-    // DEN = 2 // GER, SCA, GRO,
-    // POL = 3 // GER, CZE, BLT, SLV, UKR, IBE,
-    // FRA = 4 // GER, BNL, SWI/AU/LI, UK, ITA, BRA, SUR, IBE,
-    // CZE = 5 // GER, POL, SWI/AU/LI, SLV,
-    // SWI/AU/LI = 6 // GER, FRA, CZE, SLV, ITA, BLT, HUN,
-    // UK = 7 // (hier) BNL, (hier) FRA, (hier) USA, (hier) ICE, IRE,
-    // SCA = 8 // DEN, FIN, RUS,
-    // BLT = 9 // POL, FIN, UKR, RUS,
-    // FIN = 10 // SCA, BLT, RUS,
-    // SLV = 11 // POL, CZE, SWI/AU/LI, UKR, HUN,
-    // BEL = 12 // POL, BLT, UKR, RUS,
-    // UKR = 13 // POL, SLV, UKR, ROM, RUS, TUR,
-    // ITA = 14 // FRA, SWI/AU/LI, ITA, IBE
-    // BLK = 15 // SWI/AU/LI, ITA, HUN, GRE/MAC,
-    // HUN = 16 // SWI/AU/LI, SLV, UKR, BLT, ROM, GRE/MAC,
-    // ROM = 17 // UKR, HUN, GRE/MAC, BUL,
-    // GRE/MAC = 18 // BLT, HUN, ROM, BUL,
-    // USA = 19 // UK, CAN, MEX, IRE, RUS, CUB,
-    // CAN = 20 // USA, GRO,
-    // MEX = 21 // USA, MID, IBE, CUB,
-    // MID = 22 // MEX, COL, IBE,
-    // COL = 23 // MID, VEN, BRA, ECU, PER,
-    // VEN = 24 // COL, BRA, GUY, CUB,
-    // BRA = 25 // FRA, COL, VEN, PER, GUY, SUR, ARG, BOL, PAR, URU, IBE,
-    // ECU = 26 // COL, PER,
-    // PER = 27 // COL, BRA, ECU, BOL, CHI,
-    // GUY = 28 // VEN, BRA, SUR,
-// SUR = 29 // FRA, BRA, GUY,
-    // ARG = 30 // CHI, BOL, PAR, URU,
-
-
-    //nur von theo übernommen, nichts neues
     public static int[][] borders = new int[][]{
-            {BNL, DEN, POL, FRA, CZE, SWI},//Deutschland = 0
-            {GER, FRA, UK},//BeNeLux = 1
-            {GER, SCA, GRO},//Dänemark = 2
-            {GER, 5, 9, 11, 12, 13},//Polen = 3
-            {GER, BNL, 6, 7, 14, 47},//Frankreich = 4
-            {GER, 3, 6, 11},//Tschechien = 5
-            {GER, FRA, 5, 11, 14, 15, 16},//SwiAuLi
-            {BNL, FRA, 19, 36, 37},//UK = 7
-            {DEN, 10},//Skandinavien = 8
-            {3, 10, 12, 38},//Baltikum = 9
-            {8, 9, 38},//Finnland = 10
-            {3, 5, 6, 13, 16},//Slowakei = 11
-            {3, 9, 13, 38},//Belarus = 12
-            {3, 11, 12, 17, 38, 39},//Ukraine = 13
-            {4, 6, 15, 47},//Italien = 14
-            {6, 14, 16, 18},//Balkan = 15
-            {6, 11, 13, 15, 17, 18},//Ungarn = 16
-            {13, 16, 18, 51},//Rumänien = 17
-            {15, 16, 17, 51},//Griechenland = 18
-            {7, 20, 21, 38, 64},//USA = 19
-            {19, 32},//Kanada = 20
-            {19, 22, 47, 64},//Mexiko = 21
-            {21, 23, 47},//Mittelamerika = 22
-            {22, 24, 25, 26, 27},//Kolumbien = 23
-            {23, 25, 28, 64},//Venezuela = 24
-            {23, 24, 27, 28, 29, 33, 34, 35, 47},//Brasilien = 25
-            {23, 27},//Ecuador = 26
-            {23, 25, 26, 33, 31},//Peru = 27
-            {24, 25, 29},//Guyana = 28
-            {25, 28},//Suriname = 29
-            {31, 33, 34, 35},//Argentinien = 30
-            {27, 30, 33},//Chile = DEN1
-            {DEN, 20, 26},//Grönland = DEN2
-            {25, 27, 30, 31, 34},//Bolivien = 33
-            {25, 30, 33},//Paraguay = 34
-            {25, 30},//Uruguay = 35
-            {7, 32, 37},//Island = 36
-            {7, 36},//Irland = 37
-            {9, 10, 12, 13, 19, 50, 54, 66, 67},//Russland = 38
-            {13, 18, 40, 49, 50, 51, 52},//Türkei = 39
-            {39, 41, 42, 43, 49},//Syrien = 40
-            {40, 42, 44, 49},//Jordanien = 41
-            {40, 41, 43},//Israel und Palästina = 42
-            {40, 42},//Libanon = 43
-            {41, 45, 46, 48},//Saudi-Arabien = 44
-            {44, 46},//Jemen = 45
-            {44, 45, 48},//Oman = 46
-            {FRA, 14, 21, 22, 25},//Iberische Halbinsel = 47
-            {44, 46},//VAE = 48
-            {39, 40, 41, 44, 52},//Irak = 49
-            {38, 39, 52, 54, 56},//GeArAz = 50
-            {17, 18, 39},//Bulgarien = 51
-            {39, 49, 50, 53, 56, 58},//Iran = 52
-            {52, 56, 58, 60, 67},//Pakistan = 53
-            {38, 50, 55, 56, 59, 67},//Kasachstan = 54
-            {54, 56, 57, 58, 59},//Usbekistan = 55
-            {50, 52, 54, 55, 58},//Turkmenistan = 56
-            {55, 58, 59, 67},//Tadschikistan = 57
-            {52, 53, 55, 56, 57, 67},//Afghanistan = 58
-            {54, 55, 57, 67},//Kirgisistan = 59
-            {53, 61, 63, 62, 65, 67},//Indien = 60
-            {60, 63, 62, 67},//Myanmar = 61
-            {60, 61},//Bangladesch = 62
-            {60, 61, 67},//Nepal = 63
-            {19, 21, 24},//Kuba = 64
-            {60},//Sri Lanka = 65
-            {38, 67},//Mongolei = 66
-            {38, 53, 54, 57, 58, 59, 60, 61, 63, 66},//China = 67
+            {BNL, DEN, POL, FRA, CZE, SWI}, // Germany = 0
+            {GER, FRA, UK}, // BeNeLux = 1
+            {GER, SCA, GRN}, // Denmark = 2
+            {GER, CZE, BLT, SLV, BEL, UKR}, // Poland = 3
+            {GER, BNL, SWI, UK, 14, 47}, // France = 4
+            {GER, POL, SWI, SLV}, // Czechia = 5
+            {GER, FRA, CZE, SLV, ITA, BLK, HUN}, // SwiAuLi
+            {BNL, FRA, USA, ICE, IRE}, // UK = 7
+            {DEN, FIN}, // Scandinavia = 8
+            {POL, FIN, BEL, RUS}, // Baltics = 9
+            {SCA, BLT, RUS}, // Finland = 10
+            {POL, CZE, SWI, UKR, HUN}, // Slovakia = 11
+            {POL, BLT, UKR, RUS},//Belarus = 12
+            {POL, SLV, BEL, ROM, RUS, TUR}, // Ukraine = 13
+            {FRA, SWI, BLK, IBE}, // Italy = 14
+            {SWI, ITA, HUN, GRE}, // Balkan = 15
+            {SWI, SLV, UKR, BLK, ROM, GRE}, // Hungary = 16
+            {UKR, HUN, GRE, BUL}, // Romania = 17
+            {BLK, HUN, ROM, BUL}, // Greece = 18
+            {UK, CAN, MEX, RUS, CUB}, // USA = 19
+            {USA, GRN}, // Canada = 20
+            {MEX, MID, IBE, CUB}, // Mexico = 21
+            {MEX, COL, IBE}, // Middle America = 22
+            {MID, VEN, BRA, ECU, PER}, // Columbia = 23
+            {COL, BRA, GUY, CUB}, // Venezuela = 24
+            {COL, VEN, PER, GUY, SUR, BOL, PAR, URU, IBE}, // Brazil = 25
+            {COL, PER}, // Ecuador = 26
+            {COL, BRA, ECU, BOL, CHI}, // Peru = 27
+            {VEN, BRA, SUR}, // Guyana = 28
+            {BRA, GUY}, // Suriname = 29
+            {CHI, BOL, PAR, URU}, // Argentina = 30
+            {PER, ARG, BOL}, // Chile = 31
+            {DEN, CAN, ICE}, // Greenland = 32
+            {BRA, PER, ARG, CHI, PAR}, // Bolivia = 33
+            {BRA, ARG, BOL}, // Paraguay = 34
+            {BRA, ARG}, // Uruguay = 35
+            {UK, GRN, IRE}, // Iceland = 36
+            {UK, ICE}, // Ireland = 37
+            {BLT, FIN, BEL, UKR, USA, GEO, KAZ, MON, CHN}, // Russia = 38
+            {UKR, GRE, SYR, IRQ, GEO, BUL, IRN}, // Türkiye = 39
+            {TUR, JOR, ISR, LEB, IRQ}, // Syria = 40
+            {SYR, ISR, SAU, IRQ}, // Jordan = 41
+            {SYR, JOR, LEB}, // Israel und Palestine = 42
+            {SYR, ISR}, // Lebanon = 43
+            {JOR, YEM, OMA, UAE}, // Saudi Arabia = 44
+            {SAU, OMA}, // Yemen = 45
+            {SAU, YEM, UAE}, // Oman = 46
+            {FRA, ITA, MEX, MID, BRA}, // Iberian Peninsula = 47
+            {SAU, OMA},// VAE = 48
+            {TUR, SYR, JOR, SAU, IRN}, // Iraq = 49
+            {RUS, TUR, IRN, KAZ, TKM}, // GeArAz = 50
+            {ROM, GRE, TUR}, // Bulgaria = 51
+            {TUR, IRQ, GEO, PAK, TKM, AFG}, // Iran = 52
+            {IRN, TKM, AFG, IND, CHN}, // Pakistan = 53
+            {RUS, GEO, UZB, TKM, KYR, CHN}, // Kazakhstan = 54
+            {KAZ, TKM, TAJ, AFG, KYR}, // Uzbekistan = 55
+            {GEO, IRN, KAZ, UZB, AFG}, // Turkmenistan = 56
+            {UZB, AFG, KYR, CHN}, // Tajikistan = 57
+            {IRN, PAK, UZB, TKM, TAJ, CHN}, //Afghanistan = 58
+            {KAZ, UZB, TAJ, CHN}, // Kyrgyzstan = 59
+            {PAK, MYA, NEP, BAN, SRI, CHN},//India = 60
+            {IND, NEP, BAN, CHN}, // Myanmar = 61
+            {IND, MYA}, // Bangladesh = 62
+            {IND, MYA, CHN}, // Nepal = 63
+            {USA, MEX, VEN}, // Cuba = 64
+            {IND}, // Sri Lanka = 65
+            {RUS, CHN}, // Mongolia = 66
+            {RUS, PAK, KAZ, TAJ, AFG, KYR, IND, MYA, NEP, MON}, // China = 67
     };
-    //Speichert Informationen in folgender Reihenfolge: Fläche (in km²), Einwohnerzahl, BIP in Mio. USD
-    //Bei Ländergruppen: Summe
+
+    // Area (in km²), Population, GDP in Mio. USD
+    // Some GDPs have been adjusted manually for balancing purposes
     public static int[][] countryData = new int[][]{
-            {357022, 84552242, 2000000},//GER  //Manulanpassung
+            {357022, 84552242, 2000000},//GER
             {74657, 30640541, 1873073},//BNL
             {43094, 5977412, 407092},//DEN
             {312685, 38539201, 811736},//POL
@@ -198,7 +167,7 @@ public class CountryLibrary {
             {93028, 9676135, 212464},//HUN
             {238391, 19015088, 351074},//ROM
             {157670, 13082778, 253044},//GRE/MAC
-            {9525067, 345426571, 3000000},//USA //Manulanpassung
+            {9525067, 345426571, 3000000},//USA
             {9984670, 39742430, 2142471},//CAN
             {1964375, 130861007, 1788821},//MEX
             {521876, 52548954, 363484},//MID
@@ -211,13 +180,13 @@ public class CountryLibrary {
             {163820, 634431, 3747},//SUR
             {2780400, 45696159, 645511},//ARG
             {756102, 19764771, 335642},//CHI
-            {2166086, 55840, 3236},//GRO
+            {2166086, 55840, 3236},//GRN
             {1098581, 12413315, 45468},//BOL
             {406752, 6929153, 42955},//PAR
             {176215, 3386588, 77241},//URU
             {103000, 393396, 31325},//ICE
             {70273, 5262009, 551554},//IRE
-            {17098242, 144820423, 2500000},//RUS //Manulanpassung
+            {17098242, 144820423, 2500000},//RUS
             {783562, 87473805, 1129974},//TUR
             {187437, 24174628, 8980},//SYR
             {89342, 11552876, 50885},//JOR
@@ -236,9 +205,9 @@ public class CountryLibrary {
             {2724900, 20592571, 263372},//KAZ
             {447400, 36361859, 101584},//UZB
             {488100, 7494498, 77716},//TKM
-            {144100, 10590927, 11855},//TAD
+            {144100, 10590927, 11855},//TAJ
             {652230, 42647492, 17329},//AFG
-            {199951, 7186009, 13993},//KIR
+            {199951, 7186009, 13993},//KYR
             {3287263, 1450935791, 3567552},//IND
             {676578, 54500091, 64505},//MYA
             {148460, 173562364, 451534},//BAN
@@ -246,12 +215,11 @@ public class CountryLibrary {
             {110860, 10979783, 104055},//CUB
             {65610, 23103565, 74239},//SRI
             {1564116, 3475540, 20315},//MON
-            {9596960, 1419321278, 1700000},//CHN //Manulanpassung
+            {9596960, 1419321278, 1700000},//CHN
     };
-    //Beinhält die StatsMultiplier der Industrien, ohne Wirtschaft
-    //Werte (meistens von 1-10) basieren auf dem Anteil des Sektors am BIP
-    //Bergbau, Landwirtschaft, Warenproduktion, Tourismus, Energie
-    public static int[][] statsMultiplier = new int[][]{
+
+    // Mining, Agriculture, Production, Tourism, Energy
+    public static int[][] industryProfitMultipliers = new int[][]{
             {1, 3, 13, 7, 6},//GER
             {2, 2, 6, 8, 7},//BNL
             {2, 2, 5, 9, 7},//DEN
@@ -284,7 +252,7 @@ public class CountryLibrary {
             {8, 7, 3, 6, 5},//SUR
             {6, 7, 8, 7, 6},//ARG
             {12, 5, 6, 7, 7},//CHI
-            {10, 2, 2, 5, 5},//GRO
+            {10, 2, 2, 5, 5},//GRN
             {8, 5, 4, 6, 4},//BOL
             {5, 10, 4, 6, 4},//PAR
             {3, 8, 6, 7, 4},//URU
@@ -321,56 +289,24 @@ public class CountryLibrary {
             {12, 5, 3, 5, 7},//MON
             {10, 8, 15, 7, 12},//CHN
     };
-    //Array, der die Namen der Länder beinhält. HOCHGRADIG SENSITIV! NICHTS ÄNDERN!
-    public static String[] countryNames = new String[]{"Deutschland", "BeNeLux", "Dänemark", "Polen", "Frankreich & Monaco",
-            "Tschechien", "Österreich, Liechtenstein & Schweiz", "Vereinigtes Königreich", "Skandinavien", "Baltikum", "Finnland",
-            "Slowakei", "Belarus", "Ukraine & Moldau", "Italien", "Balkan", "Ungarn", "Rumänien", "Griechenland & Nordmazedonien",
-            "Vereinigte Staaten", "Kanada", "Mexiko", "Mittelamerikanische Ländergruppe", "Kolumbien", "Venezuela", "Brasilien", "Ecuador",
-            "Peru", "Guyana", "Suriname", "Argentinien", "Chile", "Grönland", "Bolivien", "Paraguay", "Uruguay", "Island", "Irland", "Russland",
-            "Türkei & Zypern", "Syrien", "Jordanien", "Israel & Palästina", "Libanon", "Saudi-Arabien", "Jemen", "Oman", "Iberische Halbinsel",
-            "VAE & Katar", "Irak", "Georgien, Armenien & Aserbaidschan", "Bulgarien", "Iran", "Pakistan", "Kasachstan", "Usbekistan", "Turkmenistan",
-            "Tadschikistan", "Afghanistan", "Kirgisistan", "Indien", "Myanmar", "Bangladesch", "Nepal", "Kuba", "Sri Lanka", "Mongolei", "China"
+
+    // Do not delete or add entries!
+    public static String[] countryNames = new String[]{"Germany", "BeNeLux Countries", "Denmark", "Poland", "France & Monaco",
+            "Czechia", "Austria, Liechtenstein & Switzerland", "United Kingdom", "Scandinavia", "Baltics", "Finland",
+            "Slovakia", "Belarus", "Ukraine & Moldavia", "Italy", "Balkan", "Hungary", "Romania", "Greece & North Macedonia",
+            "United States", "Canada", "Mexico", "Middle American Countries", "Columbia", "Venezuela", "Brazil", "Ecuador",
+            "Peru", "Guyana", "Suriname", "Argentina", "Chile", "Greenland", "Bolivia", "Paraguay", "Uruguay", "Island", "Ireland", "Russia",
+            "Türkiye & Cyprus", "Syria", "Jordan", "Israel & Palestine", "Lebanon", "Saudi Arabia", "Yemen", "Oman", "Iberian Peninsula",
+            "VAE & Qatar", "Iraq", "Georgia, Armenia & Azerbaijan", "Bulgaria", "Iran", "Pakistan", "Kazakhstan", "Uzbekistan", "Turkmenistan",
+            "Tajikistan", "Afghanistan", "Kyrgyzstan", "India", "Myanmar", "Bangladesh", "Nepal", "Cuba", "Sri Lanka", "Mongolia", "China"
     };
 
-    // CHI = 31 // PER, ARG, BOL,
-    // GRO = 32 // DEN, CAN, ICE,
-    // BOL = 33 // BRA, PER, ARG, CHI, PAR,
-    // PAR = 34 // BRA, ARG, BOL,
-    // URU = 35 // BRA, ARG,
-    // ICE = 36 // UK, GRO, IRE,
-    // IRE = 37 // UK, USA, ICE,
-    // RUS = 38 // SCA, BLT, FIN, UKR, USA, TUR, GEO/ARM/AZE, KAZ, MON, CHN,
-    // TUR = 39 // UKR, GRE/MAC, RUS, SYR, IRQ, GEO/ARM/AZE, BUL, IRN,
-    // SYR = 40 // TUR, JOR, ISR/PAL, LEB, IRQ,
-    // JOR = 41 // SYR, ISR/PAL, SAU, IRQ,
-    // ISR/PAL = 42 // SYR, JOR, LEB,
-    // LEB = 43 // SYR, ISR/PAL,
-    // SAU = 44 // JOR, YEM, OMA, UAE/QAT, IRN,
-    // YEM = 45 // SAU, OMA,
-    // OMA = 46 // SAU, YEM, UAE/QAT,
-    // IBE = 47 // FRA, ITA, MEX, MID, BRA,
-    // UAE/QAT = 48 // SAU, OMA, IRN,
-    // IRQ = 49 // TUR, SYR, JOR, SAU, IRN,
-    // GEO/ARM/AZE = 50 // RUS, TUR, IRN, GEO/ARM/AZE, TKM,
-    // BUL = 51 // ROM, GRE/MAC, TUR,
-    // IRN = 52 // TUR, SAU, UAE/QAT, IRQ, GEO/ARM/AZE, PAK, TKM, AFG,
-    // PAK = 53 // IRN, TKM, AFG, IND, CHN,
-    // KAZ = 54 // RUS, GEO/ARM/AZE, UZB, TKM, KIR, CHN
-    // UZB = 55 // KAZ, TKM, TAD, AFG, KIR,
-    // TKM = 56 // GEO/ARM/AZE, IRN, KAZ, UZB, AFG,
-    // TAJ = 57 // UZB, AFG, KIR, CHN,
-    // AFG = 58 // IRN, PAK, UZB, TKM, TAD, CHN,
-    // KIR = 59 // KAZ, UZB, TAD, CHN,
-    // IND = 60 // PAK, MYA, NEP, BAN, SRI, CHN,
-    // MYA = 61 // IND, NEP, BAN, CHN,
-    // BAN = 62 // IND, BUR,
-    // NEP = 63 // IND, MYA, CHN,
-    // CUB = 64 // USA, MEX, VEN,
-    // SRI = 65 // IND,
-    // MON = 66 // RUS, CHN,
-    // CHN = 67 // RUS, PAK, KAZ, TAD, AFG, KIR, IND, MYA, NEP, MON,
-
-    public static String[] countryShortNames = new String[]{"GER", "BNL", "DEN", "POL", "FRA", "CZE", "SWI/AU/LI", "UK", "SCA", "BLT", "FIN", "SLV", "IBE", "UKR", "ITA", "BLK", "HUN", "ROM", "GRE/MAC", "USA", "CAN", "MEX", "MID", "COL", "VEN", "BRA", "ECU", "PER", "GUY", "SUR", "ARG", "CHI", "GRO", "BOL", "PAR", "URU", "ICE", "IRE", "RUS", "TUR", "SYR", "JOR", "ISR/PAL", "LEB", "SAU", "YEM", "OMA", "IBE", "UAE/QAT", "IRQ", "GEO/ARM/AZE", "BUL", "IRN", "PAK", "KAZ", "UZB", "TKM", "TAD", "AFG", "KIR", "IND", "BUR", "BAN", "NEP", "CUB", "SRI", "MON", "CHN"};
+    public static String[] countryShortNames = new String[] {
+                    "GER", "BNL", "DEN", "POL", "FRA", "CZE", "SWI/AU/LI", "UK", "SCA", "BLT", "FIN", "SLV", "IBE", "UKR", "ITA", "BLK", "HUN", "ROM", "GRE/MAC",
+                    "USA", "CAN", "MEX", "MID", "COL", "VEN", "BRA", "ECU", "PER", "GUY", "SUR", "ARG", "CHI", "GRN", "BOL", "PAR", "URU", "ICE", "IRE",
+                    "RUS", "TUR", "SYR", "JOR", "ISR/PAL", "LEB", "SAU", "YEM", "OMA", "IBE", "UAE/QAT", "IRQ", "GEO/ARM/AZE", "BUL", "IRN", "PAK",
+                    "KAZ", "UZB", "TKM", "TAD", "AFG", "KYR", "IND", "BUR", "BAN", "NEP", "CUB", "SRI", "MON", "CHN"
+    };
     
     public static int[] countryShortNamesBreak = new int[]{42, 18, 48, 50};
 
@@ -394,48 +330,46 @@ public class CountryLibrary {
             return shortName;
         }
     }
-    
-    //Listet alle Industrietypen
-    public static String[][] statNames = new String[][]{
-            {"Bergbau", "Bb"},
-            {"Landwirtschaft", "Lw"},
-            {"Warenproduktion", "Wp"},
-            {"Tourismus", "T"},
-            {"Energie", "E"},
-            {"Wissenschaft", "W"}
+
+    public static String[][] industryNames = new String[][]{
+            {"Mining", "MN"},
+            {"Agriculture", "AG"},
+            {"Production", "PR"},
+            {"Tourism", "TO"},
+            {"Energy", "EN"},
+            {"Science", "SC"}
     };
 
-    //Berechnet den Preis eines Landes nach der Formel BIP in Mio. USD / 1.000
     public static int getCountryPrice(int countryID) {
         try {
-            return Math.round((float) countryData[countryID][2] / 1000);
+            return Math.round((float) countryData[countryID][GDP] / 1000);
         } catch (Exception e) {
-            // Handle the error gracefully, e.g., return a default value or log the error lol Copilot go brr
-            return -1; // Default value indicating an error
+            return -1;
         }
     }
 
     public static int getCountryExpenses(int countryID) {
-        return Math.round((float) countryData[countryID][1] / 1000000);
+        return Math.round((float) countryData[countryID][POPULATION] / 1000000);
     }
 
-    /* Diese Formeln müssen beim Balancing angepasst werden
-    public static int[] getCountryIndustryCaps(int countryID) {
-        // Mining Cap: Flächen-Dependant + sekundär Einwohner-Dependant (Arbeitskräfte)
-        int miningCap = Math.round(((float) countryData[countryID][0] / 50000) + ((float) countryData[countryID][1] / 100000000));
+    /* Only uncomment this block of code if you can actually balance the caps and bring all of them below at least 100
+    public static int[] getCountryIndustryUpgradeCaps(int countryID) {
+        // Mining cap: Area-dependant + secondary population-dependant
+        int miningCap = Math.round(((float) countryData[countryID][AREA] / 50000) + ((float) countryData[countryID][POPULATION] / 100000000));
 
-        // LW-Cap: Flächen-Dependant
-        int agricultureCap = Math.round((float) countryData[countryID][0] / 50000);
+        // Agriculture cap: Area-dependant
+        int agricultureCap = Math.round((float) countryData[countryID][AREA] / 50000);
 
-        // Produktionscap: Einwohner-Dependant + sekundär Flächen-Dependant
-        int productionCap = Math.round(((float) countryData[countryID][1] / 1000000) + ((float) countryData[countryID][0] / 50000));
+        // Production cap: Population-dependant + secondary area-dependant
+        int productionCap = Math.round(((float) countryData[countryID][POPULATION] / 1000000) + ((float) countryData[countryID][AREA] / 50000));
 
-        // Tourismuscap: Einwohner-Dependant
-        int tourismCap = Math.round(((float) countryData[countryID][1] / 1000000));
+        // Tourism cap: Population-Dependant
+        int tourismCap = Math.round(((float) countryData[countryID][POPULATION] / 1000000));
 
-        // Energiecap: Flächen-Dependant minus sekundär Einwohner, da die eigene Bevölkerung den Energieexport limitiert
+        // Energy cap: Area-dependant minus secondary population, since the population of a country limits how much energy it can export
         int energyCap = Math.round(((float) countryData[countryID][0] / 50000) - ((float) countryData[countryID][1] / 10000000));
 
+        // Remnants of previous balancing attempts
         if (miningCap < 1) {
             miningCap = 1;
         } else if (miningCap > 50) {
@@ -465,5 +399,8 @@ public class CountryLibrary {
         } else if (energyCap > 50) {
             energyCap = 50 + Math.round((float) (energyCap - 50) / 4);
         }
-        return new int[]{miningCap, agricultureCap, productionCap, tourismCap, energyCap};
-    }*/}
+        return new int[] {
+                miningCap, agricultureCap, productionCap, tourismCap, energyCap
+        };
+    }*/
+}

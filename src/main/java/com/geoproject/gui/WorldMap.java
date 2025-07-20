@@ -10,6 +10,8 @@ public class WorldMap extends JPanel {
 
         g.setColor(Color.BLACK);
 
+        // Note to @TP-xx: Replace all these comments with the short name of the country being drawn!
+
         // Deutschland in der Mitte zeichnen
         g.drawRect(350, 250, 100, 150);
         g.drawString("DE", 390, 325);

@@ -9,7 +9,6 @@ import java.awt.event.*;
 import java.awt.geom.Area;
 
 import com.geoproject.libraries.CountryLibrary;
-import com.geoproject.gui.HexButton;
 
 /*public class Map extends JFrame {
     JFrame frame;
@@ -63,7 +62,7 @@ public class MapPanel extends JPanel implements ActionListener {
     private JSlider sliderX2;
     private JSlider sliderY2;
 
-    private boolean debug;
+    private final boolean debug;
 
     public MapPanel(JButton[] MainButtons, boolean debug) {
         /*setLayout(new GridBagLayout());
@@ -175,8 +174,8 @@ public class MapPanel extends JPanel implements ActionListener {
         g2d.drawLine(160, 185, 160, 210);//CUB VEN
         g2d.drawLine(250, 200, 120, 200);//IBE MID
         g2d.drawLine(255, 65, 240, 40);  //UK ICE
-        g2d.drawLine(210, 30, 190, 25);  //ICE GRO
-        g2d.drawLine(125, 40, 160, 20);  //GRO CAN
+        g2d.drawLine(210, 30, 190, 25);  //ICE GRN
+        g2d.drawLine(125, 40, 160, 20);  //GRN CAN
         g2d.drawLine(250, 200, 130, 190);//IBE MEX
         g2d.drawLine(345, 70, 355, 60);  //SCA DEN
         g2d.drawLine(440, 55, 445, 65);  //BLT FIN
@@ -300,8 +299,8 @@ public class MapPanel extends JPanel implements ActionListener {
     }
 
     public void markCountries(int[] ownedCountries, int[] neighborCountries) {
-        for (int i = 0; i < mapButtons.length; i++) {
-            mapButtons[i].markButton(false, null);
+        for (MapButton mapButton : mapButtons) {
+            mapButton.markButton(false, null);
         }
         for (int i = 0; i < ownedCountries.length; i++) {
             if (ownedCountries[i] > 0) {
@@ -363,7 +362,7 @@ public class MapPanel extends JPanel implements ActionListener {
         {210,210,30,35,10},//Suriname SUR 29
         {95,305,30,70,10},//Argentinien ARG 30
         {65,280,30,95,10},//Chile CHI 31
-        {160,5,30,35,10},//Grönland GRO 32
+        {160,5,30,35,10},//Grönland GRN 32
         {95,280,30,25,10},//Bolivien BOL 33
         {125,305,30,30,10},//Paraguay PAR 34
         {155,305,30,30,10},//Uruguay URU 35
@@ -391,7 +390,7 @@ public class MapPanel extends JPanel implements ActionListener {
         {575,155,40,30,10},//Turkmenistan TKM 56
         {645,170,30,15,10},//Tadschikistan TAD 57
         {605,185,70,25,10},//Afghanistan AFG 58
-        {645,155,30,15,10},//Kirgisistan KIR 59
+        {645,155,30,15,10},//Kirgisistan KYR 59
         {655,240,55,55,10},//Indien IND 60
         {710,220,25,35,10},//Myanmar BUR 61
         {710,255,25,25,10},//Bangladesch BAN 62
@@ -515,7 +514,7 @@ class RussiaPanel extends JPanel {
 
 
 class HexButton extends JButton {
-    private Polygon hexagon;
+    private final Polygon hexagon;
 
     public HexButton(String text, ActionListener listener) {
         super(text);

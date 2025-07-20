@@ -9,12 +9,13 @@ public class Game {
 
     public int currentPlayerValue = 1;
 
-    public Player p1 = new Player(CountryLibrary.USA);
-    public Player p2 = new Player(CountryLibrary.RUS);
+    public Player p1 = new Player(CountryLibrary.USA, 1000);
+    public Player p2 = new Player(CountryLibrary.RUS, 1000);
 
     public Player currentPlayer;
     public Player otherPlayer;
-    public int [] AllOwnedCountries = new int[p1.countryValues.length];
+
+    public int [] allOwnedCountries = new int[p1.countryValues.length];
 
     public Game() {
         currentPlayer = p1;
@@ -36,10 +37,11 @@ public class Game {
         logger.info("Calculating round profits for player " + currentPlayerValue);
 
         for (int countryID = 0; countryID < currentPlayer.ownedCountries.length; countryID++) {
-            if (currentPlayer.ownedCountries[countryID] == 1) {
+            if (currentPlayer.ownedCountries[countryID] == Player.OWNED) {
                 roundProfit += calculateCountryProfits(countryID);
             }
         }
+
         logger.info("Total round profit calculated as " + roundProfit);
         return roundProfit;
     }
@@ -47,7 +49,7 @@ public class Game {
     public int calculateCountryProfits(int countryID) {
         int countryProfits = 0;
 
-        for (int industryID = 0; (industryID < CountryLibrary.statNames.length - 1); industryID++) {
+        for (int industryID = 0; (industryID < CountryLibrary.industryNames.length - 1); industryID++) {
             countryProfits += calculateIndustryOfCountryProfits(countryID, industryID);
         }
 
@@ -55,9 +57,8 @@ public class Game {
     }
 
     public int calculateIndustryOfCountryProfits(int countryID, int industryID) {
-        return (CountryLibrary.countryData[countryID][2] / 5000) *
-                ((CountryLibrary.statsMultiplier[countryID][industryID] * currentPlayer.countryValues[countryID][industryID+1]) / 10);
-
+        return (CountryLibrary.countryData[countryID][CountryLibrary.GDP] / 5000) *
+                ((CountryLibrary.industryProfitMultipliers[countryID][industryID] * currentPlayer.countryValues[countryID][industryID+1]) / 10);
     }
 
     public int calculateRoundExpenses() {
@@ -66,7 +67,7 @@ public class Game {
         logger.info("Calculating round expenses for player " + currentPlayerValue);
 
         for (int countryID = 0; countryID < currentPlayer.ownedCountries.length; countryID++) {
-            if (currentPlayer.ownedCountries[countryID] == 1) {
+            if (currentPlayer.ownedCountries[countryID] == Player.OWNED) {
                 roundExpenses += CountryLibrary.getCountryExpenses(countryID);
             }
         }
@@ -88,69 +89,62 @@ public class Game {
     }
 
     public String tryBuyingCountryAndReturnStatus(int countryID) {
-        if (currentPlayer.neighborCountries[countryID] == 1) {
-            if (AllOwnedCountries[countryID] == 0) {
+        if (currentPlayer.neighborCountries[countryID] == Player.NEIGHBORING) {
+            if (allOwnedCountries[countryID] == Player.NOT_OWNED) {
                 int countryPrice = CountryLibrary.getCountryPrice(countryID);
 
                 if (canAfford(countryPrice)) {
                     currentPlayer.playerMoney -= countryPrice;
+                    currentPlayer.countryValues[countryID][0] = Player.OWNED;
 
-                    currentPlayer.countryValues[countryID][0] = 1;
-                    // System.out.println("You bought " + CountryLibrary.countryNames[countryID] + " for " + CountryLibrary.getCountryPrice(countryID) + "$.");
                     return "OK";
+
                 } else {
                     return "You can't afford to buy this country!";
                 }
-
             } else {
                 return "This country already belongs to the other player!";
             }
-
         } else {
             return "You don't share a border with this country!";
         }
     }
 
-    public String tryBuyingIndustryAndReturnStatus(int countryID, int industryID) {
-        if (currentPlayer.ownedCountries[countryID] == 1) {
+    public String tryUpgradingIndustryAndReturnStatus(int countryID, int industryID) {
+        if (currentPlayer.ownedCountries[countryID] == Player.OWNED) {
             int industryUpgradeCost = getIndustryUpgradeCost(countryID, industryID);
 
             if (canAfford(industryUpgradeCost)) {
                 currentPlayer.playerMoney -= industryUpgradeCost;
-
                 currentPlayer.countryValues[countryID][industryID + 1]++;
+
                 return "OK";
 
             } else {
                 return "You can't afford to upgrade this industry!";
             }
-
         } else {
             return "You need to buy this country first!";
         }
     }
 
     public boolean canAfford(int amount) {
-        logger.info("Calculating affordability of " + amount + "$");
-        boolean canAfford = currentPlayer.playerMoney >= amount;
-        logger.info("Calculated " + canAfford + ", returning");
-        return canAfford;
-
+        return currentPlayer.playerMoney >= amount;
     }
 
     public void updateCountryInfos() {
-        p1.updateCountryInfosPlayer(AllOwnedCountries);
-        p2.updateCountryInfosPlayer(AllOwnedCountries);
+        p1.updatePlayerCountryInfos(allOwnedCountries);
+        p2.updatePlayerCountryInfos(allOwnedCountries);
 
-        for (int i = 0; i < p1.ownedCountries.length; i++) {
-            if (p1.ownedCountries[i] == 1) {
-                AllOwnedCountries[i] = 1;
+        for (int countryIndex = 0; countryIndex < p1.ownedCountries.length; countryIndex++) {
+            if (p1.ownedCountries[countryIndex] == Player.OWNED) {
+                allOwnedCountries[countryIndex] = Player.OWNED;
             }
-            if (p2.ownedCountries[i] == 1) {
-                AllOwnedCountries[i] = 1;
+            if (p2.ownedCountries[countryIndex] == Player.OWNED) {
+                allOwnedCountries[countryIndex] = Player.OWNED;
             }
-            if (p1.ownedCountries[i] == 0 && p2.ownedCountries[i] == 0) {
-                AllOwnedCountries[i] = 0;
+            if (p1.ownedCountries[countryIndex] == 0 && p2.ownedCountries[countryIndex] == Player.NOT_OWNED) {
+                allOwnedCountries[countryIndex] = Player.NOT_OWNED;
             }
         }
     }
