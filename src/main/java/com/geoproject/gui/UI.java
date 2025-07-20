@@ -41,7 +41,6 @@ import com.geoproject.libraries.CountryLibrary;
 import com.geoproject.libraries.EventLibrary;
 
 import javax.swing.*;
-import javax.swing.event.ChangeListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
@@ -487,7 +486,7 @@ public class UI extends JFrame implements ActionListener {
                         //     return;
                         // }
                         if (pleaseConfirm("Confirm purchase of " + CountryLibrary.countryNames[i] + " for " + CountryLibrary.getCountryPrice(i) + "$?")) {
-                            String result = game.buyCountry(i);
+                            String result = game.tryBuyingCountryAndReturnStatus(i);
                             if (result.equals("OK")) {
                                 logger.info("Player " + game.currentPlayerValue + " successfully bought " + CountryLibrary.countryNames[i] + " for " + CountryLibrary.getCountryPrice(i) + "$");
                                 JOptionPane.showMessageDialog(frame, "You bought " + CountryLibrary.countryNames[i] + " for " + CountryLibrary.getCountryPrice(i) + "$");
@@ -534,7 +533,7 @@ public class UI extends JFrame implements ActionListener {
                                 System.out.println("subSubButton2 pressed: " + i + ", " + j);
                                 logger.info("subSubButton2 pressed: " + i + ", " + j);
                                 if (pleaseConfirm("Confirm upgrade of " + CountryLibrary.countryNames[i] + " - " + CountryLibrary.statNames[j][0] + " for " + game.getIndustryUpgradeCost(i, j) + "$?")) {
-                                    String result = game.buyStat(i,j);
+                                    String result = game.tryBuyingIndustryAndReturnStatus(i,j);
                                     if (result.equals("OK")) {
                                         logger.info("Player " + game.currentPlayerValue + " successfully upgraded " + CountryLibrary.countryNames[i] + " - " + CountryLibrary.statNames[j][0] + " to level" + game.currentPlayer.countryValues[i][j + 1]);
                                         JOptionPane.showMessageDialog(frame, "You upgraded " + CountryLibrary.countryNames[i] + " - " + CountryLibrary.statNames[j][0] + " to level " + game.currentPlayer.countryValues[i][j + 1]);

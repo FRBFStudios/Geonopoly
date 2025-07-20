@@ -1,21 +1,121 @@
 package com.geoproject.libraries;
 
-//Informationen über die Länder
-//Autor: Theodor
-//Version: 7/2/2025
-
 public class CountryLibrary {
+
+    public static final int GER = 0;
+    public static final int BNL = 1;
+    public static final int DEN = 2;
+    public static final int POL = 3;
+    public static final int FRA = 4;
+    public static final int CZE = 5;
+    public static final int SWI = 6;
+    public static final int UK = 7;
+    public static final int SCA = 8;
+    public static final int BLT = 9;
+    public static final int FIN = 10;
+    public static final int SLV = 11;
+    public static final int BEL = 12;
+    public static final int UKR = 13;
+    public static final int ITA = 14;
+    public static final int BLK = 15;
+    public static final int HUN = 16;
+    public static final int ROM = 17;
+    public static final int GRE = 18;
+    public static final int USA = 19;
+    public static final int CAN = 20;
+    public static final int MEX = 21;
+    public static final int MID = 22;
+    public static final int COL = 23;
+    public static final int VEN = 24;
+    public static final int BRA = 25;
+    public static final int ECU = 26;
+    public static final int PER = 27;
+    public static final int GUY = 28;
+    public static final int SUR = 29;
+    public static final int ARG = 30;
+    public static final int CHI = 31;
+    public static final int GRO = 32;
+    public static final int BOL = 33;
+    public static final int PAR = 34;
+    public static final int URU = 35;
+    public static final int ICE = 36;
+    public static final int IRE = 37;
+    public static final int RUS = 38;
+    public static final int TUR = 39;
+    public static final int SYR = 40;
+    public static final int JOR = 41;
+    public static final int ISR = 42;
+    public static final int LEB = 43;
+    public static final int SAU = 44;
+    public static final int YEM = 45;
+    public static final int OMA = 46;
+    public static final int IBE = 47;
+    public static final int UAE = 48;
+    public static final int IRQ = 49;
+    public static final int GEO = 50;
+    public static final int BUL = 51;
+    public static final int IRN = 52;
+    public static final int PAK = 53;
+    public static final int KAZ = 54;
+    public static final int UZB = 55;
+    public static final int TKM = 56;
+    public static final int TAJ = 57;
+    public static final int AFG = 58;
+    public static final int KIR = 59;
+    public static final int IND = 60;
+    public static final int MYA = 61;
+    public static final int BAN = 62;
+    public static final int NEP = 63;
+    public static final int CUB = 64;
+    public static final int SRI = 65;
+    public static final int MON = 66;
+    public static final int CHN = 67;
+
+    // Borders mit country names, damit besser und übersichtlicher und schneller bei Map design (anordnung ...)
+    // GER = 0 // BNL, DEN, FRA, CZE, SWI/AU/LI,
+    // BNL = 1 // GER, FRA, UK,
+    // DEN = 2 // GER, SCA, GRO,
+    // POL = 3 // GER, CZE, BLT, SLV, UKR, IBE,
+    // FRA = 4 // GER, BNL, SWI/AU/LI, UK, ITA, BRA, SUR, IBE,
+    // CZE = 5 // GER, POL, SWI/AU/LI, SLV,
+    // SWI/AU/LI = 6 // GER, FRA, CZE, SLV, ITA, BLT, HUN,
+    // UK = 7 // (hier) BNL, (hier) FRA, (hier) USA, (hier) ICE, IRE,
+    // SCA = 8 // DEN, FIN, RUS,
+    // BLT = 9 // POL, FIN, UKR, RUS,
+    // FIN = 10 // SCA, BLT, RUS,
+    // SLV = 11 // POL, CZE, SWI/AU/LI, UKR, HUN,
+    // BEL = 12 // POL, BLT, UKR, RUS,
+    // UKR = 13 // POL, SLV, UKR, ROM, RUS, TUR,
+    // ITA = 14 // FRA, SWI/AU/LI, ITA, IBE
+    // BLK = 15 // SWI/AU/LI, ITA, HUN, GRE/MAC,
+    // HUN = 16 // SWI/AU/LI, SLV, UKR, BLT, ROM, GRE/MAC,
+    // ROM = 17 // UKR, HUN, GRE/MAC, BUL,
+    // GRE/MAC = 18 // BLT, HUN, ROM, BUL,
+    // USA = 19 // UK, CAN, MEX, IRE, RUS, CUB,
+    // CAN = 20 // USA, GRO,
+    // MEX = 21 // USA, MID, IBE, CUB,
+    // MID = 22 // MEX, COL, IBE,
+    // COL = 23 // MID, VEN, BRA, ECU, PER,
+    // VEN = 24 // COL, BRA, GUY, CUB,
+    // BRA = 25 // FRA, COL, VEN, PER, GUY, SUR, ARG, BOL, PAR, URU, IBE,
+    // ECU = 26 // COL, PER,
+    // PER = 27 // COL, BRA, ECU, BOL, CHI,
+    // GUY = 28 // VEN, BRA, SUR,
+// SUR = 29 // FRA, BRA, GUY,
+    // ARG = 30 // CHI, BOL, PAR, URU,
+
+
     //nur von theo übernommen, nichts neues
     public static int[][] borders = new int[][]{
-            {1, 2, 3, 4, 5, 6},//Deutschland = 0
-            {0, 4, 7},//BeNeLux = 1
-            {0, 8, 32},//Dänemark = 2
-            {0, 5, 9, 11, 12, 13},//Polen = 3
-            {0, 1, 6, 7, 14, 47},//Frankreich = 4
-            {0, 3, 6, 11},//Tschechien = 5
-            {0, 4, 5, 11, 14, 15, 16},//SwiAuLi
-            {1, 4, 19, 36, 37},//UK = 7
-            {2, 10},//Skandinavien = 8
+            {BNL, DEN, POL, FRA, CZE, SWI},//Deutschland = 0
+            {GER, FRA, UK},//BeNeLux = 1
+            {GER, SCA, GRO},//Dänemark = 2
+            {GER, 5, 9, 11, 12, 13},//Polen = 3
+            {GER, BNL, 6, 7, 14, 47},//Frankreich = 4
+            {GER, 3, 6, 11},//Tschechien = 5
+            {GER, FRA, 5, 11, 14, 15, 16},//SwiAuLi
+            {BNL, FRA, 19, 36, 37},//UK = 7
+            {DEN, 10},//Skandinavien = 8
             {3, 10, 12, 38},//Baltikum = 9
             {8, 9, 38},//Finnland = 10
             {3, 5, 6, 13, 16},//Slowakei = 11
@@ -38,8 +138,8 @@ public class CountryLibrary {
             {24, 25, 29},//Guyana = 28
             {25, 28},//Suriname = 29
             {31, 33, 34, 35},//Argentinien = 30
-            {27, 30, 33},//Chile = 31
-            {2, 20, 36},//Grönland = 32
+            {27, 30, 33},//Chile = DEN1
+            {DEN, 20, 26},//Grönland = DEN2
             {25, 27, 30, 31, 34},//Bolivien = 33
             {25, 30, 33},//Paraguay = 34
             {25, 30},//Uruguay = 35
@@ -54,7 +154,7 @@ public class CountryLibrary {
             {41, 45, 46, 48},//Saudi-Arabien = 44
             {44, 46},//Jemen = 45
             {44, 45, 48},//Oman = 46
-            {4, 14, 21, 22, 25},//Iberische Halbinsel = 47
+            {FRA, 14, 21, 22, 25},//Iberische Halbinsel = 47
             {44, 46},//VAE = 48
             {39, 40, 41, 44, 52},//Irak = 49
             {38, 39, 52, 54, 56},//GeArAz = 50
@@ -232,38 +332,6 @@ public class CountryLibrary {
             "Tadschikistan", "Afghanistan", "Kirgisistan", "Indien", "Myanmar", "Bangladesch", "Nepal", "Kuba", "Sri Lanka", "Mongolei", "China"
     };
 
-    // Borders mit country names, damit besser und übersichtlicher und schneller bei Map design (anordnung ...)
-    // GER = 0 // BNL, DEN, FRA, CZE, SWI/AU/LI,
-    // BNL = 1 // GER, FRA, UK,
-    // DEN = 2 // GER, SCA, GRO,
-    // POL = 3 // GER, CZE, BLT, SLV, UKR, IBE,
-    // FRA = 4 // GER, BNL, SWI/AU/LI, UK, ITA, BRA, SUR, IBE,
-    // CZE = 5 // GER, POL, SWI/AU/LI, SLV,
-    // SWI/AU/LI = 6 // GER, FRA, CZE, SLV, ITA, BLT, HUN,
-    // UK = 7 // (hier) BNL, (hier) FRA, (hier) USA, (hier) ICE, IRE,
-    // SCA = 8 // DEN, FIN, RUS,
-    // BLT = 9 // POL, FIN, UKR, RUS,
-    // FIN = 10 // SCA, BLT, RUS,
-    // SLV = 11 // POL, CZE, SWI/AU/LI, UKR, HUN,
-    // BEL = 12 // POL, BLT, UKR, RUS,
-    // UKR = 13 // POL, SLV, UKR, ROM, RUS, TUR,
-    // ITA = 14 // FRA, SWI/AU/LI, ITA, IBE
-    // BLK = 15 // SWI/AU/LI, ITA, HUN, GRE/MAC,
-    // HUN = 16 // SWI/AU/LI, SLV, UKR, BLT, ROM, GRE/MAC,
-    // ROM = 17 // UKR, HUN, GRE/MAC, BUL,
-    // GRE/MAC = 18 // BLT, HUN, ROM, BUL,
-    // USA = 19 // UK, CAN, MEX, IRE, RUS, CUB,
-    // CAN = 20 // USA, GRO,
-    // MEX = 21 // USA, MID, IBE, CUB,
-    // MID = 22 // MEX, COL, IBE,
-    // COL = 23 // MID, VEN, BRA, ECU, PER,
-    // VEN = 24 // COL, BRA, GUY, CUB,
-    // BRA = 25 // FRA, COL, VEN, PER, GUY, SUR, ARG, BOL, PAR, URU, IBE,
-    // ECU = 26 // COL, PER,
-    // PER = 27 // COL, BRA, ECU, BOL, CHI,
-    // GUY = 28 // VEN, BRA, SUR,
-    // SUR = 29 // FRA, BRA, GUY,
-    // ARG = 30 // CHI, BOL, PAR, URU,
     // CHI = 31 // PER, ARG, BOL,
     // GRO = 32 // DEN, CAN, ICE,
     // BOL = 33 // BRA, PER, ARG, CHI, PAR,
@@ -290,7 +358,7 @@ public class CountryLibrary {
     // KAZ = 54 // RUS, GEO/ARM/AZE, UZB, TKM, KIR, CHN
     // UZB = 55 // KAZ, TKM, TAD, AFG, KIR,
     // TKM = 56 // GEO/ARM/AZE, IRN, KAZ, UZB, AFG,
-    // TAD = 57 // UZB, AFG, KIR, CHN,
+    // TAJ = 57 // UZB, AFG, KIR, CHN,
     // AFG = 58 // IRN, PAK, UZB, TKM, TAD, CHN,
     // KIR = 59 // KAZ, UZB, TAD, CHN,
     // IND = 60 // PAK, MYA, NEP, BAN, SRI, CHN,

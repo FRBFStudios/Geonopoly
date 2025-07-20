@@ -1,23 +1,17 @@
 package com.geoproject;
 
-//Verknüpft Daten aus allen Klassen und liefert Updates an die GUI.
-
 import com.geoproject.libraries.CountryLibrary;
 
 import java.util.logging.Logger;
-
-//Authors: Theodor, Timo
-//Version: 6/5/2025
 
 public class Game {
     private static final Logger logger = LogHandler.getLogger();
 
     public int currentPlayerValue = 1;
 
-    //P1 kriegt USA
-    public Player p1 = new Player(15);
-    //P2 kriegt Russland
-    public Player p2 = new Player(38);
+    public Player p1 = new Player(CountryLibrary.USA);
+    public Player p2 = new Player(CountryLibrary.RUS);
+
     public Player currentPlayer;
     public Player otherPlayer;
     public int [] AllOwnedCountries = new int[p1.countryValues.length];
@@ -28,37 +22,60 @@ public class Game {
     }
 
     public void finishTurn() {
-
-        int roundProfit = 0;
-
-        logger.info("Calculating round profits for player " + currentPlayerValue);
-        // Iteriert durch alle Länder, die der derzeitige Spieler
-        for (int countryID = 0; countryID < currentPlayer.ownedCountries.length; countryID++) {
-            if (currentPlayer.ownedCountries[countryID] == 1) {
-                for (int industryID = 0; (industryID < CountryLibrary.statNames.length - 1); industryID++) {
-                    // BIP * ((Stat Multiplier * Industrielevel) / 10)
-                    logger.info("Calculating profit and expenses of countryID " + countryID + " on industryID " + industryID);
-                    int countryProfit = (CountryLibrary.countryData[countryID][2] / 5000) * ((CountryLibrary.statsMultiplier[countryID][industryID] * currentPlayer.countryValues[countryID][industryID+1]) / 10);
-                    logger.info("Profit calculated as " + countryProfit + ", adding to roundProfit");
-                    roundProfit += countryProfit;
-
-                    roundProfit -= CountryLibrary.getCountryExpenses(countryID);
-                }
-            }
-        }
-        logger.info("Total round profit calculated as " + roundProfit);
-
-        currentPlayer.playerMoney += roundProfit;
+        currentPlayer.playerMoney += calculateRoundProfit();
+        currentPlayer.playerMoney -= calculateRoundExpenses();
 
         switchPlayer();
+
         logger.info("Turn finished successfully.");
     }
 
+    public int calculateRoundProfit() {
+        int roundProfit = 0;
+
+        logger.info("Calculating round profits for player " + currentPlayerValue);
+
+        for (int countryID = 0; countryID < currentPlayer.ownedCountries.length; countryID++) {
+            if (currentPlayer.ownedCountries[countryID] == 1) {
+                roundProfit += calculateCountryProfits(countryID);
+            }
+        }
+        logger.info("Total round profit calculated as " + roundProfit);
+        return roundProfit;
+    }
+
+    public int calculateCountryProfits(int countryID) {
+        int countryProfits = 0;
+
+        for (int industryID = 0; (industryID < CountryLibrary.statNames.length - 1); industryID++) {
+            countryProfits += calculateIndustryOfCountryProfits(countryID, industryID);
+        }
+
+        return countryProfits;
+    }
+
+    public int calculateIndustryOfCountryProfits(int countryID, int industryID) {
+        return (CountryLibrary.countryData[countryID][2] / 5000) *
+                ((CountryLibrary.statsMultiplier[countryID][industryID] * currentPlayer.countryValues[countryID][industryID+1]) / 10);
+
+    }
+
+    public int calculateRoundExpenses() {
+        int roundExpenses = 0;
+
+        logger.info("Calculating round expenses for player " + currentPlayerValue);
+
+        for (int countryID = 0; countryID < currentPlayer.ownedCountries.length; countryID++) {
+            if (currentPlayer.ownedCountries[countryID] == 1) {
+                roundExpenses += CountryLibrary.getCountryExpenses(countryID);
+            }
+        }
+        logger.info("Total round expenses calculated as " + roundExpenses);
+        return roundExpenses;
+    }
+
     public int getIndustryUpgradeCost(int countryID, int industryID) {
-        logger.info("Calculating industryUpgradeCost for countryID " + countryID + " on industryID " + industryID);
-        int industryUpgradeCost = 100 + (100 * (currentPlayer.countryValues[countryID][industryID+1]));
-        logger.info("Calculated " + industryUpgradeCost + "$, returning");
-        return industryUpgradeCost;
+        return 100 + (100 * (currentPlayer.countryValues[countryID][industryID+1]));
     }
 
     public void switchPlayer() {
@@ -70,14 +87,46 @@ public class Game {
         otherPlayer = (currentPlayerValue == 1) ? p2 : p1;
     }
 
-    public boolean subtractMoney(int amount) {
-        if (canAfford(amount)) {
-            logger.info("Subtracting " + amount + "$ from playerMoney.");
-            currentPlayer.playerMoney -= amount;
-            logger.info("Remaining playerMoney: " + currentPlayer.playerMoney);
-            return true;
+    public String tryBuyingCountryAndReturnStatus(int countryID) {
+        if (currentPlayer.neighborCountries[countryID] == 1) {
+            if (AllOwnedCountries[countryID] == 0) {
+                int countryPrice = CountryLibrary.getCountryPrice(countryID);
+
+                if (canAfford(countryPrice)) {
+                    currentPlayer.playerMoney -= countryPrice;
+
+                    currentPlayer.countryValues[countryID][0] = 1;
+                    // System.out.println("You bought " + CountryLibrary.countryNames[countryID] + " for " + CountryLibrary.getCountryPrice(countryID) + "$.");
+                    return "OK";
+                } else {
+                    return "You can't afford to buy this country!";
+                }
+
+            } else {
+                return "This country already belongs to the other player!";
+            }
+
         } else {
-            return false;
+            return "You don't share a border with this country!";
+        }
+    }
+
+    public String tryBuyingIndustryAndReturnStatus(int countryID, int industryID) {
+        if (currentPlayer.ownedCountries[countryID] == 1) {
+            int industryUpgradeCost = getIndustryUpgradeCost(countryID, industryID);
+
+            if (canAfford(industryUpgradeCost)) {
+                currentPlayer.playerMoney -= industryUpgradeCost;
+
+                currentPlayer.countryValues[countryID][industryID + 1]++;
+                return "OK";
+
+            } else {
+                return "You can't afford to upgrade this industry!";
+            }
+
+        } else {
+            return "You need to buy this country first!";
         }
     }
 
@@ -87,39 +136,6 @@ public class Game {
         logger.info("Calculated " + canAfford + ", returning");
         return canAfford;
 
-    }
-
-    public String buyCountry(int countryID) {
-        if (currentPlayer.neighborCountries[countryID] == 1) {
-            if (AllOwnedCountries[countryID] == 0) {
-                if (subtractMoney(CountryLibrary.getCountryPrice(countryID))) {
-                    currentPlayer.countryValues[countryID][0] = 1;
-                    // System.out.println("You bought " + CountryLibrary.countryNames[countryID] + " for " + CountryLibrary.getCountryPrice(countryID) + "$.");
-                    return "OK";
-                } else {
-                    return "coudn't afford country";
-                }
-            } else {
-                return "Country already owned and not available for purchase";
-            }
-        } else {
-            return "NOT neighbor country";
-        }
-    }
-
-    public String buyStat(int countryID, int statID) {
-        if (currentPlayer.ownedCountries[countryID] == 1) {
-                if (subtractMoney(getIndustryUpgradeCost(countryID, statID))) {
-                    currentPlayer.countryValues[countryID][statID + 1]++;
-                    // System.out.println("You upgraded " + CountryLibrary.statNames[statID] + " in " + CountryLibrary.countryNames[countryID] + " for " + upgradeCost + "$.");
-                    return "OK";
-                } else {
-                    return "coudn't afford upgrade";
-                }
-        } else {
-            return "NOT owned country";
-        }
-        //Todo
     }
 
     public void updateCountryInfos() {
@@ -139,34 +155,3 @@ public class Game {
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
