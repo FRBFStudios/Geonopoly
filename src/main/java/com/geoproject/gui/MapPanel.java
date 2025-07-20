@@ -10,53 +10,17 @@ import java.awt.geom.Area;
 
 import com.geoproject.libraries.CountryLibrary;
 
-/*public class Map extends JFrame {
-    JFrame frame;
-    JPanel panel;
-    JButton button1, button2, button3;
-    JButton[] buttons = new JButton[3];
-    // public static void main(String[] args) {
-    //     new Map();
-    // }
-    public Map() {
-        frame = new JFrame();
-        frame.setTitle("Map");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1920, 1040);
-        frame.setLayout(null); // Set layout to null for absolute positioning
-        panel = new JPanel(new FlowLayout());
-        panel.setBounds(710, 200, 500, 50);
-        button1 = new JButton("topButton 1");
-        button2 = new JButton("topButton 2");
-        button3 = new JButton("topButton 3");
-        buttons[0] = button1;
-        buttons[1] = button2;
-        buttons[2] = button3;
-        panel.add(button1);
-        panel.add(button2);
-        panel.add(button3);
-        frame.add(panel);
-        MapPanel mapPanel = new MapPanel(buttons);
-        mapPanel.setBounds(760, 300, 815, 295);
-        frame.add(mapPanel);
-        frame.setVisible(true);
-    }
-}*/
-//.
-//.
-//.
-//.
-//.
+// Note to @TP-xx: For the love of god, read through this and consider my comments I've left, this file is a fucking mess
+
 public class MapPanel extends JPanel implements ActionListener {
     public MapButton[] mapButtons;
-    //MapButton hexButton;
-    // Werte für die Linie
+
+    // Dev Tools
     private int lineX1 = 100;
     private int lineY1 = 100;
     private int lineX2 = 100;
     private int lineY2 = 100;
 
-    // Slider für die Linie
     private JSlider sliderX1;
     private JSlider sliderY1;
     private JSlider sliderX2;
@@ -65,24 +29,8 @@ public class MapPanel extends JPanel implements ActionListener {
     private final boolean debug;
 
     public MapPanel(JButton[] MainButtons, boolean debug) {
-        /*setLayout(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.fill = GridBagConstraints.BOTH;
-        gbc.weightx = 1.0;
-        gbc.weighty = 1.0;
-
-        mapButtons = new MapButton[CountryLibrary.countryNames.length];
-        for (int i = 0; i < CountryLibrary.countryNames.length; i++) {
-            mapButtons[i] = new MapButton(CountryLibrary.countryNames[i]);
-            mapButtons[i].addActionListener(this);
-            gbc.gridx = i % 3; // Adjust this based on your desired layout
-            gbc.gridy = i / 3;
-            add(mapButtons[i], gbc);
-        }
-        MapButton test = new MapButton("test");
-        add(test);*/
-
         this.debug = debug;
+
         setLayout(null);
         setOpaque(false);
 
@@ -97,32 +45,34 @@ public class MapPanel extends JPanel implements ActionListener {
 
                 final int index = i;
                 final int[][] borders = CountryLibrary.borders;
-                // mapButtons[index].addMouseListener(new java.awt.event.MouseAdapter() {
-                //     public void mouseEntered(java.awt.event.MouseEvent evt) {
-                //         // Highlight all border countries of the hovered country
-                //         for (int j = 0; j < borders[index].length; j++) {
-                //             int borderCountry = borders[index][j];
-                //             if (borderCountry >= 0 && borderCountry < mapButtons.length) {
-                //                 mapButtons[borderCountry].setBorder(new LineBorder(Color.green, 2));
-                //             }
-                //         }
-                //         mapButtons[index].setBorder(new LineBorder(Color.green, 2)); // Highlight self
-                //     }
-                //     public void mouseExited(java.awt.event.MouseEvent evt) {
-                //         // // Entmarkiere alle border countries und sich selbst
-                //         // for (int j = 0; j < borders[index].length; j++) {
-                //         //     int borderCountry = borders[index][j];
-                //         //     if (borderCountry >= 0 && borderCountry < mapButtons.length) {
-                //         //         mapButtons[borderCountry].setBorder(new LineBorder(MapButton.defaultColor, 1));
-                //         //     }
-                //         // }
-                //         // mapButtons[index].setBorder(new LineBorder(MapButton.defaultColor, 1)); // Reset self
-                //     }
-                // });
+
+                // Makes hovering over a country on the map also highlight all bordering countries, is broken right now,
+                // only uncomment if you managed to fix it
+                /*
+                mapButtons[index].addMouseListener(new java.awt.event.MouseAdapter() {
+                    public void mouseEntered(java.awt.event.MouseEvent evt) {
+                        // Highlight all border countries of the hovered country
+                        for (int j = 0; j < borders[index].length; j++) {
+                            int borderCountry = borders[index][j];
+                            if (borderCountry >= 0 && borderCountry < mapButtons.length) {
+                                mapButtons[borderCountry].setBorder(new LineBorder(Color.green, 2));
+                            }
+                        }
+                        mapButtons[index].setBorder(new LineBorder(Color.green, 2)); // Highlight self
+                    }
+                    public void mouseExited(java.awt.event.MouseEvent evt) {
+                        // To be fixed
+                        for (int j = 0; j < borders[index].length; j++) {
+                            int borderCountry = borders[index][j];
+                            if (borderCountry >= 0 && borderCountry < mapButtons.length) {
+                                mapButtons[borderCountry].setBorder(new LineBorder(MapButton.defaultColor, 1));
+                            }
+                        }
+                        mapButtons[index].setBorder(new LineBorder(MapButton.defaultColor, 1)); // Reset self
+                    }
+                });*/
             }
         }
-
-        
 
         if (debug) {
             // Slider 
@@ -140,12 +90,14 @@ public class MapPanel extends JPanel implements ActionListener {
             add(sliderX2);
             add(sliderY2);
 
-            // Listener für Slider
             sliderX1.addChangeListener(e -> {lineX1 = sliderX1.getValue(); repaint(); output();});
             sliderY1.addChangeListener(e -> {lineY1 = sliderY1.getValue(); repaint(); output();});
             sliderX2.addChangeListener(e -> {lineX2 = sliderX2.getValue(); repaint(); output();});
             sliderY2.addChangeListener(e -> {lineY2 = sliderY2.getValue(); repaint(); output();});
         }
+
+        // Still needed or no? Either uncomment or delete!
+
         // RussiaPanel russiaPanel = new RussiaPanel();
         // russiaPanel.setBounds(400, 5, 200, 100);
         // add(russiaPanel);
@@ -159,6 +111,7 @@ public class MapPanel extends JPanel implements ActionListener {
         addFocusListeners(button3, MainButtons[1]);
         addFocusListeners(button4, MainButtons[1]);*/
     }
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -206,6 +159,7 @@ public class MapPanel extends JPanel implements ActionListener {
         System.out.println(lineX1 + " " + lineY1 + " " + lineX2 + " " + lineY2);
     }
 
+    // Please remove if no longer needed
 
     /*private void createPolygon() {
         // Add a hexagonal button
@@ -273,6 +227,7 @@ public class MapPanel extends JPanel implements ActionListener {
     //                     }
     //                 });
 
+    // This method is never used, remove it
 
     private void addFocusListeners(JButton button, JButton targetButton) {
         button.addFocusListener(new FocusAdapter() {
@@ -288,6 +243,8 @@ public class MapPanel extends JPanel implements ActionListener {
         });
     }
 
+    // WTF is this thing's purpose
+
     @Override
     public void actionPerformed(ActionEvent e) {
         // if (e.getSource() == mapButtons[0]) {
@@ -297,6 +254,8 @@ public class MapPanel extends JPanel implements ActionListener {
             System.out.println("Hexagon pressed");
         }*/
     }
+
+
 
     public void markCountries(int[] ownedCountries, int[] neighborCountries) {
         for (MapButton mapButton : mapButtons) {
@@ -318,6 +277,7 @@ public class MapPanel extends JPanel implements ActionListener {
                 mapButtons[i].markButton(true, Color.GREEN);
             } 
             else if (i < mapButtons.length) {}
+            // Don't randomly comment out code like this, delete it or keep it, that's what we got source control for
             //else if (i < mapButtons.length) {mapButtons[i].markButton(false, Color.BLACK);} 
             else {
                 //System.out.println("Error: Country index out of bounds: " + i);
@@ -326,7 +286,7 @@ public class MapPanel extends JPanel implements ActionListener {
 
     }
 
-
+    // Are these comments still necessary?
     //maps sind 815x425
     //EVTL AUCH TEXTORIENTIERUNG ALS VARIABLE REINNEHMEN
     public static int[][] countryMapLayout = new int[][] {
@@ -399,19 +359,14 @@ public class MapPanel extends JPanel implements ActionListener {
         {680,300,25,20,10},//Sri Lanka SRI 65
         {700,110,35,25,10},//Mongolei MON 66
         {675,135,60,85,10},//China CHN 67
-        {0,0,0,0,10},//
-        {0,0,0,0,10},//
-        {0,0,0,0,10},//
-        {0,0,0,0,10},//
-        {0,0,0,0,10},//
-        {0,0,0,0,10},//
-        {0,0,0,0,10},//
-        //{400,5,200,100,10},// RUS 38
+
+        // Why is Russia here again
+        //{400,5,200,100,10}, // RUS 38
     };
 }
-//.
-//.
-//.
+
+// Two classes in one file? Seriously?
+
 class MapButton extends JButton {
     boolean isMarked = false;
     Color markedColor = Color.BLACK;
@@ -431,6 +386,8 @@ class MapButton extends JButton {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                     setBorder(new LineBorder(hoverColor, 2)); // Change border color on hover
             }
+
+            // Get rid of this commented out code
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 if (!isFocusOwner()) {
                     //if (isMarked) {
@@ -440,8 +397,9 @@ class MapButton extends JButton {
                     //}
                 }
             }
-        });
+        }); // What is it with these brackets
 
+        // Get rid of this commented out code
         addFocusListener(new FocusAdapter() {
             @Override
             public void focusGained(FocusEvent e) {
@@ -459,8 +417,6 @@ class MapButton extends JButton {
         });
     }
 
-
-
     void markButton(boolean wahr, Color color) {
         if (wahr) {
             isMarked = true;
@@ -475,13 +431,7 @@ class MapButton extends JButton {
     }
 }
 
-
-
-
-
-
-
-
+// Why is Russia here again, and why is this unused? Please delete or give it a use
 
 class RussiaPanel extends JPanel {
     public RussiaPanel() {
@@ -510,8 +460,7 @@ class RussiaPanel extends JPanel {
     }
 }
 
-
-
+// Can you just get rid of this entire HexButton shit?
 
 class HexButton extends JButton {
     private final Polygon hexagon;
@@ -560,6 +509,3 @@ class HexButton extends JButton {
         return hexagon.contains(x, y);
     }
 }
-
-
-
