@@ -352,7 +352,7 @@ public class CountryLibrary {
         return Math.round((float) countryData[countryID][POPULATION] / 1000000);
     }
 
-    /* Only uncomment this block of code if you can actually balance the caps and bring all of them below at least 100
+    /* Only uncomment this block of code if you can actually balance the caps and bring all of them below at least 50
     public static int[] getCountryIndustryUpgradeCaps(int countryID) {
         // Mining cap: Area-dependant + secondary population-dependant
         int miningCap = Math.round(((float) countryData[countryID][AREA] / 50000) + ((float) countryData[countryID][POPULATION] / 100000000));
