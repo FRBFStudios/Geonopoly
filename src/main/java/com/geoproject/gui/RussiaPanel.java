@@ -5,6 +5,12 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.Area;
 
+        // Should be insertet in another class
+        
+        // RussiaPanel russiaPanel = new RussiaPanel();
+        // russiaPanel.setBounds(400, 5, 200, 100);
+        // add(russiaPanel);
+
 class RussiaPanel extends JPanel {
     public RussiaPanel() {
         addMouseListener(new MouseAdapter() {

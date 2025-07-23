@@ -6,10 +6,10 @@ import javax.swing.border.LineBorder;
 import java.awt.event.*;
 
 class MapButton extends JButton {
-    boolean isMarked = false;
-    static Color markedColor = Color.BLACK;
+    boolean isMarked = false;//true if owned or neighboring
+    Color markedColor;
     static Color defaultColor = Color.GRAY;
-    static Color hoverColor = Color.YELLOW;
+    static Color hoverColor = Color.RED;
 
     public MapButton(String text) {
         super(text);
@@ -20,36 +20,34 @@ class MapButton extends JButton {
         setFont(new Font(getFont().getName(), getFont().getStyle(), 10));
         setBorder(new LineBorder(defaultColor, 2)); // Set a thicker border
         
+        addHoverEffects();
+        addClickEffects();
+    }
+
+    private void addHoverEffects() {
         addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) { // Change border color on hover
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
                     setBorder(new LineBorder(hoverColor, 2));
             }
 
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 if (!isFocusOwner()) {
-                    //if (isMarked) {
-                        setBorder(new LineBorder(markedColor, 2));// Keep border color if marked
-                    //} else {
-                    //    setBorder(new LineBorder(Color.BLACK, 2)); // Revert border color to light blue when not hovering and not focused
-                    //}
+                    setBorder(new LineBorder(markedColor, 2));
                 }
             }
         });
-
-        // Get rid of this commented out code
+    }
+    
+    private void addClickEffects() {
         addFocusListener(new FocusAdapter() {
             @Override
             public void focusGained(FocusEvent e) {
-                    setBorder(new LineBorder(hoverColor, 2));
+                setBorder(new LineBorder(hoverColor, 2));
             }
 
             @Override
             public void focusLost(FocusEvent e) {
-                    //if (isMarked) {
-                        setBorder(new LineBorder(markedColor, 2)); // Keep border color if marked
-                    // } else {
-                    //     setBorder(new LineBorder(Color.BLACK, 2));
-                    // }
+                setBorder(new LineBorder(markedColor, 2));
             }
         });
     }

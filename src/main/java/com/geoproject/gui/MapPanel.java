@@ -3,12 +3,13 @@ package com.geoproject.gui;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import javax.swing.border.LineBorder;
 
 import com.geoproject.libraries.CountryLibrary;
 
 // Note to @TP-xx: For the love of god, read through this and consider my comments I've left, this file is a fucking mess
 
-public class MapPanel extends JPanel implements ActionListener {
+public class MapPanel extends JPanel /*implements ActionListener */{
     public MapButton[] mapButtons;
 
     // Dev Tools
@@ -34,77 +35,75 @@ public class MapPanel extends JPanel implements ActionListener {
         for (int i = 0; i < CountryLibrary.countryShortNames.length; i++) {
             if (i < countryMapLayout.length) {
                 mapButtons[i] = new MapButton(CountryLibrary.getButtonCountryShortNames(i));
-                //mapButtons[i].addActionListener(this);
                 mapButtons[i].setBounds(countryMapLayout[i][0], countryMapLayout[i][1], countryMapLayout[i][2], countryMapLayout[i][3]);
                 mapButtons[i].setFont(new Font(getFont().getName(), getFont().getStyle(), countryMapLayout[i][4]));
                 add(mapButtons[i]);
 
                 final int index = i;
                 final int[][] borders = CountryLibrary.borders;
-
-                // Makes hovering over a country on the map also highlight all bordering countries, is broken right now,
-                // only uncomment if you managed to fix it
-                /*
-                mapButtons[index].addMouseListener(new java.awt.event.MouseAdapter() {
-                    public void mouseEntered(java.awt.event.MouseEvent evt) {
-                        // Highlight all border countries of the hovered country
-                        for (int j = 0; j < borders[index].length; j++) {
-                            int borderCountry = borders[index][j];
-                            if (borderCountry >= 0 && borderCountry < mapButtons.length) {
-                                mapButtons[borderCountry].setBorder(new LineBorder(Color.green, 2));
-                            }
-                        }
-                        mapButtons[index].setBorder(new LineBorder(Color.green, 2)); // Highlight self
-                    }
-                    public void mouseExited(java.awt.event.MouseEvent evt) {
-                        // To be fixed
-                        for (int j = 0; j < borders[index].length; j++) {
-                            int borderCountry = borders[index][j];
-                            if (borderCountry >= 0 && borderCountry < mapButtons.length) {
-                                mapButtons[borderCountry].setBorder(new LineBorder(MapButton.defaultColor, 1));
-                            }
-                        }
-                        mapButtons[index].setBorder(new LineBorder(MapButton.defaultColor, 1)); // Reset self
-                    }
-                });*/
+                markNeighborsOfHoveredCountry(index, borders);
             }
         }
 
-        if (debug) {
-            sliderX1 = new JSlider(5, 810, 100);
-            sliderY1 = new JSlider(5, 400, 100);
-            sliderX2 = new JSlider(5, 810, 100);
-            sliderY2 = new JSlider(5, 400, 100);
-            sliderX1.setBounds(0,400,200,20);
-            sliderY1.setBounds(200,400,200,20);
-            sliderX2.setBounds(400,400,200,20);
-            sliderY2.setBounds(600,400,200,20);
-            
-            add(sliderX1);
-            add(sliderY1);
-            add(sliderX2);
-            add(sliderY2);
-
-            sliderX1.addChangeListener(e -> {lineX1 = sliderX1.getValue(); repaint(); output();});
-            sliderY1.addChangeListener(e -> {lineY1 = sliderY1.getValue(); repaint(); output();});
-            sliderX2.addChangeListener(e -> {lineX2 = sliderX2.getValue(); repaint(); output();});
-            sliderY2.addChangeListener(e -> {lineY2 = sliderY2.getValue(); repaint(); output();});
-        }
-
-        // Still needed or no? Either uncomment or delete!
-
-        // RussiaPanel russiaPanel = new RussiaPanel();
-        // russiaPanel.setBounds(400, 5, 200, 100);
-        // add(russiaPanel);
+        if (debug) {addSliders();}
         
         //createPolygon();
-
-        //add(hexButton);
 
         /*addFocusListeners(button1, MainButtons[0]);
         addFocusListeners(button2, MainButtons[0]);
         addFocusListeners(button3, MainButtons[1]);
         addFocusListeners(button4, MainButtons[1]);*/
+    }
+
+
+    private void addSliders() {
+        sliderX1 = new JSlider(5, 810, 100);
+        sliderY1 = new JSlider(5, 400, 100);
+        sliderX2 = new JSlider(5, 810, 100);
+        sliderY2 = new JSlider(5, 400, 100);
+        sliderX1.setBounds(0,400,200,20);
+        sliderY1.setBounds(200,400,200,20);
+        sliderX2.setBounds(400,400,200,20);
+        sliderY2.setBounds(600,400,200,20);
+        
+        add(sliderX1);
+        add(sliderY1);
+        add(sliderX2);
+        add(sliderY2);
+
+        sliderX1.addChangeListener(e -> {lineX1 = sliderX1.getValue(); repaint(); output();});
+        sliderY1.addChangeListener(e -> {lineY1 = sliderY1.getValue(); repaint(); output();});
+        sliderX2.addChangeListener(e -> {lineX2 = sliderX2.getValue(); repaint(); output();});
+        sliderY2.addChangeListener(e -> {lineY2 = sliderY2.getValue(); repaint(); output();});
+    }
+
+
+    private void markNeighborsOfHoveredCountry(final int index, final int[][] borders) {
+        mapButtons[index].addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                // Nachbarländer lila machen
+                for (int j = 0; j < borders[index].length; j++) {
+                    int borderCountry = borders[index][j];
+                    if (borderCountry >= 0 && borderCountry < mapButtons.length) {
+                        mapButtons[borderCountry].setBorder(new LineBorder(Color.YELLOW, 2));
+                    }
+                }
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                // Nachbarländer zurücksetzen
+                for (int j = 0; j < borders[index].length; j++) {
+                    int borderCountry = borders[index][j];
+                    if (borderCountry >= 0 && borderCountry < mapButtons.length) {
+                        MapButton btn = mapButtons[borderCountry];
+                        if (btn.isMarked && btn.markedColor != null) {
+                            btn.setBorder(new LineBorder(btn.markedColor, 2));
+                        } else {
+                            btn.setBorder(new LineBorder(MapButton.defaultColor, 2));
+                        }
+                    }
+                }
+            }
+        });
     }
 
     @Override
@@ -134,11 +133,11 @@ public class MapPanel extends JPanel implements ActionListener {
         g2d.drawLine(690, 295, 690, 300);//SRI IND
         g2d.drawLine(240, 265, 280, 225);//IBE BRA
 
-
+        //connection between RUS and USA
         g2d.setStroke(new BasicStroke(2));
         g2d.setFont(new Font("1", this.getFont().getStyle(), 9));
-        g2d.drawString("(RUS)", 2, 125); // Text "USA" im Rechteck
-        g2d.drawString("(USA)", 775, 70); // Text "USA" im Rechteck
+        g2d.drawString("(RUS)", 2, 125);
+        g2d.drawString("(USA)", 775, 70);
 
         g2d.setColor(Color.LIGHT_GRAY);
         g2d.drawRect(760, 40, 60, 50);
@@ -154,132 +153,45 @@ public class MapPanel extends JPanel implements ActionListener {
         System.out.println(lineX1 + " " + lineY1 + " " + lineX2 + " " + lineY2);
     }
 
-    // Please remove if no longer needed
-
-    /*private void createPolygon() {
-        // Add a hexagonal button
-         hexButton = new MapButton("Hexagon") {
-            Polygon hexagon = new Polygon();
-
-            {
-            for (int i = 0; i < 6; i++) {
-                hexagon.addPoint(
-                (int) (50 + 50 * Math.cos(i * 2 * Math.PI / 6)),
-                (int) (50 + 50 * Math.sin(i * 2 * Math.PI / 6))
-                );
-            }
-            setBorderPainted(false);
-            
-            }
-
-            @Override
-            protected void paintComponent(Graphics g) {
-            super.paintComponent(g);
-            Graphics2D g2d = (Graphics2D) g.create();
-            g2d.setColor(getBackground());
-            //g2d.fill(hexagon);
-            g2d.setColor(getForeground());
-            g2d.setStroke(new BasicStroke(2));
-            g2d.draw(hexagon);
-            g2d.dispose();
-            }
-
-            @Override
-            public boolean contains(int x, int y) {
-            return hexagon.contains(x, y);
-            }
-        };
-
-        hexButton.setBounds(500, 200, 100, 100);
-        hexButton.setFont(new Font(getFont().getName(), getFont().getStyle(), 10));
-        hexButton.setForeground(Color.BLACK); // Set text color to red
-        hexButton.setBorder(new LineBorder(Color.BLACK, 10)); // Set a thicker border
-        
-
-        // Add hover effect
-        hexButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-            hexButton.setForeground(Color.GREEN); // Change text color on hover
-            }
-
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-            hexButton.setForeground(Color.BLACK); // Revert text color when not hovering
-            }
-        });
-
-        hexButton.addActionListener(this);
-    }*/
-
-
-    //  btn.addMouseListener(new java.awt.event.MouseAdapter() {
-    //                     @Override
-    //                     public void mouseEntered(java.awt.event.MouseEvent evt) {
-    //                         btn.setBackground(new Color(255, 255, 150)); // light yellow
-    //                     }
-    //                     @Override
-    //                     public void mouseExited(java.awt.event.MouseEvent evt) {
-    //                         btn.setBackground(UIManager.getColor("Button.background"));
-    //                     }
-    //                 });
-
-    // This method is never used, remove it
-
-    private void addFocusListeners(JButton button, JButton targetButton) {
-        button.addFocusListener(new FocusAdapter() {
-            @Override
-            public void focusGained(FocusEvent e) {
-                targetButton.setBackground(Color.GREEN);
-            }
-
-            @Override
-            public void focusLost(FocusEvent e) {
-                targetButton.setBackground(UIManager.getColor("Button.background"));
-            }
-        });
-    }
-
-    // WTF is this thing's purpose
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        // if (e.getSource() == mapButtons[0]) {
-        //     System.out.println("mapButtons 0 presses (should get removed)");
-        // }
-        /*if (e.getSource() == hexButton) {
-            System.out.println("Hexagon pressed");
-        }*/
-    }
+    
 
     public void markCountries(int[] ownedCountries, int[] neighborCountries) {
-        for (MapButton mapButton : mapButtons) {
-            mapButton.markButton(false, null);
-        }
-        for (int i = 0; i < ownedCountries.length; i++) {
-            if (ownedCountries[i] > 0) {
-                mapButtons[i].markButton(true, Color.BLUE);
-            }
-            else if (i < mapButtons.length) {
-                mapButtons[i].markButton(false, null);
-            } 
-            else {
-                //System.out.println("Error: Country index out of bounds: " + i);
-            }
-        }
+        clearPreviousCountryMarks();
+        markOwnedCountries(ownedCountries);
+        markNeighborCountries(neighborCountries);
+    }
+
+    private void markNeighborCountries(int[] neighborCountries) {
         for (int i = 0; i < neighborCountries.length; i++) {
             if (neighborCountries[i] > 0) {
                 mapButtons[i].markButton(true, Color.GREEN);
-            } 
-            else if (i < mapButtons.length) {}
-            else {
+            } else if (i < mapButtons.length) {
+            } else {
                 //System.out.println("Error: Country index out of bounds: " + i);
             }
-            System.out.print(neighborCountries[i]);
-            
         }
-System.out.println(" ");
     }
 
-    //maps sind 815x425
+    private void markOwnedCountries(int[] ownedCountries) {
+        for (int i = 0; i < ownedCountries.length; i++) {
+            if (ownedCountries[i] > 0) {
+                mapButtons[i].markButton(true, Color.BLUE);
+            } else if (i < mapButtons.length) {
+                mapButtons[i].markButton(false, null);
+            } else {
+                //System.out.println("Error: Country index out of bounds: " + i);
+            }
+        }
+    }
+
+    private void clearPreviousCountryMarks() {
+        for (MapButton mapButton : mapButtons) {
+            mapButton.markButton(false, null);
+        }
+    }
+
+
+    
     public static int[][] countryMapLayout = new int[][] {
         {310,90,50,50,10},//Deutschland  DE  0
         {280,90,30,25,10},//BeNeLux  BNL  1
@@ -351,6 +263,63 @@ System.out.println(" ");
         {700,110,35,25,10},//Mongolei MON 66
         {675,135,60,85,10},//China CHN 67
     };
+
+    /*private void createPolygon() {
+        // Add a hexagonal button
+        hexButton = new MapButton("Hexagon") {
+            Polygon hexagon = new Polygon();
+
+            {
+                for (int i = 0; i < 6; i++) {
+                    hexagon.addPoint(
+                        (int) (50 + 50 * Math.cos(i * 2 * Math.PI / 6)),
+                        (int) (50 + 50 * Math.sin(i * 2 * Math.PI / 6))
+                    );
+                }
+                setBorderPainted(false);
+            }
+
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                Graphics2D g2d = (Graphics2D) g.create();
+                g2d.setColor(getBackground());
+                //g2d.fill(hexagon);
+                g2d.setColor(getForeground());
+                g2d.setStroke(new BasicStroke(2));
+                g2d.draw(hexagon);
+                g2d.dispose();
+            }
+
+            @Override
+            public boolean contains(int x, int y) {
+                return hexagon.contains(x, y);
+            }
+        };
+
+        hexButton.setBounds(500, 200, 100, 100);
+        hexButton.setFont(new Font(getFont().getName(), getFont().getStyle(), 10));
+        hexButton.setForeground(Color.BLACK); // Set text color to black
+        hexButton.setBorder(new LineBorder(Color.BLACK, 10)); // Set a thicker border
+
+        // Add hover effect
+        hexButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                hexButton.setForeground(Color.GREEN); // Change text color on hover
+            }
+
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                hexButton.setForeground(Color.BLACK); // Revert text color when not hovering
+            }
+        });
+
+        // Call UI.actionPerformed when button is pressed
+        hexButton.addActionListener(e -> {
+            com.geoproject.gui.UI uiInstance = com.geoproject.gui.UI.getInstance();
+            if (uiInstance != null) {
+                uiInstance.actionPerformed(e);
+            }
+        });
+    }*/
 }
 
-// Why is Russia here again, and why is this unused? Please delete or give it a use
