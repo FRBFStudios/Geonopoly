@@ -2,8 +2,6 @@ package com.geoproject.gui;
 
 import javax.swing.*;
 import java.awt.*;
-// import java.awt.event.FocusAdapter;
-// import java.awt.event.FocusEvent;
 import javax.swing.border.LineBorder;
 import java.awt.event.*;
 import java.awt.geom.Area;
@@ -43,8 +41,8 @@ public class MapPanel extends JPanel implements ActionListener {
                 mapButtons[i].setFont(new Font(getFont().getName(), getFont().getStyle(), countryMapLayout[i][4]));
                 add(mapButtons[i]);
 
-                final int index = i;
-                final int[][] borders = CountryLibrary.borders;
+                // final int index = i;
+                // final int[][] borders = CountryLibrary.borders;
 
                 // Makes hovering over a country on the map also highlight all bordering countries, is broken right now,
                 // only uncomment if you managed to fix it
@@ -277,8 +275,6 @@ public class MapPanel extends JPanel implements ActionListener {
                 mapButtons[i].markButton(true, Color.GREEN);
             } 
             else if (i < mapButtons.length) {}
-            // Don't randomly comment out code like this, delete it or keep it, that's what we got source control for
-            //else if (i < mapButtons.length) {mapButtons[i].markButton(false, Color.BLACK);} 
             else {
                 //System.out.println("Error: Country index out of bounds: " + i);
             }
@@ -286,9 +282,7 @@ public class MapPanel extends JPanel implements ActionListener {
 
     }
 
-    // Are these comments still necessary?
     //maps sind 815x425
-    //EVTL AUCH TEXTORIENTIERUNG ALS VARIABLE REINNEHMEN
     public static int[][] countryMapLayout = new int[][] {
         {310,90,50,50,10},//Deutschland  DE  0
         {280,90,30,25,10},//BeNeLux  BNL  1
@@ -367,69 +361,7 @@ public class MapPanel extends JPanel implements ActionListener {
 
 // Two classes in one file? Seriously?
 
-class MapButton extends JButton {
-    boolean isMarked = false;
-    Color markedColor = Color.BLACK;
-    static Color defaultColor = Color.GRAY;
-    static Color hoverColor = Color.YELLOW;
 
-    public MapButton(String text) {
-        super(text);
-        setFocusPainted(true);
-        setBorderPainted(true);
-        setContentAreaFilled(false);
-        setForeground(Color.BLACK); // Set text color to black
-        setFont(new Font(getFont().getName(), getFont().getStyle(), 10));
-        setBorder(new LineBorder(defaultColor, 2)); // Set a thicker border
-        
-        addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                    setBorder(new LineBorder(hoverColor, 2)); // Change border color on hover
-            }
-
-            // Get rid of this commented out code
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                if (!isFocusOwner()) {
-                    //if (isMarked) {
-                        setBorder(new LineBorder(markedColor, 2)); // Keep border color if marked
-                    //} else {
-                    //    setBorder(new LineBorder(Color.BLACK, 2)); // Revert border color to light blue when not hovering and not focused
-                    //}
-                }
-            }
-        }); // What is it with these brackets
-
-        // Get rid of this commented out code
-        addFocusListener(new FocusAdapter() {
-            @Override
-            public void focusGained(FocusEvent e) {
-                    setBorder(new LineBorder(hoverColor, 2));
-            }
-
-            @Override
-            public void focusLost(FocusEvent e) {
-                    //if (isMarked) {
-                        setBorder(new LineBorder(markedColor, 2)); // Keep border color if marked
-                    // } else {
-                    //     setBorder(new LineBorder(Color.BLACK, 2));
-                    // }
-            }
-        });
-    }
-
-    void markButton(boolean wahr, Color color) {
-        if (wahr) {
-            isMarked = true;
-            markedColor = color;
-            setBorder(new LineBorder(color, 2));
-        }
-        else {
-            isMarked = false;
-            markedColor = defaultColor;
-            setBorder(new LineBorder(defaultColor, 2));
-        }
-    }
-}
 
 // Why is Russia here again, and why is this unused? Please delete or give it a use
 
