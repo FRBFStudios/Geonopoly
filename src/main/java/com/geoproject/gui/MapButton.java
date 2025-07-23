@@ -34,7 +34,7 @@ class MapButton extends JButton {
                     //}
                 }
             }
-        }); // What is it with these brackets
+        });
 
         // Get rid of this commented out code
         addFocusListener(new FocusAdapter() {

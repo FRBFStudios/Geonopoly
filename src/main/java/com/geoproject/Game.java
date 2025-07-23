@@ -50,13 +50,13 @@ public class Game {
         int countryProfits = 0;
 
         for (int industryID = 0; (industryID < CountryLibrary.industryNames.length - 1); industryID++) {
-            countryProfits += calculateIndustryOfCountryProfits(countryID, industryID);
+            countryProfits += calculateProfitsOfCountryIndustry(countryID, industryID);
         }
 
         return countryProfits;
     }
 
-    public int calculateIndustryOfCountryProfits(int countryID, int industryID) {
+    public int calculateProfitsOfCountryIndustry(int countryID, int industryID) {
         return (CountryLibrary.countryData[countryID][CountryLibrary.GDP] / 5000) *
                 ((CountryLibrary.industryProfitMultipliers[countryID][industryID] * currentPlayer.countryValues[countryID][industryID+1]) / 10);
     }
@@ -75,7 +75,7 @@ public class Game {
         return roundExpenses;
     }
 
-    public int getIndustryUpgradeCost(int countryID, int industryID) {
+    public int calculateIndustryUpgradeCost(int countryID, int industryID) {
         return 100 + (100 * (currentPlayer.countryValues[countryID][industryID+1]));
     }
 
@@ -112,7 +112,7 @@ public class Game {
 
     public String tryUpgradingIndustryAndReturnStatus(int countryID, int industryID) {
         if (currentPlayer.ownedCountries[countryID] == Player.OWNED) {
-            int industryUpgradeCost = getIndustryUpgradeCost(countryID, industryID);
+            int industryUpgradeCost = calculateIndustryUpgradeCost(countryID, industryID);
 
             if (canAfford(industryUpgradeCost)) {
                 currentPlayer.playerMoney -= industryUpgradeCost;

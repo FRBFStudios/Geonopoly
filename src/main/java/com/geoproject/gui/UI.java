@@ -339,9 +339,6 @@ public class UI extends JFrame implements ActionListener {
         subPanel.removeAll();
         subSubPanel.removeAll();
 
-        //testValues();                                                                   //for tests
-        UIupdate();
-
         logger.info("Adding elements to frame");
         frame.add(pTurnField);
         frame.add(p1MoneyField);
@@ -532,7 +529,7 @@ public class UI extends JFrame implements ActionListener {
                             if (e.getSource() == subSubButtons2[i][j]) {
                                 System.out.println("subSubButton2 pressed: " + i + ", " + j);
                                 logger.info("subSubButton2 pressed: " + i + ", " + j);
-                                if (pleaseConfirm("Confirm upgrade of " + CountryLibrary.countryNames[i] + " - " + CountryLibrary.industryNames[j][0] + " for " + game.getIndustryUpgradeCost(i, j) + "$?")) {
+                                if (pleaseConfirm("Confirm upgrade of " + CountryLibrary.countryNames[i] + " - " + CountryLibrary.industryNames[j][0] + " for " + game.calculateIndustryUpgradeCost(i, j) + "$?")) {
                                     String result = game.tryUpgradingIndustryAndReturnStatus(i,j);
                                     if (result.equals("OK")) {
                                         logger.info("Player " + game.currentPlayerValue + " successfully upgraded " + CountryLibrary.countryNames[i] + " - " + CountryLibrary.industryNames[j][0] + " to level" + game.currentPlayer.countryValues[i][j + 1]);

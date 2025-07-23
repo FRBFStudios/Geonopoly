@@ -2,9 +2,7 @@ package com.geoproject.gui;
 
 import javax.swing.*;
 import java.awt.*;
-import javax.swing.border.LineBorder;
 import java.awt.event.*;
-import java.awt.geom.Area;
 
 import com.geoproject.libraries.CountryLibrary;
 
@@ -41,8 +39,8 @@ public class MapPanel extends JPanel implements ActionListener {
                 mapButtons[i].setFont(new Font(getFont().getName(), getFont().getStyle(), countryMapLayout[i][4]));
                 add(mapButtons[i]);
 
-                // final int index = i;
-                // final int[][] borders = CountryLibrary.borders;
+                final int index = i;
+                final int[][] borders = CountryLibrary.borders;
 
                 // Makes hovering over a country on the map also highlight all bordering countries, is broken right now,
                 // only uncomment if you managed to fix it
@@ -73,7 +71,6 @@ public class MapPanel extends JPanel implements ActionListener {
         }
 
         if (debug) {
-            // Slider 
             sliderX1 = new JSlider(5, 810, 100);
             sliderY1 = new JSlider(5, 400, 100);
             sliderX2 = new JSlider(5, 810, 100);
@@ -253,8 +250,6 @@ public class MapPanel extends JPanel implements ActionListener {
         }*/
     }
 
-
-
     public void markCountries(int[] ownedCountries, int[] neighborCountries) {
         for (MapButton mapButton : mapButtons) {
             mapButton.markButton(false, null);
@@ -278,8 +273,10 @@ public class MapPanel extends JPanel implements ActionListener {
             else {
                 //System.out.println("Error: Country index out of bounds: " + i);
             }
+            System.out.print(neighborCountries[i]);
+            
         }
-
+System.out.println(" ");
     }
 
     //maps sind 815x425
@@ -353,91 +350,7 @@ public class MapPanel extends JPanel implements ActionListener {
         {680,300,25,20,10},//Sri Lanka SRI 65
         {700,110,35,25,10},//Mongolei MON 66
         {675,135,60,85,10},//China CHN 67
-
-        // Why is Russia here again
-        //{400,5,200,100,10}, // RUS 38
     };
 }
 
-// Two classes in one file? Seriously?
-
-
-
 // Why is Russia here again, and why is this unused? Please delete or give it a use
-
-class RussiaPanel extends JPanel {
-    public RussiaPanel() {
-        addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                System.out.println("Russia clicked");
-            }
-        });
-    }
-
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        Graphics2D g2d = (Graphics2D) g;
-        g2d.setColor(Color.RED);
-
-        // Erstelle ein Quadrat
-        Area russia = new Area(new Rectangle(50, 50, 100, 100));
-
-        // Entferne das Quadrat in der unteren rechten Ecke
-        Area missingSquare = new Area(new Rectangle(100, 100, 50, 50));
-        russia.subtract(missingSquare);
-
-        g2d.fill(russia);
-    }
-}
-
-// Can you just get rid of this entire HexButton shit?
-
-class HexButton extends JButton {
-    private final Polygon hexagon;
-
-    public HexButton(String text, ActionListener listener) {
-        super(text);
-        hexagon = new Polygon();
-        for (int i = 0; i < 6; i++) {
-            hexagon.addPoint(
-                (int) (50 + 50 * Math.cos(i * 2 * Math.PI / 6)),
-                (int) (50 + 50 * Math.sin(i * 2 * Math.PI / 6))
-            );
-        }
-        setBorderPainted(false);
-        setBounds(500, 200, 100, 100);
-        setFont(new Font(getFont().getName(), getFont().getStyle(), 10));
-        setForeground(Color.BLACK);
-        setBorder(new LineBorder(Color.BLACK, 10));
-        addActionListener(listener);
-
-        // Add hover effect
-        addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                setForeground(Color.GREEN);
-            }
-
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                setForeground(Color.BLACK);
-            }
-        });
-    }
-
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        Graphics2D g2d = (Graphics2D) g.create();
-        g2d.setColor(getBackground());
-        g2d.setColor(getForeground());
-        g2d.setStroke(new BasicStroke(2));
-        g2d.draw(hexagon);
-        g2d.dispose();
-    }
-
-    @Override
-    public boolean contains(int x, int y) {
-        return hexagon.contains(x, y);
-    }
-}
